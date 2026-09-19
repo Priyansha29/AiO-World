@@ -1,11 +1,11 @@
 import LiquidMetalHero from './LiquidMetalHero'
 import { LEARN, CAREER, PLAY, TOOLS } from '@/data/content'
 
-const LANE_COLORS = {
-  learn: '#7fbf9a',
-  career: '#e0a06a',
-  play: '#d98aa8',
-  tools: '#8db8e6',
+const LANE_TINTS = {
+  learn: '#3a7d5c',
+  career: '#b0763a',
+  play: '#a85f80',
+  tools: '#4e6f9e',
 }
 
 function scrollToSection(id) {
@@ -16,14 +16,13 @@ function Hero() {
   const lanes = [LEARN, CAREER, PLAY, TOOLS].map((lane) => ({
     key: lane.key,
     label: lane.label,
-    tagline: lane.tagline,
-    color: LANE_COLORS[lane.key],
+    color: LANE_TINTS[lane.key],
   }))
 
   return (
     <LiquidMetalHero
       id="top"
-      badge="One place for everything student life throws at you"
+      eyebrow="One place for everything student life throws at you"
       title={
         <>
           What do you want <br className="hidden sm:block" /> to do today?

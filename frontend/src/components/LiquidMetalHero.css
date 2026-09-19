@@ -1,0 +1,273 @@
+.liquid-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Z-stack (low → high):
+   1. ambient light        (z 0)
+   2. liquid glass         (z 1)
+   3. atmospheric veil     (z 2)
+   4. hero content         (z 3)
+   5. bottom fade          (z 4) */
+
+.liquid-hero__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(54% 46% at 52% 40%, color-mix(in srgb, var(--orange) 16%, transparent), transparent 70%),
+    radial-gradient(40% 32% at 46% 74%, color-mix(in srgb, var(--blue) 12%, transparent), transparent 66%);
+}
+
+.liquid-hero__glass {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.liquid-hero__glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 30%, transparent 55%, color-mix(in srgb, var(--bg) 55%, transparent) 100%);
+}
+
+.liquid-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    62% 54% at 50% 46%,
+    color-mix(in srgb, var(--bg) 46%, transparent) 0%,
+    transparent 74%
+  );
+}
+
+.liquid-hero__body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(96px, 12vh, 128px) clamp(20px, 5vw, 56px) clamp(64px, 8vh, 96px);
+}
+
+.liquid-hero__inner {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.liquid-hero__fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: clamp(96px, 14vh, 160px);
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 88%, transparent));
+}
+
+/* Typographic eyebrow — no pill */
+.liquid-hero__eyebrow {
+  margin: 0 0 clamp(18px, 3vh, 26px);
+  font-size: clamp(13px, 1.6vw, 14.5px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.liquid-hero__title {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(2.6rem, 7.2vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  font-feature-settings: 'ss01' on;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.liquid-hero__lede {
+  margin: clamp(16px, 2.6vh, 24px) auto 0;
+  max-width: 52ch;
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.liquid-hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: clamp(28px, 5vh, 40px);
+  flex-wrap: wrap;
+}
+
+.liquid-hero__cta {
+  font-size: 15.5px;
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+.liquid-hero__cta--primary {
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid transparent;
+
+  &:hover {
+    background: var(--ink-soft);
+    box-shadow: 0 10px 26px -10px color-mix(in srgb, var(--ink) 50%, transparent);
+  }
+}
+
+.liquid-hero__cta--ghost {
+  background: color-mix(in srgb, var(--bg) 46%, transparent);
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  &:hover {
+    border-color: var(--ink);
+    background: color-mix(in srgb, var(--bg) 64%, transparent);
+  }
+}
+
+/* Lane navigation — typography + underline, not dashboard buttons */
+.liquid-hero__lanes {
+  margin-top: clamp(44px, 8vh, 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.liquid-hero__lanes-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 340px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--faint);
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong));
+  }
+  &::after {
+    background: linear-gradient(90deg, var(--border-strong), transparent);
+  }
+}
+
+.liquid-hero__lanes-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(18px, 4vw, 44px);
+}
+
+.liquid-hero__lane {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 580;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  padding: 6px 2px;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--ink);
+  }
+
+  &:hover::after,
+  &:focus-visible::after,
+  &[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+
+  &[aria-current='true'] {
+    color: var(--ink);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
+    border-radius: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .liquid-hero__lanes-list {
+    gap: 24px;
+  }
+  .liquid-hero__title {
+    max-width: 11ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-hero__glass {
+    will-change: auto;
+  }
+}
