@@ -1,68 +1,30 @@
-import { useState } from 'react'
-import { LEARN, CAREER, PLAY, TOOLS } from '../data/content'
-import './Hero.css'
+import LiquidMetalHero from './LiquidMetalHero'
+import { LEARN, CAREER, PLAY, TOOLS } from '@/data/content'
 
-function ModeCard({ mode, tag }) {
-  return (
-    <a className={`mode mode--${mode.accent}`} href={mode.href}>
-      <span className="mode__top">
-        <span className="mode__dot" aria-hidden="true" />
-        <span className="mode__tag">{tag}</span>
-      </span>
-      <span className="mode__label">{mode.label}</span>
-      <span className="mode__blurb">{mode.blurb}</span>
-      <span className="mode__example">
-        {mode.example.map((item) => (
-          <span key={item} className="mode__chip">
-            {item}
-          </span>
-        ))}
-      </span>
-    </a>
-  )
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function Hero() {
-  const [bore, setBore] = useState(false)
+  const lanes = [LEARN, CAREER, PLAY, TOOLS]
+  const text = lanes.map((lane) => `${lane.label} — ${lane.tagline}`)
 
   return (
-    <section className="hero" id="top">
-      <div className="hero__halo" aria-hidden="true" />
-
-      <p className="hero__eyebrow">One place for everything student life throws at you</p>
-
-      <h1 className="hero__title">
-        What do you want
-        <br />
-        to do <span className="hero__today">today?</span>
-      </h1>
-
-      <p className="hero__lede">
-        Learn a skill, build your future, play something with friends, or crunch
-        a couple of quick numbers — all from the same tab. Pick a lane, we'll
-        handle the rest.
-      </p>
-
-      <div className="hero__modes">
-        <ModeCard mode={LEARN} tag="Start small" />
-        <ModeCard mode={CAREER} tag="Get noticed" />
-        <ModeCard mode={PLAY} tag="Just for fun" />
-        <ModeCard mode={TOOLS} tag="Daily drivers" />
-      </div>
-
-      <button
-        type="button"
-        className={`hero__bored${bore ? ' hero__bored--hit' : ''}`}
-        onClick={() => setBore(true)}
-        onBlur={() => setBore(false)}
-        aria-pressed={bore}
-      >
-        <span className="hero__bored-emoji" aria-hidden="true">
-          {bore ? '🤝' : '🎲'}
-        </span>
-        <span>{bore ? "Cool — freedom mode armed" : "I'm bored — surprise me"}</span>
-      </button>
-    </section>
+    <LiquidMetalHero
+      id="top"
+      badge="One place for everything student life throws at you"
+      title={
+        <>
+          What do you want <br className="hidden sm:block" /> to do today?
+        </>
+      }
+      subtitle="Learn a skill, build your future, play something with friends, or crunch a couple of quick numbers — all from the same tab. Pick a lane, we'll handle the rest."
+      primaryCtaLabel="Explore the lanes"
+      secondaryCtaLabel="I'm bored — surprise me"
+      onPrimaryCtaClick={() => scrollToSection('explore')}
+      onSecondaryCtaClick={() => scrollToSection('explore')}
+      features={text}
+    />
   )
 }
 

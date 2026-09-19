@@ -1,3 +1,23 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-ink);
+  --color-secondary: var(--bg-soft);
+  --color-secondary-foreground: var(--ink-soft);
+  --color-muted: var(--bg-soft);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--bg-soft);
+  --color-accent-foreground: var(--ink);
+  --color-border: var(--border);
+  --color-ring: var(--accent);
+  --color-destructive: #c7447a;
+}
+
 :root {
   /* Surfaces & ink */
   --bg: #faf8f4;
@@ -81,7 +101,7 @@
     --shadow-lg: 0 22px 44px -16px rgba(0, 0, 0, 0.6);
 
     --accent-soft: #1d2a3d;
-    --accent-bg: #152 snipped
+    --accent-bg: #152f59;
   }
 }
 
