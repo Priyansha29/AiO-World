@@ -1,13 +1,24 @@
 import LiquidMetalHero from './LiquidMetalHero'
 import { LEARN, CAREER, PLAY, TOOLS } from '@/data/content'
 
+const LANE_COLORS = {
+  learn: '#7fbf9a',
+  career: '#e0a06a',
+  play: '#d98aa8',
+  tools: '#8db8e6',
+}
+
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function Hero() {
-  const lanes = [LEARN, CAREER, PLAY, TOOLS]
-  const text = lanes.map((lane) => `${lane.label} — ${lane.tagline}`)
+  const lanes = [LEARN, CAREER, PLAY, TOOLS].map((lane) => ({
+    key: lane.key,
+    label: lane.label,
+    tagline: lane.tagline,
+    color: LANE_COLORS[lane.key],
+  }))
 
   return (
     <LiquidMetalHero
@@ -23,7 +34,16 @@ function Hero() {
       secondaryCtaLabel="I'm bored — surprise me"
       onPrimaryCtaClick={() => scrollToSection('explore')}
       onSecondaryCtaClick={() => scrollToSection('explore')}
-      features={text}
+      lanes={lanes}
+      onSelectLane={(lane) => {
+        const order = { learn: 0, career: 1, play: 2, tools: 3 }
+        const target = document.querySelectorAll('.explore-group')[order[lane.key]]
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          target.classList.add('explore-group--flash')
+          setTimeout(() => target.classList.remove('explore-group--flash'), 1400)
+        }
+      }}
     />
   )
 }
