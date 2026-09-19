@@ -1,0 +1,13 @@
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home > * + * {
+  margin-top: 0;
+}
+
+.home section[id] {
+  scroll-margin-top: 92px;
+}
