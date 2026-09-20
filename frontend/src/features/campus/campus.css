@@ -1,0 +1,814 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Campus Hub — college selection + personalized Campus Hub
+   Built on the AiO World design system (cream canvas, white cards,
+   peach/coral/sand accents, red reserved for urgent + primary actions).
+   ───────────────────────────────────────────────────────────────────────── */
+
+.campus-page {
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+.campus-page__shell {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 56px) clamp(20px, 5vw, 40px) 64px;
+}
+
+.campus-page__shell--setup {
+  max-width: 760px;
+}
+
+/* ── Setup (college selection) ─────────────────────────────────────────── */
+
+.campus-eyebrow {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+
+.setup-head__title {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+
+.setup-head__lede {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 54ch;
+  margin: 0 0 30px;
+}
+
+/* Current-college banner */
+.select-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--peach-border);
+  border-radius: var(--radius-md);
+  background: var(--peach-soft);
+  margin-bottom: 24px;
+}
+
+.select-banner__text {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+.select-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.select-banner__primary {
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 650;
+  font-size: 14px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.select-banner__primary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.select-banner__note {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* Search input */
+.college-search {
+  position: relative;
+  margin-bottom: 26px;
+}
+
+.college-search__icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.college-search__input {
+  width: 100%;
+  padding: 15px 44px 15px 46px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.college-search__input::placeholder {
+  color: var(--faint);
+}
+
+.college-search__input:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.college-search__clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+.college-search__clear:hover {
+  color: var(--ink);
+  background: var(--bg-soft);
+}
+
+/* Results */
+.setup-results__label {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.college-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.college-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  font-family: inherit;
+  opacity: 0;
+  animation: campus-rise 0.4s ease forwards;
+  animation-delay: var(--delay, 0ms);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.college-card:hover {
+  border-color: var(--peach-border);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.college-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.college-card__crest,
+.campus-header__crest {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--peach), var(--coral));
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.college-card__body {
+  min-width: 0;
+}
+
+.college-card__name {
+  display: block;
+  font-weight: 650;
+  font-size: 15.5px;
+  color: var(--ink);
+}
+
+.college-card__meta {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.college-card__arrow {
+  margin-left: auto;
+  color: var(--border-strong);
+  font-size: 18px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.college-card:hover .college-card__arrow {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+.college-skeleton {
+  height: 76px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    100deg,
+    var(--bg-soft) 40%,
+    var(--surface-2) 50%,
+    var(--bg-soft) 60%
+  );
+  background-size: 200% 100%;
+  animation: campus-shimmer 1.2s linear infinite;
+}
+
+.setup-results__empty {
+  padding: 36px 12px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.setup-results__empty .campus-state__hint {
+  font-weight: 400;
+}
+
+/* ── Campus Header ─────────────────────────────────────────────────────── */
+
+.campus-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 22px;
+}
+
+.campus-header__crest {
+  width: 56px;
+  height: 56px;
+  font-size: 20px;
+  border-radius: var(--radius-lg);
+}
+
+.campus-header__text {
+  min-width: 0;
+  flex: 1;
+}
+
+.campus-header__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 4px;
+}
+
+.campus-header__name {
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+.campus-header__meta {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.campus-header__freshness {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.campus-header__change {
+  flex-shrink: 0;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.campus-header__change:hover {
+  border-color: var(--coral-border);
+  color: var(--ink);
+}
+
+/* ── Controls: tabs + search ───────────────────────────────────────────── */
+
+.campus-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.campus-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+  max-width: 100%;
+}
+
+.campus-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.campus-tabs__tab {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.campus-tabs__tab:hover {
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.campus-tabs__tab--active {
+  background: var(--peach-soft);
+  border-color: var(--peach-border);
+  color: var(--accent);
+}
+
+.campus-tabs__tab:focus-visible,
+.campus-search__input:focus-visible,
+.select-banner__primary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.campus-search {
+  flex: 0 1 260px;
+  min-width: 200px;
+}
+
+.campus-search__input {
+  width: 100%;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.campus-search__input::placeholder {
+  color: var(--faint);
+}
+
+.campus-search__input:focus {
+  border-color: var(--accent);
+}
+
+/* ── Card grid ─────────────────────────────────────────────────────────── */
+
+.campus-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 14px;
+}
+
+.campus-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 18px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  opacity: 0;
+  animation: campus-rise 0.4s ease forwards;
+  animation-delay: var(--delay, 0ms);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.campus-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+  border-color: var(--border-strong);
+}
+
+.campus-card__accent {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3.5px;
+  background: var(--card-accent, var(--sand));
+  opacity: 0.85;
+}
+
+.campus-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.campus-card__category {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.campus-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0;
+}
+
+.campus-card__description {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+
+.campus-card__meta-list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campus-card__meta-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-soft);
+  color: var(--ink-soft);
+}
+
+.campus-card__meta-key {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.campus-card__meta-value {
+  text-align: right;
+}
+
+.campus-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 12.5px;
+  color: var(--faint);
+}
+
+.campus-card__foot-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.campus-card__revised {
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--coral);
+  background: var(--coral-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* ── Priority badge ────────────────────────────────────────────────────── */
+
+.campus-priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 650;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-soft);
+  color: var(--ink-soft);
+  border: 1px solid var(--border);
+}
+
+.campus-priority__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.campus-priority--urgent {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.campus-priority--high {
+  background: var(--coral-soft);
+  border-color: var(--coral-border);
+  color: #c94f3d;
+}
+
+.campus-priority--normal {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--ink-soft);
+}
+
+.campus-priority--low {
+  background: var(--bg-soft);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+/* ── Source + freshness ────────────────────────────────────────────────── */
+
+.campus-source,
+.campus-freshness {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.campus-source__label {
+  font-weight: 650;
+  color: var(--ink-soft);
+}
+
+.campus-source__name {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.campus-source__name:hover {
+  color: var(--accent);
+}
+
+.campus-freshness__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--coral);
+}
+
+/* ── Empty / error states ──────────────────────────────────────────────── */
+
+.campus-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 20px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xl);
+  background: var(--surface-2);
+}
+
+.campus-state__orb {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, var(--peach), var(--coral));
+  margin-bottom: 16px;
+  opacity: 0.85;
+}
+
+.campus-state__orb span {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.9;
+}
+
+.campus-state--error .campus-state__orb {
+  background: radial-gradient(circle at 32% 30%, var(--accent-bg), var(--accent));
+}
+
+.campus-state--error .campus-state__orb span {
+  display: grid;
+  place-items: center;
+  width: unset;
+  height: unset;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: #fff;
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 14px;
+  opacity: 1;
+}
+
+.campus-state__title {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
+.campus-state__hint {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  max-width: 46ch;
+}
+
+.campus-state__retry {
+  margin-top: 18px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: inherit;
+  font-weight: 650;
+  font-size: 14px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.campus-state__retry:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+/* ── Skeletons ─────────────────────────────────────────────────────────── */
+
+.campus-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.campus-skeleton__bar {
+  display: block;
+  height: 13px;
+  border-radius: 6px;
+  background: linear-gradient(
+    100deg,
+    var(--bg-soft) 40%,
+    var(--surface-2) 50%,
+    var(--bg-soft) 60%
+  );
+  background-size: 200% 100%;
+  animation: campus-shimmer 1.2s linear infinite;
+}
+
+/* ── Demo note ─────────────────────────────────────────────────────────── */
+
+.demo-note {
+  margin-top: 36px;
+  font-size: 12.5px;
+  color: var(--faint);
+  text-align: center;
+}
+
+/* ── Animations ────────────────────────────────────────────────────────── */
+
+@keyframes campus-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes campus-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .college-card,
+  .campus-card {
+    opacity: 1;
+    animation: none;
+  }
+
+  .campus-skeleton__bar,
+  .college-skeleton {
+    animation: none;
+  }
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .campus-header {
+    flex-wrap: wrap;
+  }
+
+  .campus-header__change {
+    margin-left: 74px;
+  }
+
+  .campus-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .campus-search {
+    flex: none;
+    min-width: 0;
+  }
+
+  .campus-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .campus-card__foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

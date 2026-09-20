@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './Navbar.css'
+import { getSelectedCollege } from '../features/campus/services/profile-store'
 
 const LINKS = [
   { label: 'Learn', href: '#learn' },
@@ -10,6 +11,12 @@ const LINKS = [
 
 function Navbar() {
   const [open, setOpen] = useState(false)
+
+  // Campus Hub entry — points at setup until a college is chosen.
+  const links = [
+    { label: 'Campus', href: getSelectedCollege() ? '#/campus' : '#/setup' },
+    ...LINKS,
+  ]
 
   useEffect(() => {
     if (!open) return
@@ -29,8 +36,8 @@ function Navbar() {
         <span className="navbar__name">AiO World</span>
       </a>
       <nav className="navbar__links" aria-label="Primary">
-        {LINKS.map((link) => (
-          <a key={link.href} href={link.href}>
+        {links.map((link) => (
+          <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
             {link.label}
           </a>
         ))}
@@ -60,7 +67,7 @@ function Navbar() {
         className={`navbar__mobile${open ? ' navbar__mobile--open' : ''}`}
         aria-label="Mobile"
       >
-        {LINKS.map((link) => (
+        {links.map((link) => (
           <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
             {link.label}
           </a>

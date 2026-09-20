@@ -11,4 +11,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    proxy: {
+      // Dev proxy for the campus API — the frontend can call `/api/…` and
+      // hit the Express backend (port 5000) just like production would.
+      '/api': 'http://localhost:5000',
+    },
+  },
 })
