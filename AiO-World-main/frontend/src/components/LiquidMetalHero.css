@@ -1,0 +1,357 @@
+.liquid-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Z-stack (low → high):
+   1. ambient light        (z 0) — soft peach/coral atmosphere
+   2. liquid glass         (z 1) — oversized decorative object, dimmed
+   3. reading-zone veil    (z 2) — centered cream gradient protecting the text
+   4. hero content         (z 3) — centered stage composition
+   5. bottom fade          (z 4) */
+
+.liquid-hero__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(44% 38% at 50% 36%, color-mix(in srgb, var(--peach) 20%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 50% 78%, color-mix(in srgb, var(--coral) 9%, transparent), transparent 66%);
+}
+
+/* Oversized decorative object — centered, partially outside the viewport,
+   rendered at low intensity so it reads as atmosphere, not content. */
+.liquid-hero__glass {
+  position: absolute;
+  inset: -14% -12%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.liquid-hero__glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(76% 64% at 50% 46%, transparent 46%, color-mix(in srgb, var(--bg) 58%, transparent) 100%);
+}
+
+/* Centered reading zone: near-solid cream behind the content column,
+   opening up toward the sides so the object stays visible but subordinate. */
+.liquid-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    78% 72% at 50% 46%,
+    color-mix(in srgb, var(--bg) 98%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 92%, transparent) 30%,
+    color-mix(in srgb, var(--bg) 72%, transparent) 52%,
+    color-mix(in srgb, var(--bg) 38%, transparent) 72%,
+    transparent 100%
+  );
+}
+
+.liquid-hero__body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(64px, 10vh, 112px) clamp(20px, 5vw, 56px);
+}
+
+/* The full composition — eyebrow → headline → copy → CTAs → lanes — is one
+   centered block. */
+.liquid-hero__inner {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.liquid-hero__fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: clamp(96px, 14vh, 160px);
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bg) 88%, transparent));
+}
+
+/* Typographic eyebrow — quiet, supporting the headline */
+.liquid-hero__eyebrow {
+  margin: 0 0 clamp(22px, 3.4vh, 30px);
+  font-size: clamp(12px, 1.4vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.liquid-hero__title {
+  margin: 0;
+  max-width: 17ch;
+  font-size: clamp(2.6rem, 10vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  font-weight: 750;
+  font-feature-settings: 'ss01' on;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.liquid-hero__lede {
+  margin: clamp(18px, 3vh, 26px) auto 0;
+  max-width: 54ch;
+  font-size: clamp(1.02rem, 1.9vw, 1.14rem);
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.liquid-hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: clamp(30px, 5vh, 44px);
+  flex-wrap: wrap;
+}
+
+.liquid-hero__cta {
+  font-size: 15.5px;
+  font-weight: 650;
+  line-height: 1;
+  padding: 14px 26px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+.liquid-hero__cta--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 1px solid transparent;
+  box-shadow: 0 8px 20px -10px var(--accent-glow);
+
+  &:hover {
+    background: color-mix(in srgb, var(--accent) 86%, #000);
+    box-shadow: 0 12px 28px -12px var(--accent-glow);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+}
+
+.liquid-hero__cta--ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--surface-2);
+  }
+}
+
+/* Lane selector — a core interaction, kept close to the CTAs and clearly
+   visible: label, divider, then generous lane options. */
+.liquid-hero__lanes {
+  margin-top: clamp(44px, 7vh, 64px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.liquid-hero__lanes-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.liquid-hero__lanes-label::after {
+  content: '';
+  display: block;
+  width: 232px;
+  height: 1px;
+  margin: 16px auto 0;
+  background: var(--border-strong);
+  opacity: 0.85;
+}
+
+.liquid-hero__lanes-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(28px, 5vw, 56px);
+}
+
+.liquid-hero__lane {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(17px, 1.8vw, 20px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-soft);
+  padding: 10px 6px;
+  border-radius: 12px;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 4px;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: 50% 50%;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--accent);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  &[aria-current='true'] {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 9%, transparent);
+  }
+
+  &[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+}
+
+@media (max-width: 900px) {
+  .liquid-hero__glass {
+    inset: -16% -18%;
+    opacity: 0.44;
+  }
+
+  .liquid-hero__veil {
+    background: radial-gradient(
+      82% 76% at 50% 46%,
+      color-mix(in srgb, var(--bg) 99%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 94%, transparent) 32%,
+      color-mix(in srgb, var(--bg) 78%, transparent) 55%,
+      color-mix(in srgb, var(--bg) 46%, transparent) 74%,
+      transparent 100%
+    );
+  }
+
+  .liquid-hero__inner {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Content flows top-down with breathing room; the object becomes a small
+     atmospheric band near the top, well behind the cream veil — never over
+     the headline. */
+  .liquid-hero__body {
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(84px, 14svh, 120px) clamp(20px, 6vw, 32px) clamp(56px, 8svh, 88px);
+  }
+
+  .liquid-hero__glass {
+    top: -18%;
+    right: -38%;
+    bottom: auto;
+    left: -38%;
+    width: auto;
+    height: 68%;
+    opacity: 0.36;
+  }
+
+  .liquid-hero__veil {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--bg) 99%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 94%, transparent) 40%,
+      color-mix(in srgb, var(--bg) 78%, transparent) 68%,
+      color-mix(in srgb, var(--bg) 45%, transparent) 88%,
+      transparent 100%
+    );
+  }
+
+  .liquid-hero__inner {
+    max-width: none;
+  }
+
+  .liquid-hero__title {
+    max-width: none;
+  }
+
+  .liquid-hero__lanes-list {
+    gap: clamp(20px, 8vw, 32px);
+  }
+}
+
+@media (max-width: 480px) {
+  .liquid-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 400px;
+  }
+  .liquid-hero__cta {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-hero__glass {
+    will-change: auto;
+  }
+}
