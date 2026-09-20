@@ -6,7 +6,7 @@ function Footer() {
       <div className="footer__inner">
         <div className="footer__brand">
           <span className="footer__mark" aria-hidden="true">
-            A
+            X
           </span>
           <span className="footer__name">AiO World</span>
         </div>

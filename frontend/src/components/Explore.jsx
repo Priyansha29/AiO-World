@@ -74,9 +74,7 @@ function Explore() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
-            style={{ '--group-accent': group.accent }}
           >
-            <span className="explore-group__accent" aria-hidden="true" />
             <h3 className="explore-group__name">{group.label}</h3>
             <p className="explore-group__tagline">{group.tagline}</p>
             <ul className="explore-group__list">

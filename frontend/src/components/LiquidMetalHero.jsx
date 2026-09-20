@@ -21,8 +21,8 @@ const REST = { offsetX: 0, offsetY: 0, rotation: 18, scale: 1 }
 function themeColors() {
   const dark = window.matchMedia('(prefers-color-scheme: dark)').matches
   return dark
-    ? { back: '#5b3421', tint: '#ffc193' }
-    : { back: '#da8a66', tint: '#ffe9c7' }
+    ? { back: '#6f5a3a', tint: '#ffedc8' }
+    : { back: '#b49a6a', tint: '#ffffff' }
 }
 
 function LiquidMetalHero({

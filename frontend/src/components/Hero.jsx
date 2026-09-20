@@ -1,6 +1,13 @@
 import LiquidMetalHero from './LiquidMetalHero'
 import { LEARN, CAREER, PLAY, TOOLS } from '@/data/content'
 
+const LANE_TINTS = {
+  learn: '#3a7d5c',
+  career: '#b0763a',
+  play: '#a85f80',
+  tools: '#4e6f9e',
+}
+
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
@@ -9,7 +16,7 @@ function Hero() {
   const lanes = [LEARN, CAREER, PLAY, TOOLS].map((lane) => ({
     key: lane.key,
     label: lane.label,
-    color: lane.accent,
+    color: LANE_TINTS[lane.key],
   }))
 
   return (

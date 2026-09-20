@@ -5,7 +5,7 @@ export const LEARN = {
   blurb: 'Follow the tracks that turn confusion into momentum.',
   example: ['Roadmaps', 'DSA', 'Resources'],
   href: '#learn',
-  accent: '#FFC193', // peach
+  accent: 'green',
 }
 
 export const CAREER = {
@@ -15,7 +15,7 @@ export const CAREER = {
   blurb: 'Go from student to hireable with a plan, not guesswork.',
   example: ['Internships', 'Resume', 'Skills'],
   href: '#career',
-  accent: '#FF8383', // coral
+  accent: 'orange',
 }
 
 export const PLAY = {
@@ -25,7 +25,7 @@ export const PLAY = {
   blurb: 'Quick games with friends — nearby or across the world.',
   example: ['Games', 'Friends', 'Couples'],
   href: '#play',
-  accent: '#FFA270', // coral-peach blend
+  accent: 'pink',
 }
 
 export const TOOLS = {
@@ -35,7 +35,7 @@ export const TOOLS = {
   blurb: 'Small utilities that end the tedious parts of student life.',
   example: ['Attendance', 'CGPA', 'Planner'],
   href: '#tools',
-  accent: '#E6B26E', // warm sand / neutral
+  accent: 'blue',
 }
 
 export const MODES = [LEARN, CAREER, PLAY, TOOLS]
