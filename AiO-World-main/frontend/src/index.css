@@ -1,0 +1,172 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Brand palette — exposed as Tailwind utilities (bg-cream, text-coral, …) */
+  --color-cream: #ffedce;
+  --color-peach: #ffc193;
+  --color-coral: #ff8383;
+  --color-red: #ff3737;
+
+  /* Semantic map → runtime tokens declared in :root below */
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-ink);
+  --color-secondary: var(--bg-soft);
+  --color-secondary-foreground: var(--ink-soft);
+  --color-muted: var(--bg-soft);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--bg-soft);
+  --color-accent-foreground: var(--ink);
+  --color-border: var(--border);
+  --color-ring: var(--accent);
+  --color-destructive: var(--color-red);
+}
+
+:root {
+  /* Warm canvas — cream-led, white & peach surfaces for hierarchy */
+  --bg: #ffedce; /* brand cream — main background */
+  --bg-soft: #f9e5c0; /* deeper cream — secondary surfaces */
+  --surface: #ffffff; /* cards */
+  --surface-2: #fffdf5; /* warm white */
+
+  /* Ink & text */
+  --ink: #1f1f1f;
+  --ink-soft: #3b342a;
+  --muted: #6d6252; /* muted warm gray */
+  --faint: #736857; /* faint warm gray */
+
+  /* Hairlines & shadows */
+  --border: #ead9bb;
+  --border-strong: #d9c297;
+  --shadow-sm: 0 1px 2px rgba(84, 59, 24, 0.07);
+  --shadow-soft: 0 2px 10px -2px rgba(84, 59, 24, 0.1), 0 1px 2px rgba(84, 59, 24, 0.05);
+  --shadow:
+    0 6px 16px -6px rgba(84, 59, 24, 0.14), 0 2px 6px -2px rgba(84, 59, 24, 0.06);
+  --shadow-lg:
+    0 20px 40px -16px rgba(84, 59, 24, 0.22), 0 8px 16px -8px rgba(84, 59, 24, 0.1);
+
+  /* Brand + semantic palette */
+  --accent: #ff3737; /* strong red — primary actions */
+  --accent-ink: #ffffff;
+  --accent-soft: #ffe0d8;
+  --accent-bg: #ffd2c9;
+  --accent-border: #f2a097;
+  --accent-glow: rgba(255, 55, 55, 0.32);
+
+  /* Palette accents — secondary surfaces, decorative elements, modes */
+  --peach: #ffc193;
+  --peach-soft: #ffe7cb;
+  --peach-border: #f2cda4;
+  --peach-glow: rgba(255, 193, 147, 0.35);
+
+  --coral: #ff8383;
+  --coral-soft: #ffd9d3;
+  --coral-border: #f3b3aa;
+  --coral-glow: rgba(255, 131, 131, 0.35);
+
+  --sand: #e6b26e;
+  --sand-soft: #f7e6c9;
+  --sand-border: #e3c48b;
+  --sand-glow: rgba(230, 178, 110, 0.3);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* Typography */
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --disp: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  color-scheme: light;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Deep warm/dark neutrals — cream is not forced onto the dark theme */
+    --bg: #17120a;
+    --bg-soft: #1e1710;
+    --surface: #261e14;
+    --surface-2: #2c2318;
+    --ink: #f5eee1;
+    --ink-soft: #dcd2bf;
+    --muted: #b3a68f;
+    --faint: #8a7e69;
+
+    --border: #382d1e;
+    --border-strong: #4c3e2a;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-soft: 0 2px 10px -2px rgba(0, 0, 0, 0.45);
+    --shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 22px 44px -16px rgba(0, 0, 0, 0.6);
+
+    --accent-soft: #3a201a;
+    --accent-bg: #48251c;
+    --accent-border: #753329;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
