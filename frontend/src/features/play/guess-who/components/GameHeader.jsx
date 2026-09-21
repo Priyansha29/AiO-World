@@ -1,4 +1,4 @@
-function GameHeader({ suspectsLeft, questionsAsked, onChangePack }) {
+function GameHeader({ suspectsLeft, questions, onAsk, onChangePack }) {
   return (
     <header className="gw-header">
       <div className="gw-header__top">
@@ -18,7 +18,12 @@ function GameHeader({ suspectsLeft, questionsAsked, onChangePack }) {
       <div className="gw-header__meta">
         <span className="gw-turnchip">YOUR TURN</span>
         <span className="gw-chip">Suspects left: {suspectsLeft}</span>
-        <span className="gw-chip">Questions asked: {questionsAsked}</span>
+        <span className="gw-chip">Questions asked: {questions}</span>
+        <span className="gw-questionadd-wrap">
+          <button type="button" className="gw-questionadd" onClick={onAsk}>
+            + Question
+          </button>
+        </span>
       </div>
     </header>
   )

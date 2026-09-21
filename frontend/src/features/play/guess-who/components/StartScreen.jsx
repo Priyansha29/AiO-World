@@ -8,10 +8,11 @@ function StartScreen({ onStart }) {
       <h1 className="gw-start__title">GUESS WHO</h1>
       <p className="gw-start__tag">Think you know them?</p>
       <p className="gw-start__desc">
-        Pick your characters, ask clever questions, and eliminate the impossible.
+        Build your pack, then pick a person secretly and ask questions over the call to find
+        your opponent&rsquo;s.
       </p>
       <p className="gw-start__helper">
-        One screen, two players. Best played over a voice call or while sharing your screen.
+        One screen, two players. Best played while screen-sharing on Discord.
       </p>
 
       <div className="gw-start__actions">

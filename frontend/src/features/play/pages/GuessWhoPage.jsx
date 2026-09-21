@@ -1,9 +1,12 @@
 /**
- * Guess Who — one shared screen, two people on Discord.
+ * Guess Who — a digital board game for two people on one screen, talked
+ * through over Discord.
  *
- * The person holding the browser is the current player. The site only keeps
- * the secret characters, the board, the recorded questions and the turns —
- * everything else happens out loud. No backend, no networking, no computer.
+ * The browser only ever shows public things: the pack, the shared board,
+ * who's turn it is and how many questions have been asked. Secret choices,
+ * questions and answers all happen out loud between the players, because a
+ * shared screen can't hide anything from anyone. No backend, no networking,
+ * no computer.
  */
 import { useEffect, useReducer } from 'react'
 import Navbar from '../../../components/Navbar'
@@ -11,14 +14,12 @@ import { FLOW, guessWhoReducer, createInitialState } from '../guess-who/logic/ga
 import StartScreen from '../guess-who/components/StartScreen'
 import PackSelector from '../guess-who/components/PackSelector'
 import PackScreen from '../guess-who/components/PackScreen'
-import SecretPicker from '../guess-who/components/SecretPicker'
+import ReadyScreen from '../guess-who/components/ReadyScreen'
 import GameHeader from '../guess-who/components/GameHeader'
-import SecretTokens from '../guess-who/components/SecretTokens'
-import QuestionPanel from '../guess-who/components/QuestionPanel'
-import QuestionHistory from '../guess-who/components/QuestionHistory'
 import CharacterBoard from '../guess-who/components/CharacterBoard'
 import GuessDialog from '../guess-who/components/GuessDialog'
 import TurnHandoff from '../guess-who/components/TurnHandoff'
+import SettleScreen from '../guess-who/components/SettleScreen'
 import GameResult from '../guess-who/components/GameResult'
 import '../play.css'
 import '../guess-who/guessWho.css'
@@ -40,14 +41,12 @@ export default function GuessWhoPage() {
 
   const characters = pack ? pack.characters : []
   const activeEliminated = state.eliminated[turn]
-  const ownSecret = characters.find((c) => c.id === state.secrets[turn]) ?? null
-  const revealed = state.result ? characters.find((c) => c.id === state.result.charId) : null
   const guessTarget = state.guess?.targetId
     ? characters.find((c) => c.id === state.guess.targetId)
     : null
 
   const handleBoardAction = (character) => {
-    if (state.guess) dispatch({ type: 'SELECT_GUESS', id: character.id })
+    if (flow === FLOW.guess) dispatch({ type: 'SELECT_GUESS', id: character.id })
     else dispatch({ type: 'TOGGLE_ELIMINATE', id: character.id })
   }
 
@@ -81,105 +80,85 @@ export default function GuessWhoPage() {
             onRemove={(id) => dispatch({ type: 'REMOVE_CHARACTER', id })}
             onNewPack={() => dispatch({ type: 'NEW_PACK', packId: pack.id })}
             onChangePack={() => dispatch({ type: 'CHANGE_PACK' })}
-            onStart={() => dispatch({ type: 'START_SECRET' })}
+            onStart={() => dispatch({ type: 'START_READY' })}
           />
         )}
 
-        {flow === FLOW.secret && (
-          <SecretPicker
-            characters={characters}
-            step={state.secretStep}
-            onPick={(id) =>
-              dispatch({ type: state.secretStep === 'a' ? 'SECRET_A' : 'SECRET_B', id })
-            }
-            onConfirm={() => dispatch({ type: 'CONFIRM_SECRET_A' })}
-            onPassReady={() => dispatch({ type: 'SECRET_PASS_READY' })}
-            onStart={() => dispatch({ type: 'START_GAME' })}
-          />
+        {flow === FLOW.ready && (
+          <ReadyScreen onStart={() => dispatch({ type: 'READY_START' })} />
         )}
 
-        {flow === FLOW.play && ownSecret && (
+        {flow === FLOW.play && (
           <>
             <GameHeader
               suspectsLeft={characters.length - activeEliminated.length}
-              questionsAsked={state.history.length}
+              questions={state.questions}
+              onAsk={() => dispatch({ type: 'ASK_QUESTION' })}
               onChangePack={() => dispatch({ type: 'CHANGE_PACK' })}
             />
 
-            <div className="gw-layout">
-              <div className="gw-main">
-                <SecretTokens character={ownSecret} />
+            <CharacterBoard
+              characters={characters}
+              mode="board"
+              eliminatedIds={activeEliminated}
+              onAction={handleBoardAction}
+            />
 
-                {state.guess ? (
-                  <GuessDialog
-                    selected={guessTarget}
-                    confirmed={state.guessConfirm}
-                    onConfirm={() => dispatch({ type: 'CONFIRM_GUESS' })}
-                    onFinal={() => dispatch({ type: 'FINAL_GUESS' })}
-                    onKeepLooking={() => dispatch({ type: 'KEEP_LOOKING' })}
-                    onCancel={() => dispatch({ type: 'KEEP_LOOKING' })}
-                  />
-                ) : (
-                  <QuestionPanel
-                    pending={state.pendingQuestion}
-                    onPick={(questionId) => dispatch({ type: 'PICK_QUESTION', questionId })}
-                    onAnswer={(answer) => dispatch({ type: 'RECORD_ANSWER', answer })}
-                    onCancel={() => dispatch({ type: 'CANCEL_PENDING_QUESTION' })}
-                  />
-                )}
+            <p className="gw-board__hint">Tap people to eliminate or restore them.</p>
 
-                <CharacterBoard
-                  characters={characters}
-                  mode={state.guess ? 'guess' : 'board'}
-                  eliminatedIds={activeEliminated}
-                  selectedId={guessTarget?.id ?? null}
-                  onAction={handleBoardAction}
-                />
-
-                <p className="gw-board__hint">
-                  {state.guess
-                    ? 'Tap the person you want to name, then confirm.'
-                    : 'Tap people to eliminate or restore them.'}
-                </p>
-
-                {!state.guess && (
-                  <div className="gw-turnbar">
-                    <button
-                      type="button"
-                      className="play-btn play-btn--ghost"
-                      disabled={Boolean(state.pendingQuestion)}
-                      onClick={() => dispatch({ type: 'START_GUESS' })}
-                    >
-                      Make a guess
-                      <span className="play-arrow" aria-hidden="true">
-                        →
-                      </span>
-                    </button>
-                    <button
-                      type="button"
-                      className="play-btn play-btn--primary"
-                      disabled={Boolean(state.pendingQuestion)}
-                      onClick={() => dispatch({ type: 'END_TURN' })}
-                    >
-                      End turn
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              <aside className="gw-side">
-                <QuestionHistory history={state.history} />
-              </aside>
+            <div className="gw-turnbar">
+              <button
+                type="button"
+                className="play-btn play-btn--ghost"
+                onClick={() => dispatch({ type: 'START_GUESS' })}
+              >
+                Make a guess
+                <span className="play-arrow" aria-hidden="true">
+                  →
+                </span>
+              </button>
+              <button
+                type="button"
+                className="play-btn play-btn--primary"
+                onClick={() => dispatch({ type: 'END_TURN' })}
+              >
+                End turn
+              </button>
             </div>
           </>
         )}
 
+        {flow === FLOW.guess && (
+          <>
+            <GuessDialog
+              selected={guessTarget}
+              onConfirm={() => dispatch({ type: 'CONFIRM_GUESS' })}
+              onCancel={() => dispatch({ type: 'CANCEL_GUESS' })}
+            />
+
+            <CharacterBoard
+              characters={characters}
+              mode="guess"
+              selectedId={guessTarget?.id ?? null}
+              onAction={handleBoardAction}
+            />
+
+            <p className="gw-board__hint">Tap the person you want to name, then confirm.</p>
+          </>
+        )}
+
+        {flow === FLOW.settle && (
+          <SettleScreen
+            onWon={() => dispatch({ type: 'DECLARE_WON' })}
+            onLost={() => dispatch({ type: 'DECLARE_LOST' })}
+          />
+        )}
+
         {flow === FLOW.handoff && <TurnHandoff onReady={() => dispatch({ type: 'HANDOFF_READY' })} />}
 
-        {flow === FLOW.result && state.result && revealed && (
+        {flow === FLOW.end && state.result && (
           <GameResult
             result={state.result}
-            revealed={revealed}
             onPlayAgain={() => dispatch({ type: 'PLAY_AGAIN' })}
             onChangePack={() => dispatch({ type: 'CHANGE_PACK' })}
           />

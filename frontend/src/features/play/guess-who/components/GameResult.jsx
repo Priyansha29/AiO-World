@@ -1,7 +1,5 @@
-import CharacterAvatar from './CharacterAvatar'
-
-function GameResult({ result, revealed, onPlayAgain, onChangePack }) {
-  const won = result.correct
+function GameResult({ result, onPlayAgain, onChangePack }) {
+  const won = result.won
 
   return (
     <section className={`gw-result${won ? ' gw-result--won' : ' gw-result--lost'}`}>
@@ -9,18 +7,8 @@ function GameResult({ result, revealed, onPlayAgain, onChangePack }) {
         <span className="play-eyebrow__dot" aria-hidden="true" />
         Guess Who
       </p>
-      <h1 className="gw-result__title">{won ? 'YOU GOT THEM 🎉' : 'WRONG GUESS'}</h1>
-      <p className="gw-result__sub">
-        {won ? 'Nailed it — that was the other player’s character.' : 'Not this time.'}
-      </p>
-
-      <div className="gw-result__reveal">
-        <span className="gw-result__who">The character was</span>
-        <span className="gw-result__portrait">
-          <CharacterAvatar character={revealed} />
-        </span>
-        <span className="gw-result__name">{revealed.name}</span>
-      </div>
+      <h1 className="gw-result__title">{won ? 'YOU GOT THEM 🎉' : 'NOT THIS TIME'}</h1>
+      <p className="gw-result__sub">{won ? 'Nice deduction.' : 'Better luck next round.'}</p>
 
       <div className="gw-result__actions">
         <button type="button" className="play-btn play-btn--primary play-btn--big" onClick={onPlayAgain}>

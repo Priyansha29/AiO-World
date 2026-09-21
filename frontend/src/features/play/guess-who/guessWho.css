@@ -927,6 +927,30 @@
     color: var(--ink-soft);
   }
 
+  .gw-questionadd-wrap {
+    display: inline-flex;
+  }
+
+  .gw-questionadd {
+    padding: 8px 15px;
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    border: 1.5px dashed var(--accent);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .gw-questionadd:hover {
+    background: var(--accent-soft);
+  }
+
+  .gw-questionadd:active {
+    transform: translateY(1px);
+  }
+
   /* Layout -------------------------------------------------------------- */
 
   .gw-layout {
@@ -1296,6 +1320,19 @@
     margin: 0 0 28px;
     font-size: 16px;
     color: var(--muted);
+  }
+
+  .gw-handoff__hint {
+    margin: -14px 0 26px;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+
+  .gw-handoff__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
   }
 
   /* Result -------------------------------------------------------------- */
