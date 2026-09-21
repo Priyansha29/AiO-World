@@ -18,12 +18,8 @@ const itemVariants = {
 
 const REST = { offsetX: 0, offsetY: 0, rotation: 18, scale: 1 }
 
-function themeColors() {
-  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  return dark
-    ? { back: '#5b3421', tint: '#ffc193' }
-    : { back: '#da8a66', tint: '#ffe9c7' }
-}
+// The site is always the warm cream theme — no dark variant.
+const THEME_COLORS = { back: '#da8a66', tint: '#ffe9c7' }
 
 function LiquidMetalHero({
   id,
@@ -45,20 +41,16 @@ function LiquidMetalHero({
   const tgt = useRef({ ...REST })
   const active = useRef(false)
   const [activeLane, setActiveLane] = useState(null)
-  const [colors, setColors] = useState(() => themeColors())
+  const [colors] = useState(THEME_COLORS)
   const [compact, setCompact] = useState(() =>
     typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches
   )
 
   useEffect(() => {
-    const mqDark = window.matchMedia('(prefers-color-scheme: dark)')
     const mqCompact = window.matchMedia('(max-width: 640px)')
-    const onChangeDark = () => setColors(themeColors())
     const onChangeCompact = (e) => setCompact(e.matches)
-    mqDark.addEventListener('change', onChangeDark)
     mqCompact.addEventListener('change', onChangeCompact)
     return () => {
-      mqDark.removeEventListener('change', onChangeDark)
       mqCompact.removeEventListener('change', onChangeCompact)
     }
   }, [])
