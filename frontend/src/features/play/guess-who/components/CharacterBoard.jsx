@@ -14,7 +14,7 @@ export default function CharacterBoard({
   onAction,
 }) {
   return (
-    <div className="gw-board" role="group" aria-label="Character board">
+    <div className="gw-board gw-board--game" role="group" aria-label="Character board">
       <div className="gw-board__grid">
         {characters.map((character) => {
           const eliminated = eliminatedIds.includes(character.id)

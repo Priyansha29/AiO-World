@@ -3,11 +3,12 @@
  *
  * This is a digital board game for two people sharing one browser over a
  * Discord call. The website keeps the characters, the public board,
- * elimination, the turn tracker, a manual question counter and the final
- * guess interaction. Everything else — picking a secret person, asking
- * questions, answering, deducing — happens privately and verbally between
- * the players, because the shared screen cannot hide anything from either
- * of them. There is deliberately no secret-character UI.
+ * elimination, the turn tracker and the final guess interaction. Questions
+ * are asked out loud over the call and never tracked here. Everything else
+ * — picking a secret person, answering, deducing — happens privately and
+ * verbally between the players, because the shared screen cannot hide
+ * anything from either of them. There is deliberately no secret-character
+ * UI.
  */
 import { createPack, getPack, toCharacter, CHARACTER_LIMIT } from '../data/packs.js'
 
@@ -39,7 +40,6 @@ export function createInitialState() {
     turn: TURN.A,
     nextTurn: TURN.B,
     eliminated: { A: [], B: [] },
-    questions: 0,
     guess: null,
     result: null,
   }
@@ -50,7 +50,6 @@ function freshMatch() {
     turn: TURN.A,
     nextTurn: TURN.B,
     eliminated: { A: [], B: [] },
-    questions: 0,
     guess: null,
     result: null,
   }
@@ -146,10 +145,6 @@ export function guessWhoReducer(state, action) {
         : [...current, action.id]
       return { ...state, eliminated: { ...state.eliminated, [state.turn]: next } }
     }
-
-    case 'ASK_QUESTION':
-      if (state.flow !== FLOW.play) return state
-      return { ...state, questions: state.questions + 1 }
 
     // Turn passing -------------------------------------------------------
     case 'END_TURN':

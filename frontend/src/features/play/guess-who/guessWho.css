@@ -715,6 +715,91 @@
     box-shadow: var(--shadow-soft);
   }
 
+  /* The game board is the main UI: a wide warm panel of big, readable tiles.
+     Scoped under --game so the College Pack creator (which reuses the card
+     grid) keeps its current layout. */
+
+  .gw-board--game {
+    padding: clamp(12px, 2vw, 22px);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .gw-board--game .gw-board__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 20px);
+  }
+
+  .gw-board--game .gw-avatar {
+    gap: 12px;
+    padding: 14px 8px 16px;
+    border-radius: var(--radius-lg);
+    border-color: var(--border);
+    background: var(--surface);
+    transition:
+      transform 0.16s ease,
+      box-shadow 0.18s ease,
+      border-color 0.18s ease,
+      opacity 0.25s ease,
+      filter 0.25s ease;
+  }
+
+  .gw-board--game .gw-avatar:hover:not(.gw-avatar--disabled) {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--border-strong);
+  }
+
+  .gw-board--game .gw-avatar__frame {
+    width: clamp(64px, 12vw, 80px);
+    height: clamp(64px, 12vw, 80px);
+    aspect-ratio: 1;
+    flex: none;
+  }
+
+  .gw-board--game .gw-avatar__name {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 15.5px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+
+  /* Eliminated: stays in place, muted with a subtle X. */
+
+  .gw-board--game .gw-avatar--eliminated {
+    opacity: 0.45;
+  }
+
+  .gw-board--game .gw-avatar--eliminated .gw-avatar__art {
+    filter: grayscale(0.95);
+  }
+
+  .gw-board--game .gw-avatar--eliminated .gw-avatar__name {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+
+  .gw-board--game .gw-avatar__x {
+    font-size: clamp(36px, 6vw, 54px);
+    opacity: 0.6;
+  }
+
+  .gw-board--game .gw-avatar--selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+    background: var(--surface);
+    transform: translateY(-3px);
+  }
+
   .gw-avatar {
     position: relative;
     display: flex;
@@ -925,30 +1010,6 @@
     font-size: 13px;
     font-weight: 650;
     color: var(--ink-soft);
-  }
-
-  .gw-questionadd-wrap {
-    display: inline-flex;
-  }
-
-  .gw-questionadd {
-    padding: 8px 15px;
-    border-radius: var(--radius-full);
-    background: var(--surface);
-    border: 1.5px dashed var(--accent);
-    color: var(--accent);
-    font-size: 13px;
-    font-weight: 750;
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-
-  .gw-questionadd:hover {
-    background: var(--accent-soft);
-  }
-
-  .gw-questionadd:active {
-    transform: translateY(1px);
   }
 
   /* Layout -------------------------------------------------------------- */
@@ -1261,10 +1322,11 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+    margin-top: 22px;
   }
 
   .gw-board__hint {
-    margin: 2px 4px 0;
+    margin: 6px 6px 0;
     font-size: 12.5px;
     line-height: 1.5;
     color: var(--muted);
@@ -1314,6 +1376,14 @@
     font-size: clamp(30px, 5vw, 46px);
     letter-spacing: -0.03em;
     font-weight: 850;
+  }
+
+  .gw-settle__who {
+    margin: 0 0 14px;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 850;
+    letter-spacing: -0.02em;
+    color: var(--accent);
   }
 
   .gw-handoff__sub {
@@ -1471,9 +1541,14 @@
       padding-bottom: 72px;
     }
 
-    .gw-board__grid {
+    .gw-board--game .gw-board__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
+    }
+
+    .gw-board--game .gw-avatar__frame {
+      width: 64px;
+      height: 64px;
     }
 
     .gw-result__actions .play-btn,

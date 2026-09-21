@@ -12,7 +12,7 @@ function GuessDialog({ selected, onConfirm, onCancel }) {
         </p>
         <div className="gw-guess__actions">
           <button type="button" className="play-btn play-btn--primary" onClick={onConfirm}>
-            Confirm
+            Confirm guess
           </button>
           <button type="button" className="play-btn play-btn--ghost" onClick={() => setStep('pick')}>
             Keep looking
@@ -30,7 +30,7 @@ function GuessDialog({ selected, onConfirm, onCancel }) {
       </p>
       <div className="gw-guess__actions">
         <button type="button" className="play-btn play-btn--primary" disabled={!selected} onClick={() => setStep('confirm')}>
-          Confirm final guess
+          Confirm guess
         </button>
         <button type="button" className="play-btn play-btn--ghost" onClick={onCancel}>
           Cancel

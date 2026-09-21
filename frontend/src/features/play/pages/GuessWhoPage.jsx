@@ -2,11 +2,10 @@
  * Guess Who — a digital board game for two people on one screen, talked
  * through over Discord.
  *
- * The browser only ever shows public things: the pack, the shared board,
- * who's turn it is and how many questions have been asked. Secret choices,
- * questions and answers all happen out loud between the players, because a
- * shared screen can't hide anything from anyone. No backend, no networking,
- * no computer.
+ * The browser only ever shows public things: the pack, the shared board and
+ * who's turn it is. Secret choices, questions and answers all happen out
+ * loud between the players, because a shared screen can't hide anything from
+ * anyone. No backend, no networking, no computer.
  */
 import { useEffect, useReducer } from 'react'
 import Navbar from '../../../components/Navbar'
@@ -91,9 +90,7 @@ export default function GuessWhoPage() {
         {flow === FLOW.play && (
           <>
             <GameHeader
-              suspectsLeft={characters.length - activeEliminated.length}
-              questions={state.questions}
-              onAsk={() => dispatch({ type: 'ASK_QUESTION' })}
+              suspects={characters.length - activeEliminated.length}
               onChangePack={() => dispatch({ type: 'CHANGE_PACK' })}
             />
 
@@ -149,6 +146,7 @@ export default function GuessWhoPage() {
 
         {flow === FLOW.settle && (
           <SettleScreen
+            guessName={guessTarget?.name ?? null}
             onWon={() => dispatch({ type: 'DECLARE_WON' })}
             onLost={() => dispatch({ type: 'DECLARE_LOST' })}
           />
