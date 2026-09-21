@@ -1,4 +1,4 @@
-import { initialsFor } from '../data/packs'
+import CharacterAvatar from './CharacterAvatar'
 
 function GameResult({ result, revealed, onPlayAgain, onChangePack }) {
   const won = result.correct
@@ -17,11 +17,7 @@ function GameResult({ result, revealed, onPlayAgain, onChangePack }) {
       <div className="gw-result__reveal">
         <span className="gw-result__who">The character was</span>
         <span className="gw-result__portrait">
-          {revealed.image ? (
-            <img src={revealed.image} alt="" />
-          ) : (
-            <span className="gw-result__initials">{initialsFor(revealed.name)}</span>
-          )}
+          <CharacterAvatar character={revealed} />
         </span>
         <span className="gw-result__name">{revealed.name}</span>
       </div>

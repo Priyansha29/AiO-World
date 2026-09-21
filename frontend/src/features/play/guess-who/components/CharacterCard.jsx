@@ -1,20 +1,10 @@
-import { initialsFor } from '../data/packs'
+import CharacterAvatar from './CharacterAvatar'
 
 /**
- * A single person tile. Photos are browser-local object/data URLs, so if the
- * player skipped a photo we fall back to a clean initials avatar.
+ * A single person tile, rendered from their appearance attributes. Photos
+ * don't exist anymore — the character is generated, and the same avatar
+ * component is used everywhere so it always looks identical.
  */
-function CharacterAvatar({ character }) {
-  if (character.image) {
-    return <img className="gw-avatar__img" src={character.image} alt="" draggable="false" />
-  }
-  return (
-    <span className="gw-avatar__initials" aria-hidden="true">
-      {initialsFor(character.name)}
-    </span>
-  )
-}
-
 export default function CharacterCard({
   character,
   state = 'active',

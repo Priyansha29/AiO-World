@@ -11,6 +11,7 @@ export const CHARACTER_LIMIT = 12
 export const GENDERS = ['male', 'female', 'other']
 export const HAIRS = ['black', 'brown', 'blonde', 'red']
 export const HAIR_LENGTHS = ['short', 'medium', 'long']
+export const HAIR_STYLES = ['straight', 'wavy', 'curly', 'bangs', 'bob']
 export const SKIN_TONES = ['light', 'medium', 'dark']
 export const CLOTHING_COLORS = ['red', 'blue', 'green', 'yellow', 'purple', 'black', 'white']
 export const ACCESSORIES = ['none', 'earrings', 'scarf', 'headphones']
@@ -62,14 +63,14 @@ export function getPack(packId) {
 export function emptyCharacterDraft() {
   return {
     name: '',
-    image: '',
     gender: 'male',
+    skinTone: 'medium',
     hair: 'black',
     hairLength: 'short',
+    hairStyle: 'straight',
     glasses: false,
     beard: false,
     hat: false,
-    skinTone: 'medium',
     clothing: 'red',
     accessory: 'none',
   }
@@ -81,14 +82,14 @@ export function toCharacter(input, id) {
   return {
     id: id ?? draft.id ?? '',
     name: String(draft.name ?? '').trim(),
-    image: draft.image || '',
     gender: draft.gender,
+    skinTone: draft.skinTone,
     hair: draft.hair,
     hairLength: draft.hairLength,
+    hairStyle: draft.hairStyle,
     glasses: Boolean(draft.glasses),
     beard: Boolean(draft.beard),
     hat: Boolean(draft.hat),
-    skinTone: draft.skinTone,
     clothing: draft.clothing,
     accessory: draft.accessory,
   }
@@ -104,12 +105,4 @@ export function createPack(meta) {
     status: meta.status,
     characters: [],
   }
-}
-
-/** First letters of a name, used for the photo fallback avatar. */
-export function initialsFor(name) {
-  const parts = String(name ?? '').trim().split(/\s+/).filter(Boolean)
-  if (parts.length === 0) return '?'
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
 }
