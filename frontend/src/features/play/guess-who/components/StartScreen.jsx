@@ -10,15 +10,8 @@ function StartScreen({ onStart }) {
       <p className="gw-start__desc">
         Pick your characters, ask clever questions, and eliminate the impossible.
       </p>
-
-      <div className="gw-vs gw-vs--big" aria-label="Player 1 versus Player 2">
-        <span className="gw-vs__side gw-vs__side--p1">PLAYER 1</span>
-        <span className="gw-vs__mark">VS</span>
-        <span className="gw-vs__side gw-vs__side--p2">PLAYER 2</span>
-      </div>
-
       <p className="gw-start__helper">
-        Best played over a voice call or while sharing your screen.
+        One screen, two players. Best played over a voice call or while sharing your screen.
       </p>
 
       <div className="gw-start__actions">

@@ -1,5 +1,4 @@
 import { initialsFor } from '../data/packs'
-import { playerLabel } from '../logic/gameReducer'
 
 function GameResult({ result, revealed, onPlayAgain, onChangePack }) {
   const won = result.correct
@@ -11,11 +10,8 @@ function GameResult({ result, revealed, onPlayAgain, onChangePack }) {
         Guess Who
       </p>
       <h1 className="gw-result__title">{won ? 'YOU GOT THEM 🎉' : 'WRONG GUESS'}</h1>
-      <p className="gw-result__winner">{playerLabel(result.winner)} wins</p>
       <p className="gw-result__sub">
-        {won
-          ? `${playerLabel(result.guesser)} nailed it.`
-          : `${playerLabel(result.guesser)} guessed ${result.guessedId === result.charId ? 'correctly' : 'wrong'} — the character was hiding in plain sight.`}
+        {won ? 'Nailed it — that was the other player’s character.' : 'Not this time.'}
       </p>
 
       <div className="gw-result__reveal">

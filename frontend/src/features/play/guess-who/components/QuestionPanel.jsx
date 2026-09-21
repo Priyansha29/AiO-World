@@ -6,13 +6,15 @@ function QuestionPanel({ pending, onPick, onAnswer, onCancel }) {
   return (
     <section className="gw-panel gw-questions" aria-labelledby="gw-ask-title">
       <div className="gw-questions__head">
-        <h2 id="gw-ask-title">Ask a question</h2>
-        <p className="gw-hint">Ask out loud, then record what they answered.</p>
+        <h2 id="gw-ask-title">Question ideas</h2>
+        <p className="gw-hint">Ask your opponent out loud, then record the answer.</p>
       </div>
 
       {pendingQuestion && (
         <div className="gw-record" role="alert">
+          <p className="gw-record__label">Question</p>
           <p className="gw-record__q">{pendingQuestion.text}</p>
+          <p className="gw-record__ask">What did they answer?</p>
           <div className="gw-record__actions">
             <button type="button" className="gw-record__btn gw-record__btn--yes" onClick={() => onAnswer(true)}>
               YES

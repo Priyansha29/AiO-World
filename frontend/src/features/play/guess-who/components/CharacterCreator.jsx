@@ -30,6 +30,10 @@ const ACCESSORY_LABELS = {
   headphones: 'Headphones',
 }
 
+function normalizeName(name) {
+  return String(name ?? '').trim().toLowerCase()
+}
+
 function titleCase(option, labels) {
   return labels[option] ?? option
 }
@@ -67,9 +71,13 @@ function BoolField({ label, value, onChange }) {
   )
 }
 
-function CharacterCreator({ initial, count, editing, onSave, onCancel }) {
+function CharacterCreator({ initial, count, existing = [], onSave, onCancel }) {
   const [draft, setDraft] = useState(() => ({ ...emptyCharacterDraft(), ...(initial ?? {}) }))
+  const [error, setError] = useState('')
   const fileRef = useRef(null)
+
+  const editing = Boolean(initial)
+  const atLimit = !editing && count >= 12
 
   const set = (patch) => setDraft((prev) => ({ ...prev, ...patch }))
 
@@ -82,28 +90,46 @@ function CharacterCreator({ initial, count, editing, onSave, onCancel }) {
     event.target.value = ''
   }
 
-  const nameOk = draft.name.trim().length > 0
-  const canSave = nameOk && (editing || count < 12)
-
   const submit = (event) => {
     event.preventDefault()
-    if (!canSave) return
-    onSave(draft)
+    const name = draft.name.trim()
+
+    if (!name) {
+      setError('Enter a name.')
+      return
+    }
+    const clash = existing.some(
+      (person) => person.id !== initial?.id && normalizeName(person.name) === normalizeName(name),
+    )
+    if (clash) {
+      setError('This person is already in your pack.')
+      return
+    }
+    if (atLimit) {
+      setError('Your pack is full. Remove someone first.')
+      return
+    }
+
+    setError('')
+    onSave({ ...draft, name })
+    // Ready the form for the next person.
+    setDraft(emptyCharacterDraft())
   }
 
   return (
     <form className="gw-creator gw-panel" onSubmit={submit}>
       <div className="gw-creator__head">
         <div>
-          <h2 className="gw-creator__title">{editing ? 'Edit character' : 'Add character'}</h2>
+          <h2 className="gw-creator__title">{editing ? 'Edit character' : 'Add a person'}</h2>
           <p className="gw-creator__count">
-            Characters added: <strong>{count} / 12</strong>
+            <strong>
+              {count} / 12
+            </strong>{' '}
+            people added
           </p>
         </div>
         {!editing && (
-          <span className="gw-creator__badge">
-            {count >= 12 ? 'Pack full' : `${12 - count} to go`}
-          </span>
+          <span className="gw-creator__badge">{atLimit ? 'Pack full' : `${12 - count} to go`}</span>
         )}
       </div>
 
@@ -114,8 +140,11 @@ function CharacterCreator({ initial, count, editing, onSave, onCancel }) {
           type="text"
           value={draft.name}
           maxLength={40}
-          placeholder="e.g. Aarav Sharma"
-          onChange={(event) => set({ name: event.target.value })}
+          placeholder="e.g. Harman"
+          onChange={(event) => {
+            set({ name: event.target.value })
+            if (error) setError('')
+          }}
         />
       </label>
 
@@ -162,13 +191,21 @@ function CharacterCreator({ initial, count, editing, onSave, onCancel }) {
         <BoolField label="Hat" value={draft.hat} onChange={(v) => set({ hat: v })} />
       </div>
 
+      {error && (
+        <p className="gw-form-error" role="alert">
+          {error}
+        </p>
+      )}
+
       <div className="gw-creator__actions">
-        <button type="submit" className="play-btn play-btn--primary" disabled={!canSave}>
-          {editing ? 'Save changes' : 'Add character'}
+        <button type="submit" className="play-btn play-btn--primary" disabled={atLimit}>
+          {editing ? 'Save changes' : '+ Add person'}
         </button>
-        <button type="button" className="play-btn play-btn--ghost" onClick={onCancel}>
-          Cancel
-        </button>
+        {editing && (
+          <button type="button" className="play-btn play-btn--ghost" onClick={onCancel}>
+            Cancel
+          </button>
+        )}
       </div>
     </form>
   )

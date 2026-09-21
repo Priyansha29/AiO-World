@@ -1,18 +1,16 @@
 /**
- * Guess Who — local, shared-screen social game.
+ * Guess Who — one shared screen, two people on Discord.
  *
- * Two people sit at one screen (usually on a Discord / Meet call) and play on
- * the same board. The site handles characters, secret picks, turns, manual
- * elimination, question history and the final guess. Talking happens outside
- * the app. No backend, no networking, no computer player.
+ * The person holding the browser is the current player. The site only keeps
+ * the secret characters, the board, the recorded questions and the turns —
+ * everything else happens out loud. No backend, no networking, no computer.
  */
 import { useEffect, useReducer } from 'react'
 import Navbar from '../../../components/Navbar'
 import { FLOW, guessWhoReducer, createInitialState } from '../guess-who/logic/gameReducer'
 import StartScreen from '../guess-who/components/StartScreen'
 import PackSelector from '../guess-who/components/PackSelector'
-import CharacterCreator from '../guess-who/components/CharacterCreator'
-import PackPreview from '../guess-who/components/PackPreview'
+import PackScreen from '../guess-who/components/PackScreen'
 import SecretPicker from '../guess-who/components/SecretPicker'
 import GameHeader from '../guess-who/components/GameHeader'
 import SecretTokens from '../guess-who/components/SecretTokens'
@@ -42,8 +40,7 @@ export default function GuessWhoPage() {
 
   const characters = pack ? pack.characters : []
   const activeEliminated = state.eliminated[turn]
-  const ownSecretId = state.secrets[turn]
-  const ownSecret = characters.find((c) => c.id === ownSecretId) ?? null
+  const ownSecret = characters.find((c) => c.id === state.secrets[turn]) ?? null
   const revealed = state.result ? characters.find((c) => c.id === state.result.charId) : null
   const guessTarget = state.guess?.targetId
     ? characters.find((c) => c.id === state.guess.targetId)
@@ -68,30 +65,23 @@ export default function GuessWhoPage() {
         )}
 
         {flow === FLOW.build && pack && (
-          <CharacterCreator
-            key={state.editingId ?? 'new'}
-            initial={state.editingId ? characters.find((c) => c.id === state.editingId) : null}
-            count={characters.length}
-            editing={Boolean(state.editingId)}
+          <PackScreen
+            pack={pack}
+            characters={characters}
+            editingId={state.editingId}
+            notice={state.notice}
             onSave={(draft) =>
               dispatch({
                 type: 'SAVE_CHARACTER',
                 character: { ...draft, id: state.editingId ?? newId() },
               })
             }
-            onCancel={() => dispatch({ type: 'CANCEL_EDIT' })}
-          />
-        )}
-
-        {flow === FLOW.preview && pack && (
-          <PackPreview
-            pack={pack}
-            onStart={() => dispatch({ type: 'START_SECRET' })}
+            onCancelEdit={() => dispatch({ type: 'CANCEL_EDIT' })}
             onEdit={(id) => dispatch({ type: 'EDIT_CHARACTER', id })}
             onRemove={(id) => dispatch({ type: 'REMOVE_CHARACTER', id })}
-            onAddMore={() => dispatch({ type: 'ADD_MORE' })}
             onNewPack={() => dispatch({ type: 'NEW_PACK', packId: pack.id })}
             onChangePack={() => dispatch({ type: 'CHANGE_PACK' })}
+            onStart={() => dispatch({ type: 'START_SECRET' })}
           />
         )}
 
@@ -99,8 +89,11 @@ export default function GuessWhoPage() {
           <SecretPicker
             characters={characters}
             step={state.secretStep}
-            onPick={(id) => dispatch({ type: state.secretStep === 'p1' ? 'SECRET_P1' : 'SECRET_P2', id })}
-            onContinue={() => dispatch({ type: 'CONFIRM_SECRET_P1' })}
+            onPick={(id) =>
+              dispatch({ type: state.secretStep === 'a' ? 'SECRET_A' : 'SECRET_B', id })
+            }
+            onConfirm={() => dispatch({ type: 'CONFIRM_SECRET_A' })}
+            onPassReady={() => dispatch({ type: 'SECRET_PASS_READY' })}
             onStart={() => dispatch({ type: 'START_GAME' })}
           />
         )}
@@ -108,7 +101,6 @@ export default function GuessWhoPage() {
         {flow === FLOW.play && ownSecret && (
           <>
             <GameHeader
-              turn={turn}
               suspectsLeft={characters.length - activeEliminated.length}
               questionsAsked={state.history.length}
               onChangePack={() => dispatch({ type: 'CHANGE_PACK' })}
@@ -147,7 +139,7 @@ export default function GuessWhoPage() {
                 <p className="gw-board__hint">
                   {state.guess
                     ? 'Tap the person you want to name, then confirm.'
-                    : 'Tap a person to strike them out. Strike them back in if you change your mind.'}
+                    : 'Tap people to eliminate or restore them.'}
                 </p>
 
                 {!state.guess && (
@@ -182,12 +174,7 @@ export default function GuessWhoPage() {
           </>
         )}
 
-        {flow === FLOW.handoff && (
-          <TurnHandoff
-            nextPlayer={state.nextTurn}
-            onReady={() => dispatch({ type: 'HANDOFF_READY' })}
-          />
-        )}
+        {flow === FLOW.handoff && <TurnHandoff onReady={() => dispatch({ type: 'HANDOFF_READY' })} />}
 
         {flow === FLOW.result && state.result && revealed && (
           <GameResult

@@ -23,11 +23,7 @@ export const QUESTIONS = [
   { id: 'hair-blonde', group: 'looks', label: 'Blonde hair?', text: 'Does your person have blonde hair?', attribute: 'hair', value: 'blonde' },
   { id: 'hair-red', group: 'looks', label: 'Red hair?', text: 'Does your person have red hair?', attribute: 'hair', value: 'red' },
   { id: 'hair-length-short', group: 'looks', label: 'Short hair?', text: 'Does your person have short hair?', attribute: 'hairLength', value: 'short' },
-  { id: 'hair-length-medium', group: 'looks', label: 'Medium hair?', text: 'Does your person have medium hair?', attribute: 'hairLength', value: 'medium' },
   { id: 'hair-length-long', group: 'looks', label: 'Long hair?', text: 'Does your person have long hair?', attribute: 'hairLength', value: 'long' },
-  { id: 'skin-light', group: 'looks', label: 'Light skin?', text: 'Does your person have a light skin tone?', attribute: 'skinTone', value: 'light' },
-  { id: 'skin-medium', group: 'looks', label: 'Medium skin?', text: 'Does your person have a medium skin tone?', attribute: 'skinTone', value: 'medium' },
-  { id: 'skin-dark', group: 'looks', label: 'Dark skin?', text: 'Does your person have a dark skin tone?', attribute: 'skinTone', value: 'dark' },
 
   // Face -----------------------------------------------------------------
   { id: 'glasses', group: 'face', label: 'Glasses?', text: 'Does your person wear glasses?', attribute: 'glasses', value: true },
