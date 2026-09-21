@@ -58,12 +58,12 @@ export default function CampusHubPage() {
   const hasQuery = query.trim() !== ''
 
   const emptyTitle = hasQuery
-    ? `No results for “${query.trim()}”`
+    ? 'No updates found'
     : categoryMeta
       ? categoryMeta.emptyTitle
       : 'Nothing here yet'
   const emptyHint = hasQuery
-    ? 'Try a different word — for example “exam”, “bus” or “menu”.'
+    ? 'Try another category or search term.'
     : categoryMeta
       ? categoryMeta.emptyHint
       : 'When your campus publishes updates, they will appear here.'
@@ -103,8 +103,8 @@ export default function CampusHubPage() {
         )}
 
         <p className="demo-note">
-          Demo data · Sample campus information for development — sources are
-          fictional and not verified. Nothing here is live.
+          Demo campus data · Content shown here is for product development and
+          is not official SIT information.
         </p>
       </div>
     </main>

@@ -93,8 +93,9 @@ export async function getCampusInformation(collegeId, filter = {}) {
   if (status !== 'all') items = items.filter((item) => item.status === status)
   if (category) items = items.filter((item) => item.category === category)
   if (query) {
+    const q = query
     items = items.filter((item) =>
-      `${item.title} ${item.description}`.toLowerCase().includes(query),
+      `${item.title} ${item.description} ${item.category}`.toLowerCase().includes(q),
     )
   }
 

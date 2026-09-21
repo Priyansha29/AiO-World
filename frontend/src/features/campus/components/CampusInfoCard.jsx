@@ -8,7 +8,15 @@ import PriorityBadge from './PriorityBadge'
 import InformationSource from './InformationSource'
 import FreshnessIndicator from './FreshnessIndicator'
 
-export default function CampusInfoCard({ information, index = 0 }) {
+function formatDate(iso) {
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return ''
+  return date
+    .toLocaleDateString('en-US', { month: 'short', day: '2-digit' })
+    .toUpperCase()
+}
+
+export default function CampusInfoCard({ information, index = 0, featured = false }) {
   const categoryMeta = CAMPUS_CATEGORY_META[information.category]
   const accent = categoryMeta?.accent ?? 'var(--sand)'
   const categoryLabel = categoryMeta?.label ?? information.category
@@ -16,13 +24,16 @@ export default function CampusInfoCard({ information, index = 0 }) {
 
   return (
     <article
-      className="campus-card"
+      className={`campus-card${featured ? ' campus-card--featured' : ''}`}
       style={{ '--card-accent': accent, '--delay': `${index * 40}ms` }}
     >
       <span className="campus-card__accent" aria-hidden="true" />
       <header className="campus-card__head">
         <span className="campus-card__category">{categoryLabel}</span>
-        <PriorityBadge priority={information.priority} />
+        <span className="campus-card__head-end">
+          <span className="campus-card__date">{formatDate(information.updatedAt)}</span>
+          <PriorityBadge priority={information.priority} />
+        </span>
       </header>
 
       <h3 className="campus-card__title">{information.title}</h3>
@@ -47,6 +58,12 @@ export default function CampusInfoCard({ information, index = 0 }) {
               Revises earlier notice
             </span>
           ) : null}
+          <span className="campus-card__more">
+            {featured ? 'View details' : 'Read more'}
+            <span className="campus-card__more-arrow" aria-hidden="true">
+              →
+            </span>
+          </span>
           <FreshnessIndicator
             updatedAt={information.updatedAt}
             publishedAt={information.publishedAt}

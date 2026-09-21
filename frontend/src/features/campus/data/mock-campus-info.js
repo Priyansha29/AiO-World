@@ -1,10 +1,14 @@
 /**
- * DEMO DATA — sample campus information for the fictional colleges.
+ * DEMO DATA — sample campus information for the Campus Hub.
  *
- * Everything here is invented. The dataset deliberately includes:
+ * Everything here is invented — including the SIT feed below, which is demo
+ * content and NOT official Symbiosis Institute of Technology information.
+ * The dataset deliberately includes:
  *  - a superseded / revised pair (temporal provenance),
  *  - a draft item that must never surface as active,
  *  - colleges with empty data so empty states are exercised honestly.
+ *  - a `featured` demo feed for Symbiosis Institute of Technology (col-sit)
+ *    so the Campus Hub feels populated.
  *
  * Timestamps are generated relative to "now" at load time so freshness
  * indicators always read naturally in the demo.
@@ -318,5 +322,86 @@ export const MOCK_CAMPUS_INFORMATION = [
     source: src('src-nce-placement', 'Placement Cell', 'OFFICIAL_NOTICE'),
     publishedAt: hoursAgo(2),
     updatedAt: hoursAgo(2),
+  },
+
+  // ── Symbiosis Institute of Technology (demo feed) ──────────────────────
+  // Demo items only — not official SIT announcements. `featured` marks the
+  // item surfaced at the top of the Campus Hub feed.
+  {
+    id: 'sit-exam-mid-sem',
+    collegeId: 'col-sit',
+    title: 'Mid-Semester Examination Schedule Released',
+    description:
+      'The examination schedule for the upcoming mid-semester assessments is now available for students.',
+    category: 'notices',
+    priority: 'urgent',
+    status: 'active',
+    featured: true,
+    source: src('src-sit-exam-cell', 'Examination Cell Notice', 'OFFICIAL_NOTICE'),
+    publishedAt: daysAgo(1),
+    updatedAt: hoursAgo(2),
+  },
+  {
+    id: 'sit-acad-elective-registration',
+    collegeId: 'col-sit',
+    title: 'Registration Open for Semester Electives',
+    description:
+      'Students can review available elective courses and complete their registration before the deadline.',
+    category: 'academic',
+    priority: 'high',
+    status: 'active',
+    source: src('src-sit-academic-office', 'Academic Office Notice', 'OFFICIAL_NOTICE'),
+    publishedAt: daysAgo(1),
+    updatedAt: hoursAgo(5),
+  },
+  {
+    id: 'sit-transport-bus-update',
+    collegeId: 'col-sit',
+    title: 'Campus Bus Schedule Updated',
+    description:
+      'Updated departure and arrival timings are available for the Pune–Lavale campus routes.',
+    category: 'transport',
+    priority: 'high',
+    status: 'active',
+    source: src('src-sit-transport', 'Transport Office Notice', 'OFFICIAL_NOTICE'),
+    publishedAt: daysAgo(2),
+    updatedAt: daysAgo(2),
+  },
+  {
+    id: 'sit-mess-weekly-menu',
+    collegeId: 'col-sit',
+    title: 'Weekly Mess Menu',
+    description: "View this week's breakfast, lunch, snacks and dinner menu.",
+    category: 'mess',
+    priority: 'normal',
+    status: 'active',
+    source: src('src-sit-mess', 'Mess Committee', 'OFFICIAL_NOTICE'),
+    publishedAt: daysAgo(3),
+    updatedAt: daysAgo(3),
+  },
+  {
+    id: 'sit-events-tech-workshop',
+    collegeId: 'col-sit',
+    title: 'Student Technical Workshop',
+    description: 'A technical workshop for students will be conducted on campus this week.',
+    category: 'events',
+    priority: 'normal',
+    status: 'active',
+    source: src('src-sit-clubs', 'Clubs Portal', 'COLLEGE_PORTAL'),
+    publishedAt: daysAgo(4),
+    updatedAt: daysAgo(4),
+  },
+  {
+    id: 'sit-opp-internship',
+    collegeId: 'col-sit',
+    title: 'New Internship Opportunity',
+    description:
+      'A new internship opportunity has been added for students interested in software development.',
+    category: 'opportunities',
+    priority: 'normal',
+    status: 'active',
+    source: src('src-sit-placement', 'Placement Cell Notice', 'OFFICIAL_NOTICE'),
+    publishedAt: daysAgo(5),
+    updatedAt: daysAgo(5),
   },
 ]

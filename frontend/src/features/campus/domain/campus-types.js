@@ -70,4 +70,5 @@ export const PRIORITY_RANK = { urgent: 0, high: 1, normal: 2, low: 3 }
  * @property {string} [supersededById]
  * @property {string} [link]
  * @property {Record<string,string>} [metadata]
+ * @property {boolean} [featured]  — demo-feed pin shown first (front-end only)
  */

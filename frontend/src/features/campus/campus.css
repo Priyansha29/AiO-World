@@ -480,6 +480,26 @@
   color: var(--muted);
 }
 
+.campus-card__head-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.campus-card__date {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
 .campus-card__title {
   font-size: 16px;
   font-weight: 700;
@@ -553,6 +573,51 @@
   background: var(--coral-soft);
   padding: 2px 8px;
   border-radius: var(--radius-full);
+}
+
+/* Read-more affordance + featured (pinned) item */
+.campus-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--coral);
+}
+
+.campus-card__more-arrow {
+  transition: transform 0.2s ease;
+}
+
+.campus-card:hover .campus-card__more-arrow {
+  transform: translateX(3px);
+}
+
+.campus-card--featured {
+  grid-column: 1 / -1;
+  padding: 24px 24px 18px;
+  border-color: var(--peach-border);
+  box-shadow: var(--shadow-soft);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface) 55%);
+}
+
+.campus-card--featured .campus-card__accent {
+  width: 4px;
+  opacity: 1;
+}
+
+.campus-card--featured .campus-card__title {
+  font-size: 18.5px;
+}
+
+.campus-card--featured .campus-card__date {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+}
+
+.campus-card--featured .campus-card__more {
+  color: var(--accent);
 }
 
 /* ── Priority badge ────────────────────────────────────────────────────── */
@@ -804,6 +869,14 @@
 
   .campus-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .campus-card__head {
+    flex-wrap: wrap;
+  }
+
+  .campus-card--featured {
+    padding: 20px 18px 16px;
   }
 
   .campus-card__foot {

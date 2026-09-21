@@ -8,7 +8,12 @@ export default function CampusInfoList({ items }) {
   return (
     <div className="campus-card-grid">
       {items.map((item, index) => (
-        <CampusInfoCard key={item.id} information={item} index={index} />
+        <CampusInfoCard
+          key={item.id}
+          information={item}
+          index={index}
+          featured={index === 0 && Boolean(item.featured)}
+        />
       ))}
     </div>
   )
