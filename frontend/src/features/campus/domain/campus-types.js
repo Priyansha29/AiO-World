@@ -48,6 +48,7 @@ export const PRIORITY_RANK = { urgent: 0, high: 1, normal: 2, low: 3 }
  * @property {string} id
  * @property {string} name
  * @property {string} type  — one of `SOURCE_TYPES`
+ * @property {string} [label]  — overrides the type label (used to mark demo content)
  * @property {string} [url]
  */
 

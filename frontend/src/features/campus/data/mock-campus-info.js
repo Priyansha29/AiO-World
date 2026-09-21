@@ -326,7 +326,9 @@ export const MOCK_CAMPUS_INFORMATION = [
 
   // ── Symbiosis Institute of Technology (demo feed) ──────────────────────
   // Demo items only — not official SIT announcements. `featured` marks the
-  // item surfaced at the top of the Campus Hub feed.
+  // item surfaced at the top of the Campus Hub feed. Timestamps are static
+  // demo dates (no live feed simulation); sources are explicitly labelled
+  // as demo/sample content.
   {
     id: 'sit-exam-mid-sem',
     collegeId: 'col-sit',
@@ -337,9 +339,14 @@ export const MOCK_CAMPUS_INFORMATION = [
     priority: 'urgent',
     status: 'active',
     featured: true,
-    source: src('src-sit-exam-cell', 'Examination Cell Notice', 'OFFICIAL_NOTICE'),
-    publishedAt: daysAgo(1),
-    updatedAt: hoursAgo(2),
+    source: {
+      id: 'src-sit-exam',
+      name: 'Examination Cell',
+      label: 'Demo source',
+      type: 'OFFICIAL_NOTICE',
+    },
+    publishedAt: '2026-09-21T02:00:00.000Z',
+    updatedAt: '2026-09-21T06:00:00.000Z',
   },
   {
     id: 'sit-acad-elective-registration',
@@ -350,9 +357,14 @@ export const MOCK_CAMPUS_INFORMATION = [
     category: 'academic',
     priority: 'high',
     status: 'active',
-    source: src('src-sit-academic-office', 'Academic Office Notice', 'OFFICIAL_NOTICE'),
-    publishedAt: daysAgo(1),
-    updatedAt: hoursAgo(5),
+    source: {
+      id: 'src-sit-academic',
+      name: 'Academic Office',
+      label: 'Sample notice',
+      type: 'OFFICIAL_NOTICE',
+    },
+    publishedAt: '2026-09-20T04:00:00.000Z',
+    updatedAt: '2026-09-21T05:00:00.000Z',
   },
   {
     id: 'sit-transport-bus-update',
@@ -363,9 +375,14 @@ export const MOCK_CAMPUS_INFORMATION = [
     category: 'transport',
     priority: 'high',
     status: 'active',
-    source: src('src-sit-transport', 'Transport Office Notice', 'OFFICIAL_NOTICE'),
-    publishedAt: daysAgo(2),
-    updatedAt: daysAgo(2),
+    source: {
+      id: 'src-sit-transport',
+      name: 'Transport Office',
+      label: 'Demo source',
+      type: 'OFFICIAL_NOTICE',
+    },
+    publishedAt: '2026-09-18T03:00:00.000Z',
+    updatedAt: '2026-09-19T08:00:00.000Z',
   },
   {
     id: 'sit-mess-weekly-menu',
@@ -375,9 +392,14 @@ export const MOCK_CAMPUS_INFORMATION = [
     category: 'mess',
     priority: 'normal',
     status: 'active',
-    source: src('src-sit-mess', 'Mess Committee', 'OFFICIAL_NOTICE'),
-    publishedAt: daysAgo(3),
-    updatedAt: daysAgo(3),
+    source: {
+      id: 'src-sit-mess',
+      name: 'Mess Committee',
+      label: 'Sample source',
+      type: 'OFFICIAL_NOTICE',
+    },
+    publishedAt: '2026-09-18T07:00:00.000Z',
+    updatedAt: '2026-09-18T07:00:00.000Z',
   },
   {
     id: 'sit-events-tech-workshop',
@@ -387,9 +409,14 @@ export const MOCK_CAMPUS_INFORMATION = [
     category: 'events',
     priority: 'normal',
     status: 'active',
-    source: src('src-sit-clubs', 'Clubs Portal', 'COLLEGE_PORTAL'),
-    publishedAt: daysAgo(4),
-    updatedAt: daysAgo(4),
+    source: {
+      id: 'src-sit-clubs',
+      name: 'Clubs',
+      label: 'Demo event',
+      type: 'COLLEGE_PORTAL',
+    },
+    publishedAt: '2026-09-16T09:00:00.000Z',
+    updatedAt: '2026-09-17T09:00:00.000Z',
   },
   {
     id: 'sit-opp-internship',
@@ -400,8 +427,13 @@ export const MOCK_CAMPUS_INFORMATION = [
     category: 'opportunities',
     priority: 'normal',
     status: 'active',
-    source: src('src-sit-placement', 'Placement Cell Notice', 'OFFICIAL_NOTICE'),
-    publishedAt: daysAgo(5),
-    updatedAt: daysAgo(5),
+    source: {
+      id: 'src-sit-placement',
+      name: 'Placement Cell',
+      label: 'Demo source',
+      type: 'OFFICIAL_NOTICE',
+    },
+    publishedAt: '2026-09-16T06:00:00.000Z',
+    updatedAt: '2026-09-16T06:00:00.000Z',
   },
 ]

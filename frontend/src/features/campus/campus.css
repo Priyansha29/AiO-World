@@ -274,8 +274,8 @@
 .campus-header {
   display: flex;
   align-items: flex-start;
-  gap: 18px;
-  padding: 22px 24px;
+  gap: 16px;
+  padding: 20px 22px;
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background: var(--surface);
@@ -426,6 +426,117 @@
   border-color: var(--accent);
 }
 
+/* ── Needs your attention ──────────────────────────────────────────────── */
+
+.campus-attention {
+  margin-bottom: 22px;
+}
+
+.campus-attention__heading {
+  margin-bottom: 12px;
+}
+
+.campus-attention__title,
+.campus-feed__title {
+  font-size: 15.5px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 2px;
+}
+
+.campus-attention__sub,
+.campus-feed__sub {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.campus-attention__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 10px;
+}
+
+.campus-attention__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px 12px;
+  padding: 12px 14px 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.campus-attention__row:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.campus-attention__accent {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--row-accent, var(--sand));
+  opacity: 0.9;
+}
+
+.campus-attention__cat {
+  grid-area: 1 / 1;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.campus-attention__date {
+  grid-area: 1 / 2;
+  justify-self: end;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.campus-attention__row-title {
+  grid-area: 2 / 1;
+  font-size: 14.5px;
+  font-weight: 650;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.campus-attention__arrow {
+  grid-area: 2 / 2;
+  justify-self: end;
+  color: var(--coral);
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.campus-attention__row:hover .campus-attention__arrow {
+  transform: translateX(3px);
+}
+
+/* Featured notice + feed heading */
+
+.campus-featured {
+  margin-bottom: 22px;
+}
+
+.campus-feed__heading {
+  margin: 0 0 12px;
+}
+
 /* ── Card grid ─────────────────────────────────────────────────────────── */
 
 .campus-card-grid {
@@ -443,7 +554,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   overflow: hidden;
   opacity: 0;
   animation: campus-rise 0.4s ease forwards;
@@ -453,7 +564,7 @@
 
 .campus-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-sm);
   border-color: var(--border-strong);
 }
 
@@ -703,7 +814,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 56px 20px;
+  padding: 40px 20px;
   border: 1px dashed var(--border-strong);
   border-radius: var(--radius-xl);
   background: var(--surface-2);
@@ -712,11 +823,11 @@
 .campus-state__orb {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: radial-gradient(circle at 32% 30%, var(--peach), var(--coral));
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   opacity: 0.85;
 }
 
@@ -854,7 +965,7 @@
   }
 
   .campus-header__change {
-    margin-left: 74px;
+    margin-left: 72px;
   }
 
   .campus-controls {

@@ -4,17 +4,10 @@
  * category. The UI never cares where the information originated.
  */
 import { CAMPUS_CATEGORY_META } from '../domain/campus-categories'
+import { formatShortDate } from '../domain/relative-time'
 import PriorityBadge from './PriorityBadge'
 import InformationSource from './InformationSource'
 import FreshnessIndicator from './FreshnessIndicator'
-
-function formatDate(iso) {
-  const date = new Date(iso)
-  if (Number.isNaN(date.getTime())) return ''
-  return date
-    .toLocaleDateString('en-US', { month: 'short', day: '2-digit' })
-    .toUpperCase()
-}
 
 export default function CampusInfoCard({ information, index = 0, featured = false }) {
   const categoryMeta = CAMPUS_CATEGORY_META[information.category]
@@ -31,7 +24,7 @@ export default function CampusInfoCard({ information, index = 0, featured = fals
       <header className="campus-card__head">
         <span className="campus-card__category">{categoryLabel}</span>
         <span className="campus-card__head-end">
-          <span className="campus-card__date">{formatDate(information.updatedAt)}</span>
+          <span className="campus-card__date">{formatShortDate(information.updatedAt)}</span>
           <PriorityBadge priority={information.priority} />
         </span>
       </header>
@@ -64,10 +57,7 @@ export default function CampusInfoCard({ information, index = 0, featured = fals
               →
             </span>
           </span>
-          <FreshnessIndicator
-            updatedAt={information.updatedAt}
-            publishedAt={information.publishedAt}
-          />
+          <FreshnessIndicator updatedAt={information.updatedAt} />
         </span>
       </footer>
     </article>

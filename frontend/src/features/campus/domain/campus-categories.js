@@ -52,13 +52,14 @@ export const CAMPUS_CATEGORY_LIST = Object.entries(CAMPUS_CATEGORY_META).map(
   ([id, meta]) => ({ id, ...meta }),
 )
 
-/** Human-readable labels for source types. */
+/** Human-readable labels for source types. All demo content is explicitly
+ *  framed as sample/demo — no "official" or "live" wording. */
 export const SOURCE_TYPE_LABELS = {
-  OFFICIAL_WEBSITE: 'College Website',
-  OFFICIAL_NOTICE: 'Official College Notice',
-  MOODLE: 'Moodle',
-  EMAIL: 'Email',
-  GOOGLE_CLASSROOM: 'Google Classroom',
-  COLLEGE_PORTAL: 'College Portal',
-  STUDENT_SUBMISSION: 'Student Submission',
+  OFFICIAL_WEBSITE: 'Sample website',
+  OFFICIAL_NOTICE: 'Sample notice',
+  MOODLE: 'Demo moodle',
+  EMAIL: 'Demo email',
+  GOOGLE_CLASSROOM: 'Demo classroom',
+  COLLEGE_PORTAL: 'Sample portal',
+  STUDENT_SUBMISSION: 'Demo submission',
 }

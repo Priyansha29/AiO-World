@@ -8,13 +8,17 @@ import { useEffect, useMemo, useState } from 'react'
 import Navbar from '../../../components/Navbar'
 import CampusHeader from '../components/CampusHeader'
 import CampusCategoryTabs from '../components/CampusCategoryTabs'
+import CampusAttentionList from '../components/CampusAttentionList'
 import CampusInfoList from '../components/CampusInfoList'
+import CampusInfoCard from '../components/CampusInfoCard'
 import { EmptyState, ErrorState, InfoSkeleton } from '../components/States'
 import { useCampusInformation } from '../services/use-campus-data'
 import { getSelectedCollege } from '../services/profile-store'
 import { navigate } from '../../../router/hash-router'
 import { CAMPUS_CATEGORY_META } from '../domain/campus-categories'
 import '../campus.css'
+
+const ATTENTION_LIMIT = 3
 
 export default function CampusHubPage() {
   const [category, setCategory] = useState('all')
@@ -57,6 +61,14 @@ export default function CampusHubPage() {
   const categoryMeta = category !== 'all' ? CAMPUS_CATEGORY_META[category] : null
   const hasQuery = query.trim() !== ''
 
+  // The prioritised "Needs your attention" shortlist and the featured notice
+  // belong to the campus-wide default view; filtered/searched views show a
+  // plain result grid.
+  const isDefaultView = category === 'all' && !hasQuery
+  const featuredItem = isDefaultView && items[0]?.featured ? items[0] : null
+  const attentionItems = isDefaultView ? items.slice(0, ATTENTION_LIMIT) : []
+  const feedItems = featuredItem ? items.slice(1) : items
+
   const emptyTitle = hasQuery
     ? 'No updates found'
     : categoryMeta
@@ -97,7 +109,28 @@ export default function CampusHubPage() {
         ) : error ? (
           <ErrorState message={error} onRetry={retry} />
         ) : items.length > 0 ? (
-          <CampusInfoList items={items} />
+          <>
+            {attentionItems.length > 0 ? (
+              <CampusAttentionList items={attentionItems} />
+            ) : null}
+
+            {featuredItem ? (
+              <div className="campus-featured">
+                <CampusInfoCard information={featuredItem} featured />
+              </div>
+            ) : null}
+
+            {isDefaultView ? (
+              <div className="campus-feed__heading">
+                <h2 className="campus-feed__title">All campus updates</h2>
+                <p className="campus-feed__sub">
+                  Notices, academics, transport, events and more.
+                </p>
+              </div>
+            ) : null}
+
+            <CampusInfoList items={feedItems} />
+          </>
         ) : (
           <EmptyState title={emptyTitle} hint={emptyHint} />
         )}

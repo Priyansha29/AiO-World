@@ -1,19 +1,13 @@
 /**
- * FreshnessIndicator — renders a human "how recent" label from ISO timestamps.
+ * FreshnessIndicator — static "as of" date for an update.
+ * Demo content uses fixed dates; no live/relative simulation.
  */
 import { useMemo } from 'react'
-import { formatRelativeTime } from '../domain/relative-time'
+import { formatFullDate } from '../domain/relative-time'
 
-export default function FreshnessIndicator({ updatedAt, publishedAt }) {
-  const label = useMemo(() => formatRelativeTime(updatedAt), [updatedAt])
+export default function FreshnessIndicator({ updatedAt }) {
+  const label = useMemo(() => formatFullDate(updatedAt), [updatedAt])
   if (!label) return null
 
-  const wasRepublished = publishedAt && new Date(updatedAt) - new Date(publishedAt) > 60_000 * 60
-
-  return (
-    <span className="campus-freshness" title={new Date(updatedAt).toLocaleString()}>
-      {wasRepublished ? <span className="campus-freshness__dot" aria-hidden="true" /> : null}
-      {label}
-    </span>
-  )
+  return <span className="campus-freshness">{label}</span>
 }
