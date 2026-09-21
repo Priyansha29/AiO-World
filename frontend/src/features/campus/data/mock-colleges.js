@@ -1,61 +1,53 @@
 /**
- * DEMO DATA — fictional campuses.
+ * Initial college directory — real Pune institutions.
  *
- * No real institution is represented here. This catalogue is swapped for real
- * college data via the data layer; the domain contract stays the same.
+ * This is an initial directory (not a complete list of Pune colleges). It is
+ * bundled as the front-end data layer for now; the same domain contract will
+ * be served by the college API in a later iteration.
  */
 
 /** @type {import('../../domain/campus-types.js').College[]} */
 export const MOCK_COLLEGES = [
   {
-    id: 'col-ait',
-    name: 'Amberfield Institute of Technology',
-    abbreviation: 'AIT',
-    city: 'Bengaluru',
-    state: 'Karnataka',
-    university: 'Crestline University',
-    established: 2009,
-    website: 'https://ait.example.edu',
+    id: 'col-coep',
+    name: 'College of Engineering Pune',
+    abbreviation: 'COEP',
+    city: 'Shivajinagar',
+    state: 'Pune',
   },
   {
-    id: 'col-nce',
-    name: 'Northgate College of Engineering',
-    abbreviation: 'NCE',
-    city: 'Pune',
-    state: 'Maharashtra',
-    university: 'Vihaan University',
-    established: 2012,
-    website: 'https://nce.example.edu',
+    id: 'col-vit',
+    name: 'Vishwakarma Institute of Technology',
+    abbreviation: 'VIT',
+    city: 'Bibwewadi',
+    state: 'Pune',
   },
   {
-    id: 'col-ced',
-    name: 'Cedarwood University',
-    city: 'Chennai',
-    state: 'Tamil Nadu',
-    established: 2004,
+    id: 'col-pict',
+    name: 'Pune Institute of Computer Technology',
+    abbreviation: 'PICT',
+    city: 'Dhankawadi',
+    state: 'Pune',
   },
   {
-    id: 'col-smc',
-    name: 'Sunrise Medical College',
-    abbreviation: 'SMC',
-    city: 'Kochi',
-    state: 'Kerala',
-    established: 2015,
+    id: 'col-sit',
+    name: 'Symbiosis Institute of Technology',
+    abbreviation: 'SIT',
+    city: 'Lavale',
+    state: 'Pune',
   },
   {
-    id: 'col-kid',
-    name: 'Kalinga Design Institute',
-    abbreviation: 'KID',
-    city: 'Bhubaneswar',
-    state: 'Odisha',
-    established: 2018,
+    id: 'col-pccoe',
+    name: 'Pimpri Chinchwad College of Engineering',
+    abbreviation: 'PCCOE',
+    city: 'Nigdi',
+    state: 'Pune',
   },
   {
-    id: 'col-rsc',
-    name: 'Riverside School of Commerce',
-    abbreviation: 'RSC',
-    city: 'Hyderabad',
-    state: 'Telangana',
-    established: 2010,
+    id: 'col-mitwpu',
+    name: 'MIT World Peace University',
+    abbreviation: 'MWPU',
+    city: 'Kothrud',
+    state: 'Pune',
   },
 ]

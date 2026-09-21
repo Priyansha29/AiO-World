@@ -70,7 +70,7 @@ export default function CollegeSetupPage() {
           ) : colleges.length > 0 ? (
             <>
               <p className="setup-results__label">
-                {showPopular ? 'Popular colleges' : `Colleges matching “${query.trim()}”`}
+                {showPopular ? 'Pune colleges' : `Colleges matching “${query.trim()}”`}
               </p>
               <div className="college-list">
                 {colleges.map((college, index) => (
@@ -96,8 +96,7 @@ export default function CollegeSetupPage() {
         </div>
 
         <p className="demo-note">
-          Demo data · The colleges shown are fictional sample data for development,
-          not a live catalogue.
+          Initial Pune college directory · More campuses coming soon.
         </p>
       </div>
     </main>
