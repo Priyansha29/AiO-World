@@ -10,7 +10,7 @@
  */
 import { useEffect, useState } from 'react'
 
-const ROUTES = ['/campus', '/setup', '/play']
+const ROUTES = ['/campus', '/setup', '/play', '/sidequests']
 
 /** Normalize `location.hash` into a route path ('' or '/#…' map to '/'). */
 export function getRoute() {

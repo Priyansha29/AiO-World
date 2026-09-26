@@ -1,0 +1,1714 @@
+/**
+ * Sidequests styles.
+ *
+ * Uses only the tokens already defined in `index.css` — no new palette, no
+ * second design system. Where a section needs a warm accent it comes from the
+ * per-item `--sq-accent` custom property the component sets from
+ * `CATEGORY_META`, so a card's colour is data rather than a new CSS variable to
+ * keep in sync.
+ *
+ * BEM throughout (`sq-block__element--modifier`), matching `campus.css` and
+ * `play.css`.
+ *
+ * Two layout ideas run through the page:
+ *   - **Asymmetry.** The hero's headline is set far left against a narrow measure
+ *     while the shelf beside it runs full width. The weekly card is two columns
+ *     with the artwork on the right. Nothing is a centred stack.
+ *   - **Whitespace as the main instrument.** Vertical rhythm is large, and
+ *     hairlines do the work borders usually do, so the page reads as calm
+ *     rather than dense.
+ *
+ * Mobile is designed, not shrunk: the horizontal rails become swipeable snap
+ * rows, the weekly card stacks, the circle grid drops to one column, and the
+ * filter chips scroll horizontally rather than wrapping into a wall.
+ *
+ * ── Voice ───────────────────────────────────────────────────────────────────
+ * The page is meant to feel like the opposite of a syllabus, and type does most
+ * of that work. One rule: headings, labels and buttons take the design system's
+ * own display token, `--disp`, and body copy stays on `--sans`. Nothing in this
+ * file loads a webfont, so no other section moves and the route adds no font
+ * payload of its own.
+ */
+
+.sq-page {
+  /* Text-safe sand. `--sand` (#e6b26e) is a 1.7:1 fill on this cream — fine as a
+     decorative wash, useless as type. This is the same hue taken down to 4.9:1
+     so the section eyebrows are actually readable. The raw token is untouched
+     and still used for every decorative glyph. */
+  --sq-sand-ink: #8a5f14;
+
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 60% at 12% -8%, rgba(255, 209, 190, 0.5), transparent 62%),
+    radial-gradient(90% 50% at 96% 4%, rgba(247, 230, 201, 0.75), transparent 58%),
+    var(--bg);
+  color: var(--ink);
+}
+
+/* The shell is the page's single measure. Sections vary their own internal
+   layout; this only decides how wide the page is allowed to get. */
+.sq-shell {
+  width: min(1180px, 100% - 2.5rem);
+  margin-inline: auto;
+  padding-block: 1.5rem 6rem;
+}
+
+.sq-shell--bare {
+  padding-block: 2rem 5rem;
+}
+
+/* ── Screen-reader-only ─────────────────────────────────────────────────── */
+
+.sq-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+
+.sq-hero {
+  position: relative;
+  padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(2rem, 5vw, 3.5rem);
+  max-width: 62ch;
+}
+
+.sq-hero__eyebrow {
+  margin: 0 0 1.15rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sq-hero__title {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: clamp(2.4rem, 6.6vw, 4.6rem);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.sq-hero__sub {
+  margin: 1.35rem 0 0;
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.sq-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.sq-hero__shelves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 3rem 0 0;
+  padding: 1.35rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.sq-hero__shelves li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--disp);
+  font-size: 0.86rem;
+  font-weight: 560;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.sq-hero__shelves svg {
+  color: var(--sand);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+
+.sq-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.3rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--disp);
+  font-size: 0.94rem;
+  font-weight: 620;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
+    background-color 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.sq-btn--primary {
+  background: var(--ink);
+  color: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.sq-btn--primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow), 0 10px 26px -12px var(--sand-glow);
+}
+
+.sq-btn--ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.sq-btn--ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--sand);
+  transform: translateY(-1px);
+}
+
+.sq-btn--outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.sq-btn--outline:hover:not(:disabled) {
+  background: var(--surface);
+  border-color: var(--ink-soft);
+}
+
+.sq-btn--done {
+  background: var(--surface);
+  color: #2f6b3a;
+  border-color: #b7d9bc;
+}
+
+.sq-btn--quiet {
+  padding: 0.45rem 0.9rem;
+  background: transparent;
+  color: var(--ink-soft);
+  border-color: var(--border);
+  font-size: 0.84rem;
+}
+
+.sq-btn--quiet:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
+}
+
+.sq-btn--sm {
+  padding: 0.45rem 0.95rem;
+  font-size: 0.82rem;
+}
+
+.sq-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* One visible focus treatment for the whole section, never removed. */
+.sq-page :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Sections ───────────────────────────────────────────────────────────── */
+
+.sq-section {
+  padding-block: clamp(2.75rem, 6vw, 4.5rem);
+}
+
+.sq-section--tinted {
+  position: relative;
+}
+
+/* The tint is a soft wash, not a hard band, so alternating sections read as
+   depth rather than stripes. */
+.sq-section--tinted::before {
+  content: '';
+  position: absolute;
+  inset: clamp(1rem, 2vw, 1.75rem) -1.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 253, 245, 0.28)
+  );
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(233, 217, 187, 0.7);
+  pointer-events: none;
+}
+
+.sq-section--tinted > * {
+  position: relative;
+}
+
+.sq-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.sq-section__intro {
+  max-width: 54ch;
+}
+
+.sq-section__eyebrow {
+  margin: 0 0 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sq-sand-ink);
+}
+
+.sq-section__title {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: clamp(1.55rem, 3.2vw, 2.25rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.sq-section__sub {
+  margin: 0.7rem 0 0;
+  font-size: 0.97rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.sq-section__body {
+  min-height: 6rem;
+}
+
+/* ── Generated card artwork ─────────────────────────────────────────────── */
+
+.sq-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(var(--sq-visual-angle), var(--sq-visual-b), var(--sq-visual-a));
+  isolation: isolate;
+}
+
+.sq-visual--sm {
+  height: 7.5rem;
+}
+
+.sq-visual--md {
+  height: 10rem;
+}
+
+.sq-visual--lg {
+  height: 100%;
+  min-height: 11rem;
+  border-radius: 0;
+}
+
+/* A soft off-centre highlight, placed per item so no two cards match exactly. */
+.sq-visual__wash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    68% 78% at var(--sq-visual-origin-x) 18%,
+    rgba(255, 255, 255, 0.68),
+    transparent 70%
+  );
+}
+
+.sq-visual__glyph {
+  position: relative;
+  /* In front of the artwork's own wash, so the light passes behind the glyph
+     rather than washing over it. */
+  z-index: 1;
+  color: rgba(31, 31, 31, 0.3);
+  transform: rotate(var(--sq-visual-tilt));
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-visual__rule {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.6rem;
+  height: 1px;
+  background: rgba(31, 31, 31, 0.1);
+}
+
+/* ── Content card ───────────────────────────────────────────────────────── */
+
+.sq-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition:
+    transform 0.22s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.22s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow), 0 16px 34px -20px var(--sand-glow);
+  border-color: var(--border-strong);
+}
+
+.sq-card:hover .sq-visual__glyph {
+  transform: rotate(0deg) scale(1.08);
+}
+
+.sq-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  padding: 0.95rem 1.05rem 1.05rem;
+}
+
+.sq-card__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sq-accent, var(--sand));
+}
+
+.sq-card__dot {
+  color: var(--faint);
+}
+
+.sq-card__interest {
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.sq-card__title {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: 1.06rem;
+  line-height: 1.26;
+  font-weight: 620;
+  letter-spacing: -0.008em;
+  text-wrap: balance;
+}
+
+.sq-card__desc {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sq-card__reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.15rem 0 0;
+}
+
+.sq-card__reason {
+  padding: 0.15rem 0.45rem;
+  background: var(--accent-soft);
+  color: #8a3a30;
+  border-radius: var(--radius-full);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.sq-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
+}
+
+.sq-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0;
+}
+
+.sq-card__source {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.sq-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+
+/* The external link is a real control, not body text: it opens a third-party site
+   and a student on a phone will be aiming a thumb at it. The label is set at
+   small reading size, so the hit area is padded out to a comfortable target
+   without changing the type. */
+.sq-card__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+}
+
+.sq-card__link:hover {
+  text-decoration-color: var(--ink);
+}
+
+.sq-card--skeleton {
+  padding: 0;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.sq-card--skeleton .sq-skeleton {
+  margin-inline: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.sq-card--skeleton .sq-skeleton:first-child {
+  margin-inline: 0;
+  margin-bottom: 0;
+}
+
+.sq-card--lead {
+  flex-direction: column;
+}
+
+.sq-card--lead .sq-visual--lg {
+  min-height: 13rem;
+}
+
+.sq-card--lead .sq-card__title {
+  font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+}
+
+.sq-card--lead .sq-card__desc {
+  -webkit-line-clamp: 5;
+  font-size: 0.95rem;
+}
+
+/* ── Grids and rails ────────────────────────────────────────────────────── */
+
+.sq-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1.1rem;
+}
+
+.sq-card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1.1rem;
+}
+
+/* A shelf, not a grid. Scroll-snap plus padding so the first and last card can
+   sit flush with the shell edge while still breathing. */
+.sq-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(16rem, 21rem);
+  gap: 1.1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.25rem;
+  padding-bottom: 0.85rem;
+  /* A hint that there is more to the right, without an arrow overlay. */
+  mask-image: linear-gradient(90deg, #000 0, #000 92%, transparent 100%);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.sq-rail__item {
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+.sq-rail::-webkit-scrollbar {
+  height: 6px;
+}
+
+.sq-rail::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+
+.sq-shelf__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.sq-shelf__note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ── Interests ──────────────────────────────────────────────────────────── */
+
+.sq-interests__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sq-search {
+  flex: 1 1 15rem;
+}
+
+.sq-search input {
+  width: 100%;
+  padding: 0.6rem 0.95rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  transition: border-color 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-search input::placeholder {
+  color: var(--faint);
+}
+
+.sq-search input:focus {
+  border-color: var(--ink-soft);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 31, 31, 0.08);
+}
+
+.sq-interests__count {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.sq-interests__groups {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.sq-interest-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sq-interest-group__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.6rem;
+  padding: 0;
+}
+
+.sq-interest-group__label {
+  font-family: var(--disp);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sq-interest-group__blurb {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.sq-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.sq-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.8rem;
+  background: var(--surface);
+  color: var(--ink-soft);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  font-family: var(--disp);
+  font-size: 0.88rem;
+  font-weight: 560;
+  letter-spacing: -0.002em;
+  cursor: pointer;
+  transition:
+    background-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.16s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-chip svg {
+  color: var(--sq-accent, var(--sand));
+  transition: color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--ink-soft);
+}
+
+.sq-chip--on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+
+.sq-chip--on svg {
+  color: var(--peach);
+}
+
+.sq-chip:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.sq-interests__none,
+.sq-interests__skeleton-row {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.sq-interests__none {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.sq-interests__loading {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* ── Discovery ──────────────────────────────────────────────────────────── */
+
+.sq-discover__stage {
+  position: relative;
+  min-height: 20rem;
+}
+
+.sq-discover__card {
+  max-width: 40rem;
+}
+
+.sq-discover__waiting {
+  display: grid;
+  place-items: center;
+  min-height: 20rem;
+  margin: 0;
+  padding: 2rem;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.sq-discover__busy {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.sq-discover__spinner {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--ink);
+  border-radius: 50%;
+  animation: sq-spin 0.8s linear infinite;
+}
+
+@keyframes sq-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sq-discover__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.sq-discover__band {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.sq-discover__count {
+  color: var(--faint);
+}
+
+/* ── Sidequest of the week ──────────────────────────────────────────────── */
+
+.sq-week {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  /* The card is the page's one tiltable object: it is the largest, it is alone in
+     its section, and a couple of degrees reads as considered rather than as a
+     toy. The rotate values themselves are written by Framer Motion from the
+     pointer, in `SidequestOfTheWeek`. */
+  transition:
+    border-color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-week:hover {
+  box-shadow: var(--shadow), 0 22px 46px -26px var(--sand-glow);
+}
+
+.sq-week--done {
+  border-color: #b7d9bc;
+}
+
+.sq-week__body {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.sq-week__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sq-week__badge {
+  padding: 0.2rem 0.55rem;
+  background: var(--accent-soft);
+  color: #8a3a30;
+  border-radius: var(--radius-full);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+}
+
+.sq-week__title {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  line-height: 1.2;
+  font-weight: 620;
+  letter-spacing: -0.016em;
+  text-wrap: balance;
+}
+
+.sq-week__desc {
+  margin: 0.85rem 0 0;
+  font-size: 0.97rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+
+.sq-week__pitch {
+  margin: 0.85rem 0 0;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--peach-border);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.sq-week__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.sq-week__facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sq-week__facts svg {
+  color: var(--sand);
+}
+
+.sq-week__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 1.5rem;
+}
+
+.sq-week__note {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--faint);
+}
+
+.sq-week__art {
+  position: relative;
+}
+
+.sq-week__art .sq-visual {
+  height: 100%;
+}
+
+.sq-week--empty {
+  display: block;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.sq-week__absent {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ── Filters ────────────────────────────────────────────────────────────── */
+
+.sq-filters {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: none;
+}
+
+.sq-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.sq-filter {
+  flex: 0 0 auto;
+  padding: 0.4rem 0.85rem;
+  background: var(--surface);
+  color: var(--ink-soft);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  font-family: var(--disp);
+  font-size: 0.86rem;
+  font-weight: 560;
+  letter-spacing: -0.002em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-filter:hover:not(:disabled) {
+  border-color: var(--ink-soft);
+}
+
+.sq-filter--on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+
+.sq-filter:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Events ─────────────────────────────────────────────────────────────── */
+
+.sq-events__disclaimer,
+.sq-circles__disclaimer {
+  margin: 0 0 1.15rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--peach-soft);
+  border: 1px solid var(--peach-border);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: #7a4a24;
+}
+
+.sq-event-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sq-event {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr) auto;
+  gap: 1rem 1.5rem;
+  align-items: start;
+  padding: 1.05rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-event:hover {
+  transform: translateX(2px);
+  box-shadow: var(--shadow-soft);
+  border-color: var(--border-strong);
+}
+
+.sq-event__when {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.sq-event__day {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
+.sq-event__day--weekend {
+  color: #8a3a30;
+}
+
+.sq-event__free {
+  padding: 0.1rem 0.45rem;
+  background: #dff0e2;
+  color: #2f6b3a;
+  border-radius: var(--radius-full);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sq-event__title {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: 1.04rem;
+  line-height: 1.3;
+  font-weight: 620;
+  letter-spacing: -0.008em;
+  text-wrap: balance;
+}
+
+.sq-event__desc {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+.sq-event__where {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.sq-event__where svg {
+  flex: 0 0 auto;
+  color: var(--sand);
+}
+
+.sq-event__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.55rem 0 0;
+}
+
+.sq-tag {
+  display: inline-block;
+  padding: 0.14rem 0.5rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 550;
+  color: var(--muted);
+}
+
+.sq-event__link {
+  align-self: center;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-event__link:hover {
+  background: var(--surface);
+  border-color: var(--ink);
+}
+
+/* ── People ─────────────────────────────────────────────────────────────── */
+
+.sq-people__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.75rem;
+}
+
+.sq-people__col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.25rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.sq-people__heading {
+  margin: 0 0 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sq-people__list {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sq-people__row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.4rem;
+  border-radius: var(--radius-sm);
+}
+
+.sq-people__icon {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  color: var(--sand);
+  flex: 0 0 auto;
+}
+
+.sq-people__name {
+  font-family: var(--disp);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.sq-people__count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sq-people__none,
+.sq-people__note {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.sq-people__note,
+.sq-saved__note {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: var(--faint);
+}
+
+.sq-people__loading {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 0.75rem;
+}
+
+/* ── Circles ────────────────────────────────────────────────────────────── */
+
+.sq-circle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sq-circle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-circle:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.sq-circle--joined {
+  border-color: #b7d9bc;
+  background: linear-gradient(180deg, #f4fbf5, var(--surface) 60%);
+}
+
+.sq-circle__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.sq-circle__name {
+  margin: 0.1rem 0 0;
+  font-family: var(--disp);
+  font-size: 1.12rem;
+  line-height: 1.24;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+}
+
+.sq-circle__desc {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.sq-circle__count {
+  margin: 0.35rem 0 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.sq-circle .sq-btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* ── Saved ──────────────────────────────────────────────────────────────── */
+
+.sq-saved__when {
+  margin: 0.4rem 0 0 0.25rem;
+  font-size: 0.74rem;
+  color: var(--faint);
+}
+
+/* A save the server has not described yet: a card-shaped gap plus a plain
+   sentence, so the row never looks like a broken card. */
+.sq-saved__awaiting {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sq-saved__awaiting-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.85rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+}
+
+.sq-saved__awaiting-row .sq-skeleton {
+  flex: 1 1 6rem;
+  min-width: 4rem;
+}
+
+.sq-saved__awaiting-row span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.sq-saved__awaiting-row button {
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ── Save button ────────────────────────────────────────────────────────── */
+
+.sq-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  font-family: var(--disp);
+  font-size: 0.79rem;
+  font-weight: 600;
+  letter-spacing: -0.002em;
+  cursor: pointer;
+  transition:
+    background-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 0.16s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-save:hover:not(:disabled) {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.sq-save--on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+
+.sq-save:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ── States ─────────────────────────────────────────────────────────────── */
+
+.sq-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-soft) 25%,
+    #fff6e6 50%,
+    var(--bg-soft) 75%
+  );
+  background-size: 200% 100%;
+  animation: sq-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes sq-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.sq-state {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: clamp(2rem, 5vw, 3rem) 1.5rem;
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+}
+
+.sq-state__mark {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-bottom: 0.25rem;
+  background: var(--bg-soft);
+  border-radius: var(--radius-full);
+}
+
+.sq-state__mark span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--sand);
+  opacity: 0.6;
+}
+
+.sq-state__mark--error {
+  background: var(--accent-soft);
+}
+
+.sq-state__mark--error span {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 0.7rem;
+  text-align: center;
+}
+
+.sq-state__title {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: 1.12rem;
+  line-height: 1.3;
+  font-weight: 620;
+}
+
+.sq-state__hint {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.sq-state__retry {
+  margin-top: 0.6rem;
+  padding: 0.5rem 1.1rem;
+  background: var(--ink);
+  color: var(--surface);
+  border: 0;
+  border-radius: var(--radius-full);
+  font-family: var(--disp);
+  font-size: 0.88rem;
+  font-weight: 620;
+  letter-spacing: -0.002em;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-state__retry:hover {
+  transform: translateY(-1px);
+}
+
+.sq-inline-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.85rem 0 0;
+  padding: 0.5rem 0.8rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: #8a3a30;
+}
+
+.sq-inline-error button {
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── Closing ────────────────────────────────────────────────────────────── */
+
+.sq-closing {
+  padding-block: clamp(3.5rem, 9vw, 6rem);
+  text-align: center;
+  border-top: 1px solid var(--border);
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+}
+
+.sq-closing__line {
+  margin: 0;
+  font-family: var(--disp);
+  font-size: clamp(1.7rem, 4.4vw, 2.9rem);
+  line-height: 1.2;
+  font-weight: 620;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+.sq-closing__sub {
+  margin: 0.75rem 0 0;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--muted);
+}
+
+.sq-closing__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  font-family: var(--disp);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: -0.002em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition:
+    border-color 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sq-closing__back:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.sq-closing__back svg {
+  color: var(--sand);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .sq-week {
+    grid-template-columns: 1fr;
+  }
+
+  .sq-week__art .sq-visual {
+    min-height: 8rem;
+    order: -1;
+  }
+
+  .sq-event {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .sq-event__when {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .sq-event__link {
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .sq-shell {
+    width: min(1180px, 100% - 2rem);
+  }
+
+  .sq-section--tinted::before {
+    inset: 0.75rem -0.6rem;
+  }
+
+  /* One card per screen is the point of a rail on a phone — the next thing is a
+     swipe away, which is what a thumb expects. */
+  .sq-rail {
+    grid-auto-columns: minmax(14.5rem, 82%);
+  }
+
+  .sq-card-grid,
+  .sq-card-row,
+  .sq-circle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sq-hero__actions .sq-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .sq-week__art .sq-visual {
+    min-height: 6.5rem;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+/*
+ * Framer Motion's `MotionConfig reducedMotion="user"` already drops transform
+ * animation for users who ask for it. These rules cover the CSS-driven
+ * movement that sits outside Framer's reach: the shimmer, the spinner, and the
+ * hover lifts.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .sq-skeleton {
+    animation: none;
+    background: var(--bg-soft);
+  }
+
+  .sq-discover__spinner {
+    animation-duration: 2.4s;
+  }
+
+  .sq-card:hover,
+  .sq-chip:hover,
+  .sq-btn:hover:not(:disabled),
+  .sq-closing__back:hover,
+  .sq-save:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .sq-card:hover .sq-visual__glyph {
+    transform: none;
+  }
+}
+
+/* ── Print ──────────────────────────────────────────────────────────────── */
+
+/* Useful if somebody prints their saved list. The chrome goes, the content
+   stays, and links are not expanded into a wall of URLs. */
+@media print {
+  .sq-page {
+    background: #fff;
+  }
+
+  .sq-hero__actions,
+  .sq-filters,
+  .sq-save,
+  .sq-closing__back,
+  .sq-discover__foot,
+  .sq-week__note,
+  .sq-saved__note {
+    display: none;
+  }
+
+  .sq-rail {
+    display: block;
+    overflow: visible;
+    mask-image: none;
+  }
+
+  .sq-rail__item {
+    break-inside: avoid;
+  }
+
+  .sq-card,
+  .sq-event,
+  .sq-circle,
+  .sq-week {
+    box-shadow: none;
+    border-color: #ccc;
+  }
+}

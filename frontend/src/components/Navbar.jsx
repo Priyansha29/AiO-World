@@ -13,9 +13,13 @@ function Navbar() {
   const [open, setOpen] = useState(false)
 
   // Campus Hub entry — points at setup until a college is chosen.
+  // Sidequests gets its own entry because it is a full section, not an anchor,
+  // and it sits last: it is the one link here that leaves the syllabus
+  // entirely, so it reads as a destination rather than as another tab.
   const links = [
     { label: 'Campus', href: getSelectedCollege() ? '#/campus' : '#/setup' },
     ...LINKS,
+    { label: 'Sidequests', href: '#/sidequests' },
   ]
 
   useEffect(() => {
