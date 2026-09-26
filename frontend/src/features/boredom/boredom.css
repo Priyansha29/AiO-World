@@ -1,0 +1,1015 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Boredom machine — "I'm bored — surprise me"
+
+   One full-screen experience. The page behind it dims, a paper fortune teller
+   opens in the middle, and a surprise comes out.
+
+   Layout is a single centred column: copy → paper → result → controls. The
+   paper is real 3D: a perspective container, four hinged flaps and a core
+   square, all in `preserve-3d`, all moved with transforms only.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.boredom {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  /* The paper sits on a page, so give the page an edge to sit on. */
+  box-shadow: 0 -30px 80px -30px rgba(84, 59, 24, 0.28);
+}
+
+/* Screen-reader-only text: the live region that narrates the machine.
+   Deliberately feature-scoped rather than a global `.sr-only` — the project
+   uses that name in Navbar.jsx but never defines it, so adding a global rule
+   here would quietly restyle a component outside this feature. */
+.boredom__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* A faint graph-paper grid, fading out from the middle. Reads as "notebook"
+   rather than "tech", which is exactly the register this feature wants. */
+.boredom__field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--border-strong) 30%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--border-strong) 30%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+  mask-image: radial-gradient(66% 58% at 50% 40%, #000 12%, transparent 76%);
+  opacity: 0.55;
+}
+
+/* A single soft pool of warmth behind the paper. Depth without a 3D engine. */
+.boredom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    52% 42% at 50% 40%,
+    color-mix(in srgb, var(--peach) 24%, transparent),
+    transparent 72%
+  );
+}
+
+/* ── Chrome ──────────────────────────────────────────────────────────────── */
+
+.boredom__chrome {
+  position: relative;
+  z-index: 3;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(14px, 2.4vh, 22px) clamp(16px, 4vw, 34px);
+}
+
+.boredom__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.boredom__brand-mark {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+.boredom__close {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  /* 44px is the smallest target a thumb reliably lands on. The visual weight
+     stays the same; the padding just refuses to go below it. */
+  min-height: 44px;
+  padding: 9px 15px 9px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+.boredom__close-x {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  flex: none;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 1.6px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+/* ── Stage ───────────────────────────────────────────────────────────────── */
+
+.boredom__stage {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.5vh, 18px);
+  padding: 0 clamp(16px, 4.5vw, 40px) clamp(14px, 2.4vh, 26px);
+  text-align: center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.boredom__copy {
+  flex: none;
+  min-height: 1.6em;
+  display: flex;
+  align-items: center;
+}
+
+.boredom__line {
+  margin: 0;
+  font-size: clamp(1.02rem, 2.1vw, 1.32rem);
+  font-weight: 620;
+  letter-spacing: -0.018em;
+  line-height: 1.35;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.boredom__mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+
+  span {
+    font-size: 1.15em;
+    line-height: 1;
+  }
+}
+
+.boredom__result {
+  width: 100%;
+  max-width: 620px;
+  flex: none;
+}
+
+/* ── The paper ───────────────────────────────────────────────────────────── */
+
+.origami {
+  /* The core square's edge. Everything else is derived from it, so the whole
+     object scales as one piece. */
+  --core: clamp(84px, 22vw, 128px);
+  --span: calc(var(--core) * 3);
+  --fold-radius: 12px;
+
+  position: relative;
+  flex: none;
+  width: var(--span);
+  height: var(--span);
+  perspective: 1000px;
+  perspective-origin: 50% 46%;
+  /* Once the result has landed the flaps get out of the way and only the core
+     — with its slip — remains. Transitioning the height keeps the layout from
+     snapping shut underneath the text. */
+  transition: height 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.boredom[data-phase='result'] .origami {
+  height: calc(var(--core) * 1.24);
+}
+
+.origami__shadow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 74%;
+  height: 74%;
+  transform: translate(-50%, -44%);
+  background: radial-gradient(closest-side, rgba(84, 59, 24, 0.22), transparent 72%);
+  filter: blur(16px);
+  transition:
+    opacity 0.42s ease,
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.boredom[data-phase='result'] .origami__shadow {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) scale(0.52);
+}
+
+.origami__body {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.origami__sway {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* The idle wiggle. Only mounted while the paper is waiting on the player, and
+   because it is a CSS animation it costs nothing when it is absent. */
+@keyframes origami-sway {
+  0%,
+  100% {
+    transform: rotateX(2.2deg) rotateY(-2.8deg);
+  }
+  50% {
+    transform: rotateX(-1.5deg) rotateY(2.9deg) translateZ(4px);
+  }
+}
+
+.origami__sway--alive {
+  animation: origami-sway 5.4s ease-in-out infinite;
+}
+
+/* The four folds ------------------------------------------------------------ */
+
+.origami__folds {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.flap {
+  position: absolute;
+  width: var(--core);
+  height: var(--core);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Each flap sits flush against one edge of the core and hinges on it, so the
+     open paper is a plus sign that exactly fills the 3x3 box. Offsets are
+     measured from the core, which is centred in that box at --core — anchoring
+     them to the box corner instead would hang every hinge one core-width off
+     the paper and shift the whole cross up and to the left. */
+  &[data-fold='top'] {
+    top: 0;
+    left: var(--core);
+    transform-origin: 50% 100%;
+  }
+  &[data-fold='bottom'] {
+    top: calc(2 * var(--core));
+    left: var(--core);
+    transform-origin: 50% 0%;
+  }
+  &[data-fold='left'] {
+    top: var(--core);
+    left: 0;
+    transform-origin: 100% 50%;
+  }
+  &[data-fold='right'] {
+    top: var(--core);
+    left: calc(2 * var(--core));
+    transform-origin: 0% 50%;
+  }
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+/* A separate element so the hover lift can be composed with the fold angle
+   that Framer writes onto `.flap` as an inline transform. */
+.flap__sheet {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.flap:not([disabled]):hover .flap__sheet,
+.flap:not([disabled]):focus-visible .flap__sheet {
+  transform: translateZ(26px) scale(1.045);
+}
+
+.flap:not([disabled]):focus-visible {
+  outline: none;
+}
+
+.flap__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--fold-radius);
+  backface-visibility: hidden;
+  /* Cardstock: a soft vertical shade plus a warm inner edge, so the sheet
+     reads as a physical object lit from above. */
+  background:
+    linear-gradient(
+      168deg,
+      color-mix(in srgb, #fff 34%, transparent),
+      transparent 58%
+    ),
+    var(--paper, var(--peach));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 46%, transparent) inset,
+    0 -2px 6px rgba(84, 59, 24, 0.09) inset,
+    0 6px 14px -8px rgba(84, 59, 24, 0.4);
+  transition: box-shadow 0.3s ease;
+
+  /* The hinge: a darker band along the edge the flap folds from. It is what
+     makes the fold look like a fold and not a cut-out. */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      var(--hinge-dir, to top),
+      color-mix(in srgb, #543b18 20%, transparent),
+      transparent 34%
+    );
+    pointer-events: none;
+  }
+}
+
+.flap[data-fold='top'] .flap__face {
+  --paper: var(--coral);
+  --hinge-dir: to top;
+}
+.flap[data-fold='right'] .flap__face {
+  --paper: var(--peach);
+  --hinge-dir: to left;
+}
+.flap[data-fold='bottom'] .flap__face {
+  --paper: var(--coral-soft);
+  --hinge-dir: to bottom;
+}
+.flap[data-fold='left'] .flap__face {
+  --paper: var(--bg-soft);
+  --hinge-dir: to right;
+}
+
+.flap:not([disabled]):hover .flap__face,
+.flap:not([disabled]):focus-visible .flap__face {
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 54%, transparent) inset,
+    0 -2px 6px rgba(84, 59, 24, 0.08) inset,
+    0 18px 26px -14px rgba(84, 59, 24, 0.5);
+}
+
+/* A diagonal crease, because a fold has a memory of where it was folded. */
+.flap__crease {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    var(--crease-dir, 135deg),
+    transparent 48%,
+    color-mix(in srgb, #543b18 9%, transparent) 50%,
+    transparent 52%
+  );
+  pointer-events: none;
+}
+
+.flap[data-fold='top'] .flap__crease {
+  --crease-dir: 135deg;
+}
+.flap[data-fold='bottom'] .flap__crease {
+  --crease-dir: 315deg;
+}
+.flap[data-fold='left'] .flap__crease {
+  --crease-dir: 45deg;
+}
+.flap[data-fold='right'] .flap__crease {
+  --crease-dir: 225deg;
+}
+
+/* The label sits on a little cream sticker rather than straight on the colour.
+   That keeps the type high-contrast on every fold and makes the object look
+   hand-assembled. */
+.flap__label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 7px;
+  border-radius: 8px;
+  background: color-mix(in srgb, #fffdf5 92%, transparent);
+  box-shadow:
+    0 1px 2px rgba(84, 59, 24, 0.16),
+    0 0 0 1px color-mix(in srgb, var(--border-strong) 40%, transparent);
+  transform: rotate(var(--label-tilt, -1.4deg));
+  transition:
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.flap[data-fold='top'] .flap__label {
+  --label-tilt: -1.6deg;
+}
+.flap[data-fold='right'] .flap__label {
+  --label-tilt: 1.4deg;
+}
+.flap[data-fold='bottom'] .flap__label {
+  --label-tilt: 1.2deg;
+}
+.flap[data-fold='left'] .flap__label {
+  --label-tilt: -1deg;
+}
+
+.flap:not([disabled]):hover .flap__label,
+.flap:not([disabled]):focus-visible .flap__label {
+  transform: rotate(var(--label-tilt)) scale(1.07);
+  box-shadow:
+    0 3px 8px rgba(84, 59, 24, 0.2),
+    0 0 0 1px color-mix(in srgb, var(--border-strong) 55%, transparent);
+}
+
+.flap__words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: clamp(9.5px, 1.7vw, 10px);
+  font-weight: 750;
+  line-height: 1.16;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--ink);
+}
+
+/* The core ----------------------------------------------------------------- */
+
+.origami__core {
+  position: absolute;
+  top: var(--core);
+  left: var(--core);
+  width: var(--core);
+  height: var(--core);
+  transform-style: preserve-3d;
+}
+
+.core__paper {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  border-radius: 14px;
+  text-align: center;
+  background:
+    linear-gradient(170deg, #fffdf5, color-mix(in srgb, var(--bg-soft) 62%, #fffdf5));
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 0 0 1px color-mix(in srgb, var(--border-strong) 55%, transparent),
+    0 14px 28px -16px rgba(84, 59, 24, 0.55),
+    0 3px 8px -4px rgba(84, 59, 24, 0.3);
+}
+
+.core__stamp {
+  font-size: clamp(8px, 1.6vw, 9px);
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--muted) 80%, transparent);
+}
+
+.core__line {
+  margin: 0;
+  font-size: clamp(9.5px, 1.9vw, 11px);
+  font-weight: 620;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--ink-soft);
+  text-wrap: balance;
+}
+
+/* The slip: what the paper hands you. */
+.core__slip {
+  position: relative;
+  display: inline-block;
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: clamp(8px, 1.5vw, 9px);
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  line-height: 1.2;
+  text-align: center;
+  box-shadow: 0 6px 12px -6px var(--accent-glow);
+}
+
+/* The reveal ring. One ring, once. */
+@keyframes origami-flash {
+  from {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.62);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.32);
+  }
+}
+
+.origami__flash {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--core);
+  height: var(--core);
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--peach) 70%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+
+  &[data-on='true'] {
+    animation: origami-flash 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 1;
+  }
+}
+
+/* ── The result ──────────────────────────────────────────────────────────── */
+
+.reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2vh, 20px);
+}
+
+.reveal__lines {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vh, 14px);
+}
+
+.reveal__line {
+  margin: 0;
+  font-size: clamp(1.06rem, 2.3vw, 1.42rem);
+  font-weight: 600;
+  line-height: 1.34;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.reveal__eyebrow {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.reveal__headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+
+.reveal__chip {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--peach) 34%, transparent);
+  box-shadow: 0 0 0 1px var(--peach-border);
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.reveal__title {
+  margin: 0;
+  font-size: clamp(1.3rem, 3.4vw, 1.85rem);
+  font-weight: 750;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.reveal__blurb {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(0.96rem, 1.9vw, 1.06rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.reveal__options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.reveal__option {
+  padding: 9px 15px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--border-strong);
+  font-size: 0.92rem;
+  font-weight: 620;
+  color: var(--ink);
+}
+
+.reveal__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 460px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.reveal__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: clamp(0.92rem, 1.8vw, 1rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.reveal__step-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+/* The breathing helper. A plain CSS loop, so it stops the moment it unmounts. */
+@keyframes breath-cycle {
+  0% {
+    transform: scale(0.82);
+  }
+  25% {
+    transform: scale(1.14);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+  75% {
+    transform: scale(0.82);
+  }
+  100% {
+    transform: scale(0.82);
+  }
+}
+
+@keyframes breath-ring-cycle {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  25% {
+    transform: scale(1.16);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.16);
+    opacity: 0.9;
+  }
+  75% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+}
+
+.reveal__player {
+  display: grid;
+  place-items: center;
+  padding: 6px 0 2px;
+}
+
+.breath {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+}
+
+.breath__core {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 38% 34%,
+    color-mix(in srgb, var(--peach) 70%, #fff),
+    var(--coral) 72%
+  );
+  box-shadow: 0 8px 20px -10px var(--coral-glow);
+  animation: breath-cycle 16s ease-in-out infinite;
+}
+
+.breath__ring {
+  position: absolute;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  border: 1.5px solid var(--peach-border);
+  animation: breath-ring-cycle 16s ease-in-out infinite;
+}
+
+.breath__caption {
+  position: absolute;
+  bottom: -6px;
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Actions ------------------------------------------------------------------ */
+
+.reveal__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+  font-weight: 650;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.reveal__action--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 10px 22px -12px var(--accent-glow);
+
+  &:hover {
+    transform: translateY(-2px);
+    background: color-mix(in srgb, var(--accent) 86%, #000);
+  }
+}
+
+.reveal__action--link {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px var(--border-strong);
+
+  &:hover {
+    transform: translateY(-2px);
+    color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+}
+
+.reveal__action:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── Controls ────────────────────────────────────────────────────────────── */
+
+.controls {
+  position: relative;
+  z-index: 3;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  padding: clamp(10px, 2vh, 20px) clamp(16px, 4.5vw, 40px) clamp(18px, 3.4vh, 30px);
+}
+
+.controls__again {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: min(300px, 82vw);
+  padding: 14px 30px;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--accent);
+  /* Not --accent-ink. White on #ff3737 is 3.6:1, which fails AA for text this
+     size; the near-black ink is 4.6:1 on the same red. The hover below
+     lightens the red rather than darkening it, so the ratio only improves
+     from there instead of dropping back under the line. */
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 12px 26px -14px var(--accent-glow);
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background: color-mix(in srgb, var(--accent) 88%, #fff);
+    box-shadow: 0 16px 32px -14px var(--accent-glow);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+}
+
+.controls__again-label {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.controls__again-sub {
+  font-size: 11px;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+  /* Same ink as the label, not a dimmed version: any mix of #1f1f1f toward the
+     #ff3737 background lands under 4.5:1, and this is small text. The hierarchy
+     comes from the size and weight instead. */
+  color: var(--ink);
+}
+
+.controls__done {
+  min-height: 44px;
+  padding: 9px 18px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+
+  &:hover {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--bg-soft) 70%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .origami {
+    --core: clamp(76px, 21vw, 104px);
+  }
+
+  .boredom__chrome {
+    padding-inline: clamp(14px, 4vw, 20px);
+  }
+
+  /* The close label is the first thing to go on a narrow screen — the × and the
+     Escape key both still work. */
+  .boredom__close span:last-child {
+    display: none;
+  }
+
+  .boredom__close {
+    /* Label is hidden here, so the icon alone has to carry a 44px target. */
+    min-width: 44px;
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .boredom__stage {
+    justify-content: flex-start;
+    padding-top: clamp(4px, 1.5vh, 14px);
+  }
+}
+
+@media (max-height: 720px) {
+  .origami {
+    --core: clamp(70px, 15vh, 96px);
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+/* The interaction is identical; only the theatre is removed. */
+
+@media (prefers-reduced-motion: reduce) {
+  .boredom__field,
+  .origami__flash {
+    display: none;
+  }
+
+  .origami__sway--alive {
+    animation: none;
+  }
+
+  .breath__core,
+  .breath__ring {
+    animation: none;
+  }
+
+  .flap__sheet,
+  .flap__label,
+  .flap__face,
+  .origami,
+  .origami__shadow {
+    transition-duration: 0.01ms;
+  }
+}

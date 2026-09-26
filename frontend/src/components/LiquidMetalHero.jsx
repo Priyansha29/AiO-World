@@ -30,6 +30,7 @@ function LiquidMetalHero({
   secondaryCtaLabel,
   onPrimaryCtaClick,
   onSecondaryCtaClick,
+  secondaryCtaRef,
   lanes = [],
   onSelectLane,
 }) {
@@ -235,6 +236,7 @@ function LiquidMetalHero({
                 type="button"
                 className="liquid-hero__cta liquid-hero__cta--ghost"
                 onClick={onSecondaryCtaClick}
+                ref={secondaryCtaRef}
               >
                 {secondaryCtaLabel}
               </button>
