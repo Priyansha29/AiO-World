@@ -275,6 +275,26 @@
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
+  /* Moves with the box height below, so the two hand the space back together. */
+  transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Once the result has landed the paper gives its space back, and the core has
+   to go with it.
+
+   The core is not at the top of this box: it is one core-width down, centred in
+   the 3x3 grid the four open folds occupy. So shrinking the box on result left
+   the core hanging 0.76 of a core below its own box, sitting on top of the mood
+   line and the first lines of the reveal. Lifting the whole object by exactly
+   one core puts the core at the top of the shortened box with the 0.24 slack
+   underneath it — where the box always said it was.
+
+   Safe on this element specifically because the wiggle below is a keyframe
+   animation on .origami__sway--alive, which is only mounted while the player is
+   choosing — never in the result phase. Framer writes its spin/shake onto
+   .origami__body, one level up, so there is nothing to collide with here. */
+.boredom[data-phase='result'] .origami__sway {
+  transform: translateY(calc(-1 * var(--core)));
 }
 
 /* The idle wiggle. Only mounted while the paper is waiting on the player, and
@@ -1009,6 +1029,7 @@
   .flap__label,
   .flap__face,
   .origami,
+  .origami__sway,
   .origami__shadow {
     transition-duration: 0.01ms;
   }
