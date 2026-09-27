@@ -46,17 +46,22 @@ export default function SubjectsPage() {
         <CatalogExplorer
           items={SUBJECT_RECORDS}
           groups={SUBJECT_FILTERS}
+          searchFields={['title', 'description', 'aliases', 'tags']}
           groupBy="group"
           groupOrder={SUBJECT_GROUP_ORDER}
           groupLabelFor={subjectGroupLabel}
+          countLabel="subject"
+          searchLabel="Search subjects"
           hrefFor={(subject) => `#/learn/subjects/${subject.id}`}
           renderMeta={(subject) => {
             const n = subject.skills.length
-            return (
-              <span className="sbj-meta">
-                {n === 0 ? 'No skills mapped yet' : `${n} related ${n === 1 ? 'skill' : 'skills'}`}
-              </span>
-            )
+            return n === 0
+              ? null
+              : (
+                  <span className="sbj-meta">
+                    {n} related {n === 1 ? 'skill' : 'skills'}
+                  </span>
+                )
           }}
           emptyTitle="No subjects yet."
           emptyBody="The subject catalogue is waiting for its first entry — it should never be empty."

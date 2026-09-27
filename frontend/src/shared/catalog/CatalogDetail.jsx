@@ -16,7 +16,7 @@ import './catalog.css'
  *   sub?: string,
  *   record: object | null,
  *   facts?: Array<{ label: string, value: string }>,
- *   sections?: Array<{ heading: string, body?: string, items?: string[] }>,
+ *   sections?: Array<{ heading: string, body?: string, items?: Array<string | { label: string, href: string }> }>,
  *   cta?: { label: string, href: string, note?: string },
  *   backHref?: string,
  *   backLabel?: string,
@@ -88,9 +88,19 @@ export default function CatalogDetail({
           {section.body && <p className="cat-section__body">{section.body}</p>}
           {section.items && section.items.length > 0 && (
             <ul className="cat-section__list">
-              {section.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
+              {section.items.map((item) => {
+                if (item != null && typeof item === 'object') {
+                  const { label, href } = item
+                  if (href) {
+                    return (
+                      <li key={href}>
+                        <a className="cat-section__link" href={href} target="_blank" rel="noreferrer">{label ?? href} ↗</a>
+                      </li>
+                    )
+                  }
+                }
+                return <li key={item}>{item}</li>
+              })}
             </ul>
           )}
         </section>

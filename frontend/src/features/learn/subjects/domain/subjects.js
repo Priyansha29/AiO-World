@@ -40,6 +40,7 @@ export function subjectToRecord(subject) {
     group: group?.key ?? null,
     groupLabel: group?.label ?? null,
     skills: skills.map((skill) => skill.key),
+    aliases: [subject.key],
     tags: group ? [group.label] : [],
   }
 }

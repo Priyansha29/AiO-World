@@ -357,6 +357,11 @@ export function skillLabel(key) {
   return SKILL_BY_KEY[key]?.label ?? key
 }
 
+/** Accepted spellings for a skill key (for search/normalisation), if any. */
+export function skillAliases(key) {
+  return SKILL_BY_KEY[key]?.aliases ?? []
+}
+
 /** All skills a subject owns, sorted by label. */
 export function skillsForSubject(subjectKey) {
   return SKILLS.filter((skill) => skill.subjects.includes(subjectKey)).sort((a, b) =>

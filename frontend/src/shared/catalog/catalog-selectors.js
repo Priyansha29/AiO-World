@@ -8,14 +8,16 @@
  * turned into searchable labels through the shared taxonomy, so a query like
  * "react course" finds a course tagged with the react skill key.
  */
-import { skillLabel, subjectLabel } from '../taxonomy'
+import { skillAliases, skillLabel, subjectLabel } from '../taxonomy'
 
 /**
  * The flattened searchable text for one record.
  *
  * `fields` lists the record's own properties to include (title, description,
  * tags, …). `labelKeys` names the properties that hold shared subject/skill
- * keys, which are included by their human labels.
+ * keys; those are included by their human label, their key and any skill
+ * aliases (so "cpp", "js", "reactjs" resolve), keeping taxonomy terms and
+ * natural language equally searchable through one haystack.
  */
 export function catalogHaystack(
   record,
@@ -30,7 +32,10 @@ export function catalogHaystack(
   const labels = labelKeys.flatMap((field) => {
     const keys = record[field]
     if (!Array.isArray(keys)) return []
-    return keys.map((key) => (field === 'subjects' ? subjectLabel(key) : skillLabel(key)))
+    return keys.flatMap((key) => {
+      if (field === 'subjects') return [key, subjectLabel(key)]
+      return [key, skillLabel(key), ...skillAliases(key)]
+    })
   })
 
   return [...own, ...labels].join(' ').toLowerCase()

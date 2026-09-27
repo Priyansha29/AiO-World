@@ -12,13 +12,33 @@ second subject list exists anywhere.
   a card grid grouped under the six group headers from the taxonomy.
 - `/learn/subjects/:subjectId` — one subject's detail page (e.g.
   `/learn/subjects/dsa`): title, description, subject group, related skills,
-  and honest empty states for every resource type that will attach later.
+  live **study notes**, and honest empty states for the remaining resource
+  types (practice, books, courses, certifications, roadmaps).
+
+## Study notes (live, from Supabase Storage)
+
+The detail page's "Learning resources" section renders a subject's notes as
+open-in-new-tab PDF links, straight from the public **`Files`** bucket
+(`Subjects/<Subject Name>/`). The bucket is public, so links work with only the
+project URL and no API key or server config.
+
+- `data/notes.js` — the small manifest of what is hosted: `SUBJECT_NOTES`
+  keyed by subject ID, each with a `folder` (defaults to the taxonomy label)
+  and the `files` in it. **Adding a note is one line here + an upload to the
+  folder** — the page picks both up automatically.
+- `services/notes.js` — the only place that knows about Supabase:
+  `hasNotesConfigured()`, `getNoteUrl(folder, name)`, `getSubjectNotes(subject)`
+  builds public URLs from `VITE_SUPABASE_URL` (see `.env.example`).
+- Without `VITE_SUPABASE_URL`, or with no note listed, the section keeps its
+  honest "no study notes yet" state — no fake or broken links ever render.
 
 ## How it is organised
 
 ```
 features/learn/subjects/
   domain/subjects.js     taxonomy → catalogue adapter (records, filters, order)
+  data/notes.js          manifest of hosted note PDFs per subject
+  services/notes.js      Supabase storage seam → public note URLs
   pages/SubjectsPage.jsx       the index page
   pages/SubjectDetailPage.jsx  the detail page (composes CatalogDetail)
   subjects.css           all styles, scoped under .sbj-page
@@ -57,5 +77,8 @@ index page, groups, filters and detail pages pick it up automatically.
 
 - Subjects, groups and skills come solely from `src/shared/taxonomy.js`.
 - No fake courses/books/problems/certifications — empty states only.
-- No backend, database, auth or scraping.
+- The only outside service is Supabase Storage for hosted note PDFs, reached
+  exclusively through the `data/notes.js` manifest + `services/notes.js`
+  (env var for the URL, no raw URLs or credentials in components). No backend,
+  database, auth or scraping.
 - Never touch the LOCKED `/play` section or shared `Navbar.jsx`.

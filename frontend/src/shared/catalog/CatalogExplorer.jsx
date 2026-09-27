@@ -36,6 +36,8 @@ import './catalog.css'
  *   groupBy?: string,
  *   groupOrder?: string[],
  *   groupLabelFor?: (value: string) => string,
+ *   countLabel?: string,
+ *   searchLabel?: string,
  *   hrefFor: (item: object) => string,
  *   renderMeta?: (item: object) => React.ReactNode,
  *   emptyTitle: string,
@@ -54,6 +56,8 @@ export default function CatalogExplorer({
   groupBy,
   groupOrder = [],
   groupLabelFor = (value) => value,
+  countLabel = 'item',
+  searchLabel,
   hrefFor,
   renderMeta,
   emptyTitle,
@@ -79,6 +83,11 @@ export default function CatalogExplorer({
   const onToggle = (groupKey, value) => {
     setActive((current) => ({ ...current, [groupKey]: current[groupKey] === value ? 'all' : value }))
   }
+
+  const hasQuery = query.trim() !== ''
+  const hasActiveFilter = Object.values(active).some((value) => !!value && value !== 'all')
+  const showingResults = matches.length > 0 && (hasQuery || hasActiveFilter)
+  const resultCount = `${matches.length} ${countLabel}${matches.length === 1 ? '' : 's'}`
 
   const renderGrid = (records) => (
     <ul className="cat-grid">
@@ -129,6 +138,7 @@ export default function CatalogExplorer({
             type="search"
             className="cat__search-input"
             placeholder={title ? `Search ${title.toLowerCase()}` : 'Search'}
+            aria-label={searchLabel ?? (title ? `Search ${title.toLowerCase()}` : 'Search')}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
@@ -141,6 +151,7 @@ export default function CatalogExplorer({
               <button
                 type="button"
                 className={`cat-chip${!active[group.key] || active[group.key] === 'all' ? ' cat-chip--active' : ''}`}
+                aria-pressed={!active[group.key] || active[group.key] === 'all'}
                 onClick={() => onToggle(group.key, 'all')}
               >
                 All
@@ -150,6 +161,7 @@ export default function CatalogExplorer({
                   type="button"
                   key={option.value}
                   className={`cat-chip${active[group.key] === option.value ? ' cat-chip--active' : ''}`}
+                  aria-pressed={active[group.key] === option.value}
                   onClick={() => onToggle(group.key, option.value)}
                 >
                   {option.label}
@@ -160,6 +172,13 @@ export default function CatalogExplorer({
           </div>
         ))}
       </div>
+
+      {showingResults && (
+        <p className="cat-results" role="status">
+          {resultCount}
+          {hasQuery ? <> matching “{query.trim()}”</> : null}
+        </p>
+      )}
 
       {matches.length === 0 ? (
         <div className="cat-empty">
@@ -174,10 +193,10 @@ export default function CatalogExplorer({
         <div className="cat-groups">
           {grouped.map((group) => (
             <section className="cat-group" aria-label={group.label} key={group.key}>
-              <h3 className="cat-group__title">
+              <h2 className="cat-group__title">
                 {group.label}
                 <span className="cat-group__count">{group.items.length}</span>
-              </h3>
+              </h2>
               {renderGrid(group.items)}
             </section>
           ))}

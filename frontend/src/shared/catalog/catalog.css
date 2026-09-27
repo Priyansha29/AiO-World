@@ -143,13 +143,18 @@
   font: inherit;
   font-size: 0.82rem;
   font-weight: 600;
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.9rem;
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .cat-chip:hover {
   border-color: var(--accent-border);
+}
+
+.cat-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .cat-chip--active {
@@ -162,6 +167,15 @@
   font-size: 0.68rem;
   font-weight: 700;
   opacity: 0.7;
+}
+
+/* ── Results feedback ───────────────────────────────────────────────────── */
+
+.cat-results {
+  margin: 0 0 1.1rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
 }
 
 /* ── Card grid ───────────────────────────────────────────────────────────── */
@@ -210,9 +224,23 @@
 }
 
 .cat-card:hover {
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-soft);
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
   transform: translateY(-2px);
+}
+
+.cat-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.cat-card:focus-within {
+  border-color: var(--accent);
+}
+
+.cat-card:active {
+  transform: none;
+  border-color: var(--accent-border);
 }
 
 .cat-card__body {
@@ -231,20 +259,36 @@
 }
 
 .cat-card__desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   color: var(--muted);
   font-size: 0.85rem;
   line-height: 1.5;
 }
 
 .cat-card__arrow {
-  color: var(--accent);
-  font-size: 1.05rem;
   flex: 0 0 auto;
-  transition: transform 0.15s ease;
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-top: 0.05rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
-.cat-card:hover .cat-card__arrow {
-  transform: translateX(3px);
+.cat-card:hover .cat-card__arrow,
+.cat-card:focus-within .cat-card__arrow {
+  background: var(--accent);
+  color: var(--accent-ink);
+  transform: translateX(2px);
 }
 
 /* ── Empty state ─────────────────────────────────────────────────────────── */
@@ -327,6 +371,16 @@
   line-height: 1.7;
   margin: 0;
   padding-left: 1.25rem;
+}
+
+.cat-section__link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cat-section__link:hover {
+  text-decoration: underline;
 }
 
 .cat-btn {
