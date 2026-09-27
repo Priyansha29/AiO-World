@@ -12,6 +12,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Navbar from '../../../../components/Navbar'
+import PlatformNav from '../../../../components/platform/PlatformNav'
 import BookCard from '../components/BookCard'
 import BookGrid from '../components/BookGrid'
 import BookShelf from '../components/BookShelf'
@@ -111,6 +112,8 @@ export default function LibraryPage() {
             My Library →
           </button>
         </header>
+
+        <PlatformNav />
 
         {/* 2 ── Search + sort ────────────────────────────────────────────── */}
         <LibrarySearch query={query} onQuery={setQuery} sort={sort} onSort={setSort} />

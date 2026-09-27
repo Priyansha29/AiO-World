@@ -14,6 +14,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Navbar from '../../../components/Navbar'
+import PlatformNav from '../../../components/platform/PlatformNav'
 import CareerGoals from '../components/CareerGoals'
 import CareerSearch from '../components/CareerSearch'
 import RoadmapCard from '../components/RoadmapCard'
@@ -108,6 +109,8 @@ export default function CareerPage() {
             each one taking you from «learn» to «internship-ready» in lightweight stages.
           </p>
         </header>
+
+        <PlatformNav />
 
         {/* 2 ── Why are you here? ────────────────────────────────────────── */}
         <CareerGoals activeGoal={activeGoal} onPickGoal={onPickGoal} />

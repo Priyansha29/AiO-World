@@ -7,6 +7,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Navbar from '../../../components/Navbar'
+import PlatformNav from '../../../components/platform/PlatformNav'
 import RoadmapRenderer from '../components/RoadmapRenderer'
 import ProgressBar from '../components/ProgressBar'
 import { getRoadmap } from '../data/catalog'
@@ -59,12 +60,13 @@ export default function RoadmapDetailPage({ roadmapId }) {
       <main className="career-page">
         <Navbar />
         <div className="career-shell">
+          <PlatformNav />
           <div className="career-missing">
             <h1 className="career-missing__title">Roadmap not found</h1>
             <p className="career-missing__sub">
               That roadmap is not in the library (yet). Head back and pick another one.
             </p>
-            <button type="button" className="career-missing__cta" onClick={() => navigate('/career')}>
+            <button type="button" className="career-missing__cta" onClick={() => navigate('/career/roadmaps')}>
               ← Back to all roadmaps
             </button>
           </div>
@@ -77,7 +79,8 @@ export default function RoadmapDetailPage({ roadmapId }) {
     <main className="career-page">
       <Navbar />
       <div className="career-shell career-shell--detail">
-        <button type="button" className="career-back" onClick={() => navigate('/career')}>
+        <PlatformNav />
+        <button type="button" className="career-back" onClick={() => navigate('/career/roadmaps')}>
           ← All roadmaps
         </button>
 

@@ -3,7 +3,7 @@ import './Navbar.css'
 import { getSelectedCollege } from '../features/campus/services/profile-store'
 
 const LINKS = [
-  { label: 'Learn', href: '#/learn/library' },
+  { label: 'Learn', href: '#/learn' },
   { label: 'Career', href: '#/career' },
   { label: 'Play', href: '#/play' },
   { label: 'Tools', href: '#tools' },

@@ -10,6 +10,8 @@ import RoadmapDetailPage from './features/career/pages/RoadmapDetailPage'
 import LibraryPage from './features/learn/library/pages/LibraryPage'
 import BookReaderPage from './features/learn/library/pages/BookReaderPage'
 import MyLibraryPage from './features/learn/library/pages/MyLibraryPage'
+import PlatformPage from './components/platform/PlatformPage'
+import { findPlatformSection } from './components/platform/platform-data'
 import { useHashRoute } from './router/hash-router'
 
 function App() {
@@ -24,11 +26,16 @@ function App() {
   if (route === '/play/nanny-mania') return <NannyManiaPage />
   if (route === '/play') return <PlayPage />
   if (route === '/sidequests') return <SidequestsPage />
-  if (route === '/career') return <CareerPage />
-  if (roadmapMatch) return <RoadmapDetailPage roadmapId={roadmapMatch[1]} />
   if (route === '/learn/library') return <LibraryPage />
   if (route === '/learn/library/my-library') return <MyLibraryPage />
   if (libraryBookMatch) return <BookReaderPage bookId={libraryBookMatch[1]} />
+  if (route === '/learn') return <PlatformPage platformKey="learn" />
+  if (route === '/career/roadmaps') return <CareerPage />
+  if (roadmapMatch) return <RoadmapDetailPage roadmapId={roadmapMatch[1]} />
+  if (route === '/career') return <PlatformPage platformKey="career" />
+
+  const section = findPlatformSection(route)
+  if (section) return <PlatformPage platformKey={section.platform.key} sectionKey={section.section.key} />
   return <Home />
 }
 

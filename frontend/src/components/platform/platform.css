@@ -1,0 +1,283 @@
+/*
+ * Learn + Career platform shell — scoped styles.
+ *
+ * Shared by the two hubs and every placeholder section. Everything lives
+ * under .pf-* and uses only index.css tokens, mirroring the house style of
+ * career.css / library.css. The section strip (.pf-nav) is also dropped onto
+ * the live content pages so navigation is consistent across the platform.
+ */
+
+.pf-page {
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.pf-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+
+.pf-hero {
+  padding: 1rem 0 1.25rem;
+}
+
+.pf-hero__eyebrow {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  margin: 0 0 0.75rem;
+}
+
+.pf-hero__title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0 0 0.75rem;
+}
+
+.pf-hero__sub {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 36rem;
+  margin: 0;
+}
+
+/* ── Section navigation ───────────────────────────────────────────── */
+
+.pf-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.15rem 0 0.4rem;
+  margin-bottom: 1.75rem;
+}
+
+.pf-nav__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: var(--radius-full);
+  padding: 0.45rem 0.95rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pf-nav__item:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.pf-nav__item--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.pf-nav__live {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-full);
+  padding: 0.1rem 0.45rem;
+}
+
+.pf-nav__item--active .pf-nav__live {
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--accent-ink);
+}
+
+/* ── Hub grid ─────────────────────────────────────────────────────── */
+
+.pf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.pf-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.pf-card:hover,
+.pf-card:focus-within {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.pf-card__icon {
+  flex: 0 0 auto;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-md);
+}
+
+.pf-card__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.pf-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.pf-card__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.pf-card__desc {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.pf-card__arrow {
+  color: var(--accent);
+  font-size: 1.1rem;
+  transition: transform 0.15s ease;
+}
+
+.pf-card:hover .pf-card__arrow {
+  transform: translateX(3px);
+}
+
+.pf-chip {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius-full);
+  padding: 0.12rem 0.45rem;
+}
+
+.pf-chip--live {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ── Empty state ──────────────────────────────────────────────────── */
+
+.pf-empty {
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pf-empty__glyph {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-lg);
+  margin-bottom: 0.5rem;
+}
+
+.pf-empty__glyph svg {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.pf-empty__title {
+  color: var(--ink);
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.pf-empty__body {
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 30rem;
+  margin: 0;
+}
+
+.pf-empty__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--ink-soft);
+  border-radius: var(--radius-full);
+  padding: 0.55rem 1.2rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pf-btn:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.pf-btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+.pf-btn--primary:hover {
+  filter: brightness(1.06);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .pf-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-nav {
+    gap: 0.4rem;
+  }
+}

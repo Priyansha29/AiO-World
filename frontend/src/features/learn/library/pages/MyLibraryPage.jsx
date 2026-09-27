@@ -12,6 +12,7 @@
  */
 import { useCallback, useEffect, useState } from 'react'
 import Navbar from '../../../../components/Navbar'
+import PlatformNav from '../../../../components/platform/PlatformNav'
 import BookShelf from '../components/BookShelf'
 import { getBook } from '../data/books'
 import { getBookmarks, toggleBookmark } from '../services/bookmarks'
@@ -71,6 +72,8 @@ export default function MyLibraryPage() {
             {shelves.saved.length} saved · {shelves.reading.length} reading · {shelves.completed.length} completed
           </p>
         </header>
+
+        <PlatformNav />
 
         {sectionDefs.map((section) => (
           <section key={section.key} className="lib-section" aria-label={section.title}>
