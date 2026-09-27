@@ -166,6 +166,27 @@
 
 /* ── Card grid ───────────────────────────────────────────────────────────── */
 
+.cat-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cat-group__title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 1.35rem;
+  color: var(--ink);
+  margin: 0 0 0.9rem;
+}
+
+.cat-group__count {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .cat-grid {
   list-style: none;
   margin: 0;

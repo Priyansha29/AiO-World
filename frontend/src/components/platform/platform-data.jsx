@@ -160,10 +160,9 @@ export const PLATFORMS = [
         key: 'subjects',
         label: 'Subjects',
         href: '/learn/subjects',
-        status: 'planned',
-        desc: 'Curated subject guides and topic collections, grouped and searchable.',
-        empty:
-          'This is where curated subject guides and topic collections will live — grouped, searchable, and tied into the AiO book library. The structure is in place; the guides are being written.',
+        status: 'live',
+        desc: 'Every subject, grouped and searchable.',
+        empty: '',
       },
       {
         key: 'notes',

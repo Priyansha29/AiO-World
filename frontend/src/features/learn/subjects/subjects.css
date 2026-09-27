@@ -1,0 +1,67 @@
+/*
+ * Learn · Subjects — scoped styles.
+ *
+ * Everything lives under .sbj-* and uses only index.css tokens, mirroring the
+ * career/library page shells. The catalogue itself (search, chips, grouped
+ * grid, empty states) is styled by shared/catalog/catalog.css.
+ */
+
+.sbj-page {
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.sbj-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+
+.sbj-hero {
+  padding: 2rem 0 1.5rem;
+}
+
+.sbj-hero__eyebrow {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  margin: 0 0 0.75rem;
+}
+
+.sbj-hero__title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0 0 0.75rem;
+}
+
+.sbj-hero__title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.sbj-hero__sub {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 38rem;
+  margin: 0;
+}
+
+/* ── Subject card meta ────────────────────────────────────────────── */
+
+.sbj-meta {
+  align-self: flex-start;
+  margin-top: auto;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.15rem 0.55rem;
+}

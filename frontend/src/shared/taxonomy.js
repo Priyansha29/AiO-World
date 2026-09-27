@@ -26,52 +26,192 @@
 /* ── Subjects ─────────────────────────────────────────────────────────────── */
 
 /**
- * @typedef {{ key: string, label: string }} Subject
+ * @typedef {{ key: string, label: string, description?: string }} Subject
  */
 
 /** @type {Subject[]} Unique areas (35) from the product brief, in one flat list. */
 export const SUBJECTS = [
   // Computer Science
-  { key: 'computer-science', label: 'Computer Science' },
-  { key: 'dsa', label: 'Data Structures & Algorithms' },
-  { key: 'operating-systems', label: 'Operating Systems' },
-  { key: 'dbms', label: 'DBMS' },
-  { key: 'computer-networks', label: 'Computer Networks' },
-  { key: 'toc', label: 'Theory of Computation' },
-  { key: 'software-engineering', label: 'Software Engineering' },
-  { key: 'oop', label: 'Object-Oriented Programming' },
+  {
+    key: 'computer-science',
+    label: 'Computer Science',
+    description: 'The core of computing — theory, systems and the mental models behind every other subject here.',
+  },
+  {
+    key: 'dsa',
+    label: 'Data Structures & Algorithms',
+    description: 'Arrays to dynamic programming — the backbone of technical interviews and clean problem-solving.',
+  },
+  {
+    key: 'operating-systems',
+    label: 'Operating Systems',
+    description: 'How machines manage processes, memory, files and concurrency under the hood.',
+  },
+  {
+    key: 'dbms',
+    label: 'DBMS',
+    description: 'Designing, querying and tuning the databases every real product sits on.',
+  },
+  {
+    key: 'computer-networks',
+    label: 'Computer Networks',
+    description: 'How data moves between machines — protocols, HTTP and the internet under the hood.',
+  },
+  {
+    key: 'toc',
+    label: 'Theory of Computation',
+    description: 'Automata, formal languages and the deep question of what is even computable.',
+  },
+  {
+    key: 'software-engineering',
+    label: 'Software Engineering',
+    description: 'Designing, testing and shipping software at a scale beyond a single script.',
+  },
+  {
+    key: 'oop',
+    label: 'Object-Oriented Programming',
+    description: 'Classes, inheritance and the design instincts that survive messy real-world code.',
+  },
   // Programming
-  { key: 'c', label: 'C' },
-  { key: 'cpp', label: 'C++' },
-  { key: 'java', label: 'Java' },
-  { key: 'python', label: 'Python' },
-  { key: 'javascript', label: 'JavaScript' },
-  { key: 'typescript', label: 'TypeScript' },
+  {
+    key: 'c',
+    label: 'C',
+    description: 'The systems language — pointers, memory and the foundation underneath nearly everything.',
+  },
+  {
+    key: 'cpp',
+    label: 'C++',
+    description: 'C with objects and templates — performance when you need it, and where most gaming happens.',
+  },
+  {
+    key: 'java',
+    label: 'Java',
+    description: 'The enterprise workhorse — JVM, tooling and Android\u2019s native language.',
+  },
+  {
+    key: 'python',
+    label: 'Python',
+    description: 'The fastest way from idea to working code — and the language of data and AI.',
+  },
+  {
+    key: 'javascript',
+    label: 'JavaScript',
+    description: 'The language of the web — from a single button to an entire app.',
+  },
+  {
+    key: 'typescript',
+    label: 'TypeScript',
+    description: 'JavaScript with types — the safer way to build anything larger than a toy.',
+  },
   // Web Development
-  { key: 'html', label: 'HTML' },
-  { key: 'css', label: 'CSS' },
-  { key: 'react', label: 'React' },
-  { key: 'node', label: 'Node.js' },
-  { key: 'backend', label: 'Backend' },
+  {
+    key: 'html',
+    label: 'HTML',
+    description: 'The skeleton of every web page — structure, semantics and accessibility.',
+  },
+  {
+    key: 'css',
+    label: 'CSS',
+    description: 'The styling layer — layout, design systems and making interfaces feel right.',
+  },
+  {
+    key: 'react',
+    label: 'React',
+    description: 'The component model behind modern interfaces — and this very app itself.',
+  },
+  {
+    key: 'node',
+    label: 'Node.js',
+    description: 'JavaScript on the server — APIs, real-time apps and backend engineering.',
+  },
+  {
+    key: 'backend',
+    label: 'Backend',
+    description: 'Servers, APIs, databases and everything that happens after the browser asks.',
+  },
   // AI & Data
-  { key: 'ai', label: 'Artificial Intelligence' },
-  { key: 'machine-learning', label: 'Machine Learning' },
-  { key: 'data-science', label: 'Data Science' },
-  { key: 'data-analytics', label: 'Data Analytics' },
-  { key: 'generative-ai', label: 'Generative AI' },
+  {
+    key: 'ai',
+    label: 'Artificial Intelligence',
+    description: 'Making computers do what looks like thinking — search, reasoning and agents.',
+  },
+  {
+    key: 'machine-learning',
+    label: 'Machine Learning',
+    description: 'Teaching models from data instead of programming them rule by rule.',
+  },
+  {
+    key: 'data-science',
+    label: 'Data Science',
+    description: 'Turning messy data into decisions — analysis, modelling and storytelling.',
+  },
+  {
+    key: 'data-analytics',
+    label: 'Data Analytics',
+    description: 'Dashboards, metrics and the everyday questions data answers at work.',
+  },
+  {
+    key: 'generative-ai',
+    label: 'Generative AI',
+    description: 'Models that create — text, images and code, plus how to build on top of them.',
+  },
   // Cybersecurity
-  { key: 'cybersecurity', label: 'Cybersecurity' },
-  { key: 'network-security', label: 'Network Security' },
-  { key: 'cryptography', label: 'Cryptography' },
-  { key: 'web-security', label: 'Web Security' },
-  { key: 'ethical-hacking', label: 'Ethical Hacking' },
-  { key: 'digital-forensics', label: 'Digital Forensics' },
+  {
+    key: 'cybersecurity',
+    label: 'Cybersecurity',
+    description: 'Protecting systems and people from attackers — defence built from first principles.',
+  },
+  {
+    key: 'network-security',
+    label: 'Network Security',
+    description: 'Firewalls, TLS and the traffic between machines when it is under attack.',
+  },
+  {
+    key: 'cryptography',
+    label: 'Cryptography',
+    description: 'The math that keeps secrets — encryption, hashing and digital signatures.',
+  },
+  {
+    key: 'web-security',
+    label: 'Web Security',
+    description: 'Finding and fixing the holes every web app ships with.',
+  },
+  {
+    key: 'ethical-hacking',
+    label: 'Ethical Hacking',
+    description: 'Thinking like an attacker so you can close the door before they do.',
+  },
+  {
+    key: 'digital-forensics',
+    label: 'Digital Forensics',
+    description: 'Recovering and analysing evidence from devices after an incident.',
+  },
   // Mathematics
-  { key: 'discrete-mathematics', label: 'Discrete Mathematics' },
-  { key: 'probability', label: 'Probability' },
-  { key: 'statistics', label: 'Statistics' },
-  { key: 'linear-algebra', label: 'Linear Algebra' },
-  { key: 'calculus', label: 'Calculus' },
+  {
+    key: 'discrete-mathematics',
+    label: 'Discrete Mathematics',
+    description: 'The math of computer science — logic, sets, counting and graphs.',
+  },
+  {
+    key: 'probability',
+    label: 'Probability',
+    description: 'Reasoning about uncertainty — the language of machine learning and statistics.',
+  },
+  {
+    key: 'statistics',
+    label: 'Statistics',
+    description: 'Drawing sound conclusions from data — distributions, tests and honest error bars.',
+  },
+  {
+    key: 'linear-algebra',
+    label: 'Linear Algebra',
+    description: 'Vectors and matrices — the engine room of modern computation and AI.',
+  },
+  {
+    key: 'calculus',
+    label: 'Calculus',
+    description: 'Rates of change and optimisation — the floor beneath AI and engineering models.',
+  },
 ]
 
 /**
@@ -185,6 +325,8 @@ export const SKILLS = [
   { key: 'generative-ai', label: 'Generative AI', subjects: ['generative-ai', 'ai'], aliases: ['llms', 'llm', 'genai'] },
   { key: 'data-visualization', label: 'Data Visualization', subjects: ['data-science', 'data-analytics'], aliases: ['dataviz'] },
   { key: 'statistics', label: 'Statistics', subjects: ['statistics', 'probability', 'data-science'] },
+  { key: 'linear-algebra', label: 'Linear Algebra', subjects: ['linear-algebra', 'data-science', 'machine-learning'] },
+  { key: 'calculus', label: 'Calculus', subjects: ['calculus', 'data-science', 'machine-learning'] },
   // Core CS
   { key: 'algorithms', label: 'Algorithms', subjects: ['dsa', 'computer-science'] },
   { key: 'data-structures', label: 'Data Structures', subjects: ['dsa', 'computer-science'] },

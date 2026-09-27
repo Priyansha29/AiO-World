@@ -8,6 +8,11 @@
  * card grid + an honest empty state. Adding a catalogue is adding data and
  * one block of config, never a new page component.
  *
+ * Optional `groupBy` adds section headers (used by the Subjects index): when a
+ * record field is named, results render under group headers instead of one
+ * flat grid, ordered by `groupOrder`. Without it the behaviour is the plain
+ * flat grid, so every other catalogue is unaffected.
+ *
  * Everything is a pure derivation from the local view state, matching the
  * house style of the library and career pages.
  */
@@ -22,12 +27,15 @@ import './catalog.css'
 /**
  * @param {{
  *   eyebrow?: string,
- *   title: string,
+ *   title?: string,
  *   sub?: string,
  *   items: object[],
  *   searchFields?: string[],
  *   labelKeys?: string[],
  *   groups?: Array<{ key: string, label: string, valueField?: string, options: Array<{ value: string, label: string }> }>,
+ *   groupBy?: string,
+ *   groupOrder?: string[],
+ *   groupLabelFor?: (value: string) => string,
  *   hrefFor: (item: object) => string,
  *   renderMeta?: (item: object) => React.ReactNode,
  *   emptyTitle: string,
@@ -43,6 +51,9 @@ export default function CatalogExplorer({
   searchFields = ['title', 'description', 'tags'],
   labelKeys = ['subjects', 'skills'],
   groups = [],
+  groupBy,
+  groupOrder = [],
+  groupLabelFor = (value) => value,
   hrefFor,
   renderMeta,
   emptyTitle,
@@ -69,10 +80,46 @@ export default function CatalogExplorer({
     setActive((current) => ({ ...current, [groupKey]: current[groupKey] === value ? 'all' : value }))
   }
 
+  const renderGrid = (records) => (
+    <ul className="cat-grid">
+      {records.map((item) => (
+        <li key={item[keyField]}>
+          <a className="cat-card" href={hrefFor(item)}>
+            <span className="cat-card__body">
+              <span className="cat-card__title">{item.title}</span>
+              {item.description && <span className="cat-card__desc">{item.description}</span>}
+              {renderMeta ? renderMeta(item) : null}
+            </span>
+            <span className="cat-card__arrow" aria-hidden>→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+
+  const grouped = useMemo(() => {
+    if (!groupBy) return null
+    const buckets = new Map()
+    for (const item of matches) {
+      const value = item[groupBy] ?? null
+      if (!buckets.has(value)) buckets.set(value, [])
+      buckets.get(value).push(item)
+    }
+    const order = [...groupOrder.filter((key) => buckets.has(key))]
+    for (const key of buckets.keys()) {
+      if (!order.includes(key)) order.push(key)
+    }
+    return order.map((key) => ({
+      key,
+      label: key == null ? 'Other' : groupLabelFor(key),
+      items: buckets.get(key),
+    }))
+  }, [matches, groupBy, groupOrder, groupLabelFor])
+
   return (
-    <section className="cat" aria-label={`${title} catalogue`}>
+    <section className="cat" aria-label={title ? `${title} catalogue` : 'Catalogue'}>
       {eyebrow && <p className="cat__eyebrow">{eyebrow}</p>}
-      <h2 className="cat__title">{title}</h2>
+      {title && <h2 className="cat__title">{title}</h2>}
       {sub && <p className="cat__sub">{sub}</p>}
 
       <div className="cat__tools">
@@ -81,7 +128,7 @@ export default function CatalogExplorer({
           <input
             type="search"
             className="cat__search-input"
-            placeholder={`Search ${title.toLowerCase()}`}
+            placeholder={title ? `Search ${title.toLowerCase()}` : 'Search'}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
@@ -123,21 +170,20 @@ export default function CatalogExplorer({
             {items.length === 0 ? emptyBody : 'Try a different search — or clear the filters and browse.'}
           </p>
         </div>
-      ) : (
-        <ul className="cat-grid">
-          {matches.map((item) => (
-            <li key={item[keyField]}>
-              <a className="cat-card" href={hrefFor(item)}>
-                <span className="cat-card__body">
-                  <span className="cat-card__title">{item.title}</span>
-                  {item.description && <span className="cat-card__desc">{item.description}</span>}
-                  {renderMeta ? renderMeta(item) : null}
-                </span>
-                <span className="cat-card__arrow" aria-hidden>→</span>
-              </a>
-            </li>
+      ) : grouped ? (
+        <div className="cat-groups">
+          {grouped.map((group) => (
+            <section className="cat-group" aria-label={group.label} key={group.key}>
+              <h3 className="cat-group__title">
+                {group.label}
+                <span className="cat-group__count">{group.items.length}</span>
+              </h3>
+              {renderGrid(group.items)}
+            </section>
           ))}
-        </ul>
+        </div>
+      ) : (
+        renderGrid(matches)
       )}
     </section>
   )
