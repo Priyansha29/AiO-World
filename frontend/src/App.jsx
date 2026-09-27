@@ -5,10 +5,14 @@ import PlayPage from './features/play/pages/PlayPage'
 import GuessWhoPage from './features/play/pages/GuessWhoPage'
 import NannyManiaPage from './features/play/pages/NannyManiaPage'
 import SidequestsPage from './features/sidequests/pages/SidequestsPage'
+import CareerPage from './features/career/pages/CareerPage'
+import RoadmapDetailPage from './features/career/pages/RoadmapDetailPage'
 import { useHashRoute } from './router/hash-router'
 
 function App() {
   const route = useHashRoute()
+
+  const roadmapMatch = route.match(/^\/career\/roadmaps\/([\w-]+)$/)
 
   if (route === '/setup') return <CollegeSetupPage />
   if (route === '/campus') return <CampusHubPage />
@@ -16,6 +20,8 @@ function App() {
   if (route === '/play/nanny-mania') return <NannyManiaPage />
   if (route === '/play') return <PlayPage />
   if (route === '/sidequests') return <SidequestsPage />
+  if (route === '/career') return <CareerPage />
+  if (roadmapMatch) return <RoadmapDetailPage roadmapId={roadmapMatch[1]} />
   return <Home />
 }
 
