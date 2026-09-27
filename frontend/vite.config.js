@@ -12,10 +12,11 @@ export default defineConfig({
     },
   },
   server: {
-    proxy: {
-      // Dev proxy for the campus API — the frontend can call `/api/…` and
-      // hit the Express backend (port 5000) just like production would.
-      '/api': 'http://localhost:5000',
-    },
+  allowedHosts: ['.trycloudflare.com'],
+  proxy: {
+    // Dev proxy for the campus API — the frontend can call `/api/…` and
+    // hit the Express backend (port 5000) just like production would.
+    '/api': 'http://localhost:5000',
   },
+},
 })
