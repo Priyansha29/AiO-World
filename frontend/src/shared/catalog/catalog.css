@@ -1,0 +1,343 @@
+/*
+ * Shared catalogue shell — scoped styles for CatalogExplorer / CatalogDetail.
+ *
+ * Everything lives under .cat-* and uses only index.css tokens, mirroring the
+ * house style (library.css, career.css, platform.css). The shell must look
+ * native to every section it renders, so it avoids feature-specific visuals.
+ */
+
+.cat {
+  padding: 1.5rem 0 0.5rem;
+}
+
+.cat__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.cat-back {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.cat-back:hover {
+  color: var(--accent);
+}
+
+.cat__cta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.cat__cta-note {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.cat__eyebrow {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  margin: 0 0 0.5rem;
+}
+
+.cat__title {
+  color: var(--ink);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+.cat__sub {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  max-width: 38rem;
+  margin: 0 0 1.25rem;
+}
+
+/* ── Search + filters ────────────────────────────────────────────────────── */
+
+.cat__tools {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.cat__search {
+  position: relative;
+  max-width: 26rem;
+}
+
+.cat__search-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.cat__search-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 0.6rem 1rem 0.6rem 2.1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cat__search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ── Filter chips ────────────────────────────────────────────────────────── */
+
+.cat__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cat__filters-label {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cat__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.cat-chip:hover {
+  border-color: var(--accent-border);
+}
+
+.cat-chip--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.cat-chip__count {
+  font-size: 0.68rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+/* ── Card grid ───────────────────────────────────────────────────────────── */
+
+.cat-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+}
+
+.cat-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  height: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.cat-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.cat-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.cat-card__title {
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+
+.cat-card__desc {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.cat-card__arrow {
+  color: var(--accent);
+  font-size: 1.05rem;
+  flex: 0 0 auto;
+  transition: transform 0.15s ease;
+}
+
+.cat-card:hover .cat-card__arrow {
+  transform: translateX(3px);
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+
+.cat-empty {
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cat-empty__title {
+  color: var(--ink);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.cat-empty__body {
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 30rem;
+  margin: 0;
+}
+
+/* ── Detail page ─────────────────────────────────────────────────────────── */
+
+.cat--detail {
+  max-width: 46rem;
+}
+
+.cat-facts {
+  margin: 0 0 1.5rem;
+}
+
+.cat-facts__row {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-facts__label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+.cat-facts__value {
+  color: var(--ink);
+  font-size: 0.92rem;
+  text-align: right;
+  margin: 0;
+}
+
+.cat-section {
+  margin: 0 0 1.5rem;
+}
+
+.cat-section__heading {
+  color: var(--ink);
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+}
+
+.cat-section__body {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.cat-section__list {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.cat-btn {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-full);
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.55rem 1.2rem;
+  text-decoration: none;
+  transition: filter 0.15s ease;
+}
+
+.cat-btn:hover {
+  filter: brightness(1.06);
+}
+
+@media (max-width: 640px) {
+  .cat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-facts__row {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .cat-facts__value {
+    text-align: left;
+  }
+}

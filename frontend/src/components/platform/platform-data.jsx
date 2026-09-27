@@ -88,6 +88,58 @@ export const SECTION_ICONS = {
       <path d="M12 21V11" />
     </svg>
   ),
+  jobs: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="3" y="8" width="18" height="11" rx="1" />
+      <path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+      <path d="M3 13h18" />
+    </svg>
+  ),
+  internships: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="m3 9 9-5 9 5-9 5-9-5Z" />
+      <path d="M6 11.5V16c0 1.5 3.5 3 6 3s6-1.5 6-3v-4.5" />
+      <path d="M21 9v7" />
+    </svg>
+  ),
+  'hiring-insights': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 19V6" />
+      <path d="M4 19h16" />
+      <path d="m6 14 4-4 3 2 6-6" />
+      <path d="M15 6h4v4" />
+    </svg>
+  ),
+  'ats-scanner': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M7 3h8l4 4v14H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
+      <path d="M15 3v4h4" />
+      <path d="M9 11h6M9 14h4" />
+      <circle cx="16" cy="18" r="2.5" />
+      <path d="m18 20 2 2" />
+    </svg>
+  ),
+  'resume-tips': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M9 18h6" />
+      <path d="M10 21h4" />
+      <path d="M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3Z" />
+    </svg>
+  ),
+  freelance: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="4" y="5" width="16" height="11" rx="1" />
+      <path d="M2 19h20" />
+      <path d="M12 16v3" />
+    </svg>
+  ),
+  events: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="3" y="5" width="18" height="16" rx="1" />
+      <path d="M8 3v4M16 3v4M3 10h18" />
+      <path d="m9 16 2 2 4-4" />
+    </svg>
+  ),
 }
 
 /**
@@ -165,7 +217,7 @@ export const PLATFORMS = [
     eyebrow: 'Career',
     title: 'Start where the syllabus ends.',
     tagline:
-      'Roadmaps, interviews, target companies, a resume you control and portfolio-grade projects — the job-hunting side of AiO World, organised.',
+      'Roadmaps, interviews, what companies really hire for, a resume that survives the first scan, portfolio-grade projects and the year-round opportunity feed.',
     sections: [
       {
         key: 'roadmaps',
@@ -183,6 +235,15 @@ export const PLATFORMS = [
         desc: 'Interview prep — questions, patterns and mock rounds.',
         empty:
           'This is where interview prep will live — question banks, response patterns and mock rounds to practise before the real thing. Prep is being assembled.',
+      },
+      {
+        key: 'hiring-insights',
+        label: 'Hiring Insights',
+        href: '/career/hiring-insights',
+        status: 'planned',
+        desc: 'What companies actually hire for, by role.',
+        empty:
+          'This is where hiring signals will live — what this year\u2019s role descriptions actually ask for, drawn from verified job data rather than rumour. Insights are being compiled.',
       },
       {
         key: 'companies',
@@ -203,6 +264,24 @@ export const PLATFORMS = [
           'This is where resume building will happen — structure, phrasing and a live preview so yours survives the eight-second scan. The builder is coming.',
       },
       {
+        key: 'ats-scanner',
+        label: 'ATS Scanner',
+        href: '/career/ats-scanner',
+        status: 'planned',
+        desc: 'Check how your resume scores against a job.',
+        empty:
+          'This is where the ATS check will happen — paste a resume and a job description, and see how it scans. It is an AiO heuristic to guide your editing, never a verdict. The scanner is coming.',
+      },
+      {
+        key: 'resume-tips',
+        label: 'Resume Tips',
+        href: '/career/resume-tips',
+        status: 'planned',
+        desc: 'Plain-language fixes that survive the scan.',
+        empty:
+          'This is where resume fixes will live — the specific rewording and structure changes that get a resume through an automated scan. Tips are being written.',
+      },
+      {
         key: 'projects',
         label: 'Projects',
         href: '/career/projects',
@@ -210,6 +289,42 @@ export const PLATFORMS = [
         desc: 'Portfolio-grade projects with guided specs.',
         empty:
           'This is where portfolio-grade projects will live — guided briefs from idea to deployed, sized for a semester. The first briefs are being written.',
+      },
+      {
+        key: 'jobs',
+        label: 'Jobs',
+        href: '/career/jobs',
+        status: 'planned',
+        desc: 'Fresh graduate jobs, verified and searchable.',
+        empty:
+          'This is where fresh-graduate job openings will be listed — every posting verified, tagged by skill and searchable, so a good fit is never buried in a feed. Jobs are being verified.',
+      },
+      {
+        key: 'internships',
+        label: 'Internships',
+        href: '/career/internships',
+        status: 'planned',
+        desc: 'Internship openings, verified by source.',
+        empty:
+          'This is where internship openings will be listed — tracked by source and verified before they reach you, with the skills each one wants. Openings are being collected.',
+      },
+      {
+        key: 'freelance',
+        label: 'Freelance',
+        href: '/career/freelance',
+        status: 'planned',
+        desc: 'Client work you can start as a student.',
+        empty:
+          'This is where student-friendly client work will be gathered — verified gigs, realistic rates and the safety notes that keep you from getting burned. Gigs are being vetted.',
+      },
+      {
+        key: 'events',
+        label: 'Events',
+        href: '/career/events',
+        status: 'planned',
+        desc: 'Hackathons, bootcamps and campus drives.',
+        empty:
+          'This is where events will live — hackathons, bootcamps and campus drives, each with dates and links checked. Events are being watched.',
       },
     ],
   },
