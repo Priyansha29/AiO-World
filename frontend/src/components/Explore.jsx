@@ -6,17 +6,17 @@ const EXPLORE = [
   {
     ...LEARN,
     items: [
-      { label: 'DSA Roadmap', desc: 'A guided path from arrays to graphs', href: '#learn/dsa-roadmap' },
-      { label: 'Web Development', desc: 'From first tag to first deploy', href: '#learn/web-dev' },
-      { label: 'Cybersecurity', desc: 'Think like an attacker, then like a defender', href: '#learn/security' },
+      { label: 'DSA Roadmap', desc: 'A guided path from arrays to graphs', href: '#/learn/library/book/demo-dsa-quick-reference' },
+      { label: 'Web Development', desc: 'From first tag to first deploy', href: '#/learn/library/book/javascript-info' },
+      { label: 'Cybersecurity', desc: 'Think like an attacker, then like a defender', href: '#/learn/library/book/security-engineering' },
     ],
   },
   {
     ...CAREER,
     items: [
-      { label: 'Resume Checker', desc: 'A rule-based review before AI adds opinion', href: '#career/resume' },
-      { label: 'Internship Finder', desc: 'Openings matched to your skills, not random', href: '#career/internships' },
-      { label: 'Skill Gap', desc: 'See what stands between you and the role', href: '#career/skill-gap' },
+      { label: 'Software Engineer', desc: 'Full-stack from first tag to shipped portfolio', href: '#/career/roadmaps/full-stack' },
+      { label: 'Frontend Developer', desc: 'Interfaces, interactions and a live portfolio', href: '#/career/roadmaps/frontend' },
+      { label: 'AI Engineer', desc: 'Models, pipelines and a demo you can ship', href: '#/career/roadmaps/ai-engineer' },
     ],
   },
   {
