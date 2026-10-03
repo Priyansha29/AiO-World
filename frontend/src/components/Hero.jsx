@@ -32,7 +32,7 @@ function Hero() {
             What do you want <br className="hidden sm:block" /> to do today?
           </>
         }
-        subtitle="Learn a skill, build your future, play something with friends, or crunch a couple of quick numbers — all from the same tab. Pick a lane, we'll handle the rest."
+        subtitle="Learn a skill, build your future, find something fun to do with friends, or crunch a couple of quick numbers — all from the same tab. Pick a lane, we'll handle the rest."
         primaryCtaLabel="Explore the lanes"
         secondaryCtaLabel="I'm bored — surprise me"
         secondaryCtaRef={boredCtaRef}

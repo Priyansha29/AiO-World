@@ -555,20 +555,11 @@ export const SURPRISE_LIBRARY = [
 
   // ── FUN · games ─────────────────────────────────────────────────────────
   game(
-    'game-guess-who',
-    SURPRISE_CATEGORY.fun,
-    'Guess Who',
-    'Two players, one screen. One of you picks a face, the other gets twenty questions to work out which one it is.',
-    '2 players · about 3 minutes',
-    '#/play/guess-who',
-    ['social', 'two-player'],
-  ),
-  game(
     'game-play-hub',
     SURPRISE_CATEGORY.fun,
     'Whatever you are in the mood for',
-    'If the specific thing above is not your mood right now, the Play page has more — and one button that picks for you.',
-    'A whole shelf of games',
+    'If the specific thing above is not your mood right now, the Fun section has more interesting corners of the internet — websites, experiments and games worth doing.',
+    'A whole shelf of things to do',
     '#/play',
     ['social', 'variety'],
   ),
