@@ -20,10 +20,10 @@ export const CAREER = {
 
 export const PLAY = {
   key: 'play',
-  label: 'Play',
-  tagline: 'Have some fun.',
-  blurb: 'Quick games with friends — nearby or across the world.',
-  example: ['Games', 'Friends', 'Couples'],
+  label: 'Fun',
+  tagline: 'Things worth doing.',
+  blurb: 'Interesting corners of the internet for thinking, learning, experimenting and discovering something new.',
+  example: ['Websites', 'Experiments', 'Games', 'Friends'],
   href: '#play',
   accent: '#FFA270', // coral-peach blend
 }

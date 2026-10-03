@@ -22,9 +22,8 @@ const EXPLORE = [
   {
     ...PLAY,
     items: [
-      { label: 'Guess Who', desc: 'Narrow it down the fastest to win', href: '#play/guess-who' },
-      { label: 'Trivia', desc: 'Quick rounds with friends, or fly solo', href: '#play/trivia' },
-      { label: 'Couple Games', desc: 'For two people, wherever you are', href: '#play/couples' },
+      { label: '10 websites worth visiting', desc: 'Curious corners of the internet', href: '#/play' },
+      { label: 'From experiments to games', desc: 'Interactive things to try and explore', href: '#/play' },
     ],
   },
   {

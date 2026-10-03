@@ -51,7 +51,7 @@ export default function NannyManiaPage() {
             <span className="play-back__arrow" aria-hidden="true">
               ←
             </span>
-            Back to Play
+            Back to Fun
           </a>
           <h1 className="nanny-top__title">Nanny Mania</h1>
         </header>
