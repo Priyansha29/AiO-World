@@ -143,9 +143,9 @@ export const TOOLS = [
     title: 'JSON Formatter',
     description: 'Pretty-print, validate and minify JSON in the browser.',
     category: 'developer',
-    status: 'planned',
+    status: 'live',
     tags: ['json', 'format', 'validate', 'pretty'],
-    empty: 'This is where the JSON formatter will live — paste any JSON, get it validated, pretty-printed or minified, with nothing sent anywhere. The formatter is coming.',
+    keywords: ['minify', 'indent', 'pretty-print', 'error', 'compact', 'parse'],
   },
   {
     id: 'regex-tester',
