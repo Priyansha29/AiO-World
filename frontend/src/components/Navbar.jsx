@@ -6,7 +6,7 @@ const LINKS = [
   { label: 'Learn', href: '#/learn' },
   { label: 'Career', href: '#/career' },
   { label: 'Fun', href: '#/fun' },
-  { label: 'Tools', href: '#tools' },
+  { label: 'Tools', href: '#/tools' },
 ]
 
 function Navbar() {

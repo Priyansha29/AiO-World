@@ -29,9 +29,9 @@ const EXPLORE = [
   {
     ...TOOLS,
     items: [
-      { label: 'Attendance Calculator', desc: 'How many classes can you still skip?', href: '#tools/attendance' },
-      { label: 'CGPA Calculator', desc: 'Plan the semester grade you actually need', href: '#tools/cgpa' },
-      { label: 'Study Planner', desc: 'Turn a deadline into a realistic schedule', href: '#tools/planner' },
+      { label: 'Attendance Calculator', desc: 'How many classes can you still skip?', href: '#/tools/attendance-calculator' },
+      { label: 'CGPA Calculator', desc: 'Plan the semester grade you actually need', href: '#/tools/cgpa-calculator' },
+      { label: 'Every tool we have', desc: 'Search the whole toolbox', href: '#/tools' },
     ],
   },
 ]
