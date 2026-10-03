@@ -170,9 +170,9 @@ export const TOOLS = [
     title: 'URL Encoder / Decoder',
     description: 'Encode or decode URL components and query strings safely.',
     category: 'developer',
-    status: 'planned',
+    status: 'live',
     tags: ['url', 'encode', 'decode', 'query'],
-    empty: 'This is where the URL encoder and decoder will live — component- or whole-URL encoding so query strings survive copy-paste. The tool is coming.',
+    keywords: ['percent-encoding', 'percent', 'uri', 'component', '%20'],
   },
   {
     id: 'timestamp-converter',

@@ -908,6 +908,30 @@
   cursor: default;
 }
 
+/* ── URL encoder / decoder ──────────────────────────────────────── */
+
+.url-help {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.5rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.url-help__eg {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--ink);
+  word-break: break-all;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
