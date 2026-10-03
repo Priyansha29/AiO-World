@@ -152,9 +152,9 @@ export const TOOLS = [
     title: 'Regex Tester',
     description: 'Write and test a regular expression against live sample text.',
     category: 'developer',
-    status: 'planned',
+    status: 'live',
     tags: ['regex', 'pattern', 'test'],
-    empty: 'This is where the regex tester will live — expression on one side, matches highlighted live in sample text. Everything runs locally. The tester is coming.',
+    keywords: ['capture', 'flags', 'global', 'highlight', 'groups', 'i'],
   },
   {
     id: 'base64-encoder-decoder',

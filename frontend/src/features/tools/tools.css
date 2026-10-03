@@ -932,6 +932,151 @@
   word-break: break-all;
 }
 
+/* ── Regex tester ───────────────────────────────────────────────── */
+
+.rex-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 1rem;
+}
+
+.rex-examples__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.rex-pattern__input {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.rex-flags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.rex-flags .tool-modes {
+  margin-bottom: 0;
+}
+
+.rex-text__input {
+  min-height: 220px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  white-space: pre;
+  overflow: auto;
+}
+
+.rex-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-lg);
+  padding: 0.85rem;
+}
+
+.rex-results__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.rex-count {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.rex-hitbox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.rex-hitbox__pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink);
+  font-family: var(--mono);
+  max-height: 220px;
+}
+
+.rex-hit {
+  background: var(--accent-glow);
+  box-shadow: inset 0 0 0 1px var(--accent-border);
+  color: var(--ink);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+.rex-hit--empty {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  padding: 0;
+  vertical-align: text-bottom;
+}
+
+.rex-matches {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.rex-match {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.83rem;
+}
+
+.rex-match__value {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.rex-match__meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.rex-match__groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  word-break: break-word;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
