@@ -161,9 +161,9 @@ export const TOOLS = [
     title: 'Base64 Encoder / Decoder',
     description: 'Encode and decode text to and from Base64 instantly.',
     category: 'developer',
-    status: 'planned',
+    status: 'live',
     tags: ['base64', 'encode', 'decode'],
-    empty: 'This is where the Base64 encoder and decoder will live — paste text or Base64, click, and get the other side. Nothing leaves your browser. The tool is coming.',
+    keywords: ['unicode', 'utf-8', 'text', 'convert'],
   },
   {
     id: 'url-encoder-decoder',
