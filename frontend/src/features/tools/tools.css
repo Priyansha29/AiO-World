@@ -384,6 +384,258 @@
   margin-top: 0.25rem;
 }
 
+/* ── Class-marks textarea ────────────────────────────────────── */
+
+.tool-modes--spaced {
+  margin-top: 1.25rem;
+}
+
+.tool-textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: transparent;
+  resize: vertical;
+  min-height: 102px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+  font-family: var(--mono);
+}
+
+.tool-textarea:focus {
+  outline: none;
+}
+
+.tool-textarea::placeholder {
+  color: var(--muted);
+}
+
+/* ── Custom grade boundaries editor ──────────────────────────── */
+
+.tool-bounds {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1rem 0.85rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.tool-bounds__title {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.tool-bounds__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.bounds-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bounds-rows__head,
+.bounds-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.bounds-rows__head span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.bounds-row__remove {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.55rem;
+}
+
+.bounds-row__remove:hover:not(:disabled) {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.bounds-row__remove:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.bounds-row__error {
+  grid-column: 1 / -1;
+}
+
+.bounds-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ── Result dashboard ────────────────────────────────────────── */
+
+.tool-result--dashboard {
+  gap: 1rem;
+}
+
+.tool-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.tool-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.8rem;
+}
+
+.tool-stat--student {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.tool-stat__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.tool-stat__value {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ink);
+  font-family: var(--mono);
+  letter-spacing: -0.01em;
+}
+
+.tool-stat--student .tool-stat__value {
+  color: var(--accent);
+}
+
+.tool-stat__sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* ── Grading analysis blocks ─────────────────────────────────── */
+
+.grading-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.9rem;
+}
+
+.grading-block__title {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.grade-badge {
+  align-self: flex-start;
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 2px solid var(--accent-border);
+  border-radius: var(--radius-lg);
+  padding: 0.25rem 1rem;
+}
+
+/* ── Histogram ───────────────────────────────────────────────── */
+
+.histogram {
+  border-top: 1px solid var(--border);
+  padding-top: 0.9rem;
+}
+
+.histogram__chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 150px;
+  padding: 0.5rem 2px 0;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.histogram__bar-group {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  position: relative;
+}
+
+.histogram__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--muted);
+  background: var(--sand);
+  border-radius: 4px 4px 0 0;
+}
+
+.histogram__bar--student {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.histogram__you {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.58rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+.histogram__axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -408,5 +660,29 @@
 
   .gpa-row > :first-child {
     grid-column: 1 / -1;
+  }
+
+  .bounds-rows__head {
+    display: none;
+  }
+
+  .bounds-row {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0.45rem;
+    padding: 0.35rem 0;
+  }
+
+  .bounds-row__remove {
+    grid-column: 1 / -1;
+    justify-self: start;
+    min-height: 44px;
+  }
+
+  .bounds-row__error {
+    grid-column: 1 / -1;
+  }
+
+  .tool-dashboard {
+    gap: 0.6rem;
   }
 }

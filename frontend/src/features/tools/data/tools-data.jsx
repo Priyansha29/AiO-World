@@ -96,11 +96,11 @@ export const TOOLS = [
   {
     id: 'relative-grading-calculator',
     title: 'Relative Grading Calculator',
-    description: 'Work out where you land when grades depend on the class curve.',
+    description: 'See where you land relative to the class — average, spread, percentile, rank, z-score and your own grade boundaries.',
     category: 'academic',
-    status: 'planned',
+    status: 'live',
     tags: ['grading', 'curve', 'relative'],
-    empty: 'This is where relative grading will be explained and computed — how a curved distribution picks your grade. The approach varies by college, so the rules are being pinned down first.',
+    keywords: ['z-score', 'percentile', 'rank', 'mean', 'median', 'standard deviation', 'boundary', 'distribution'],
   },
   {
     id: 'marks-percentage-calculator',
