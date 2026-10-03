@@ -1,15 +1,31 @@
+import { useState } from 'react'
 import { funCategory, funMood } from '../data/fun-resources'
 
 function FunResourceCard({ resource, index, numbered = true, showMoods = false }) {
   const category = funCategory(resource.category)
   const label = resource.linkLabel ?? 'Visit Website'
+  const [broken, setBroken] = useState(false)
+  const showThumb = Boolean(resource.thumbnail) && !broken
 
   return (
-    <article className="fun-card">
+    <article className="fun-card" style={{ '--cat': category.accent }}>
+      {showThumb ? (
+        <div className="fun-card__thumb">
+          <img
+            className="fun-card__thumb-img"
+            src={resource.thumbnail}
+            alt={resource.thumbnailAlt ?? `${resource.title} website preview`}
+            loading="lazy"
+            onError={() => setBroken(true)}
+          />
+        </div>
+      ) : (
+        <div className="fun-card__thumb fun-card__thumb--fallback" aria-hidden="true">
+          <span className="fun-card__thumb-mono">{resource.title.charAt(0)}</span>
+        </div>
+      )}
       <div className="fun-card__top">
-        <span className="fun-card__category" style={{ '--cat': category.accent }}>
-          {category.label}
-        </span>
+        <span className="fun-card__category">{category.label}</span>
         {numbered && (
           <span className="fun-card__num" aria-hidden="true">
             {String(index + 1).padStart(2, '0')}
