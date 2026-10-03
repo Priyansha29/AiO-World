@@ -77,14 +77,6 @@
   color: var(--muted);
 }
 
-.fun-hero__more {
-  margin: 20px 0 0;
-  max-width: 60ch;
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--ink-soft);
-}
-
 /* Buttons (shared with game pages) -------------------------------------- */
 
 .play-btn {
@@ -161,25 +153,33 @@
   transform: translateX(4px);
 }
 
-/* Fun collection -------------------------------------------------------- */
+/* Fun sections (home + collection pages) -------------------------------- */
 
-.fun-collection {
+.fun-section {
   padding-top: 88px;
   scroll-margin-top: 96px;
 }
 
-.fun-collection__head {
+.fun-section--featured {
+  padding-top: 72px;
+}
+
+.fun-section--collection {
+  padding-top: 4px;
+}
+
+.fun-section__head {
   max-width: 640px;
 }
 
-.fun-collection__title {
+.fun-section__title {
   margin: 0;
   font-size: clamp(24px, 3.2vw, 32px);
   letter-spacing: -0.02em;
   font-weight: 800;
 }
 
-.fun-collection__sub {
+.fun-section__sub {
   margin: 10px 0 0;
   font-size: 15.5px;
   line-height: 1.6;
@@ -280,6 +280,132 @@
   color: color-mix(in srgb, var(--accent) 78%, #000);
 }
 
+/* Explore collections (homepage cards) ---------------------------------- */
+
+.fun-collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.fun-collection-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.fun-collection-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.fun-collection-card__title {
+  margin: 0;
+  font-size: 19px;
+  letter-spacing: -0.015em;
+  font-weight: 750;
+}
+
+.fun-collection-card__desc {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.fun-collection-card__foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+
+.fun-collection-card__meta {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--muted);
+}
+
+.fun-collection-card__soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fun-collection-card__soon::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sand);
+}
+
+.fun-collection-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+  font-weight: 750;
+  color: var(--accent);
+}
+
+.fun-collection-card:hover .fun-collection-card__cta {
+  color: color-mix(in srgb, var(--accent) 78%, #000);
+}
+
+.fun-collection-card:hover .fun-collection-card__cta .play-arrow {
+  transform: translateX(4px);
+}
+
+/* Empty / coming-soon --------------------------------------------------- */
+
+.fun-empty {
+  max-width: 560px;
+  padding: 16px 0 8px;
+}
+
+.fun-empty__title {
+  margin: 0;
+  font-size: clamp(24px, 3.2vw, 32px);
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.fun-empty__sub {
+  margin: 10px 0 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.fun-empty__note {
+  margin: 22px 0 0;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border-strong);
+  font-size: 14px;
+  color: var(--muted);
+}
+
 /* Game page shared ------------------------------------------------------ */
 
 .play-back {
@@ -310,7 +436,8 @@
 /* Responsive ------------------------------------------------------------ */
 
 @media (max-width: 960px) {
-  .fun-grid {
+  .fun-grid,
+  .fun-collections-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -324,11 +451,13 @@
     padding: 36px 0 4px;
   }
 
-  .fun-collection {
+  .fun-section,
+  .fun-section--featured {
     padding-top: 64px;
   }
 
-  .fun-grid {
+  .fun-grid,
+  .fun-collections-grid {
     grid-template-columns: 1fr;
   }
 }

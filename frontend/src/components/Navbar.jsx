@@ -5,7 +5,7 @@ import { getSelectedCollege } from '../features/campus/services/profile-store'
 const LINKS = [
   { label: 'Learn', href: '#/learn' },
   { label: 'Career', href: '#/career' },
-  { label: 'Fun', href: '#/play' },
+  { label: 'Fun', href: '#/fun' },
   { label: 'Tools', href: '#tools' },
 ]
 

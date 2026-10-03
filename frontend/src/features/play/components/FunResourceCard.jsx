@@ -1,6 +1,6 @@
 import { funCategory } from '../data/fun-resources'
 
-function FunResourceCard({ resource, index }) {
+function FunResourceCard({ resource, index, numbered = true }) {
   const category = funCategory(resource.category)
   const label = resource.linkLabel ?? 'Visit Website'
 
@@ -10,9 +10,11 @@ function FunResourceCard({ resource, index }) {
         <span className="fun-card__category" style={{ '--cat': category.accent }}>
           {category.label}
         </span>
-        <span className="fun-card__num" aria-hidden="true">
-          {String(index + 1).padStart(2, '0')}
-        </span>
+        {numbered && (
+          <span className="fun-card__num" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        )}
       </div>
       <h3 className="fun-card__title">{resource.title}</h3>
       <p className="fun-card__desc">{resource.description}</p>

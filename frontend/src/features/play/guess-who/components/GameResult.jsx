@@ -14,8 +14,8 @@ function GameResult({ result, onPlayAgain, onChangePack }) {
         <button type="button" className="play-btn play-btn--primary play-btn--big" onClick={onPlayAgain}>
           Play again
         </button>
-        <a className="play-btn play-btn--ghost" href="#/play">
-          Back to Play
+        <a className="play-btn play-btn--ghost" href="#/fun">
+          Back to Fun
         </a>
         <button type="button" className="gw-textbtn" onClick={onChangePack}>
           Change pack

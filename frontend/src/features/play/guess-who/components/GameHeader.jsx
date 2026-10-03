@@ -2,11 +2,11 @@ function GameHeader({ suspects, onChangePack }) {
   return (
     <header className="gw-header">
       <div className="gw-header__top">
-        <a className="play-back" href="#/play">
+        <a className="play-back" href="#/fun">
           <span className="play-back__arrow" aria-hidden="true">
             ←
           </span>
-          Back to Play
+          Back to Fun
         </a>
         <button type="button" className="gw-textbtn" onClick={onChangePack}>
           Change pack

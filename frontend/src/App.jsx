@@ -1,7 +1,8 @@
 import Home from './pages/Home'
 import CollegeSetupPage from './features/campus/pages/CollegeSetupPage'
 import CampusHubPage from './features/campus/pages/CampusHubPage'
-import PlayPage from './features/play/pages/PlayPage'
+import FunPage from './features/play/pages/FunPage'
+import CollectionPage from './features/play/pages/CollectionPage'
 import GuessWhoPage from './features/play/pages/GuessWhoPage'
 import SidequestsPage from './features/sidequests/pages/SidequestsPage'
 import CareerPage from './features/career/pages/CareerPage'
@@ -25,7 +26,10 @@ function App() {
   if (route === '/setup') return <CollegeSetupPage />
   if (route === '/campus') return <CampusHubPage />
   if (route === '/play/guess-who') return <GuessWhoPage />
-  if (route === '/play') return <PlayPage />
+  if (route === '/play') return <FunPage />
+  const funCollectionMatch = route.match(/^\/fun\/([\w-]+)$/)
+  if (funCollectionMatch) return <CollectionPage collectionId={funCollectionMatch[1]} />
+  if (route === '/fun') return <FunPage />
   if (route === '/sidequests') return <SidequestsPage />
   if (route === '/learn/library') return <LibraryPage />
   if (route === '/learn/library/my-library') return <MyLibraryPage />

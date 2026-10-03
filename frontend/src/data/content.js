@@ -24,7 +24,7 @@ export const PLAY = {
   tagline: 'Things worth doing.',
   blurb: 'Interesting corners of the internet for thinking, learning, experimenting and discovering something new.',
   example: ['Websites', 'Experiments', 'Games', 'Friends'],
-  href: '#play',
+  href: '#fun',
   accent: '#FFA270', // coral-peach blend
 }
 

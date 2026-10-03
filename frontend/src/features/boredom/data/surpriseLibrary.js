@@ -560,7 +560,7 @@ export const SURPRISE_LIBRARY = [
     'Whatever you are in the mood for',
     'If the specific thing above is not your mood right now, the Fun section has more interesting corners of the internet — websites, experiments and games worth doing.',
     'A whole shelf of things to do',
-    '#/play',
+    '#/fun',
     ['social', 'variety'],
   ),
 

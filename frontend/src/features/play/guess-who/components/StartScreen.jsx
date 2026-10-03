@@ -3,7 +3,7 @@ function StartScreen({ onStart }) {
     <section className="gw-start">
       <p className="play-eyebrow">
         <span className="play-eyebrow__dot" aria-hidden="true" />
-        Play
+        Fun
       </p>
       <h1 className="gw-start__title">GUESS WHO</h1>
       <p className="gw-start__tag">Think you know them?</p>
@@ -22,11 +22,11 @@ function StartScreen({ onStart }) {
             →
           </span>
         </button>
-        <a className="play-btn play-btn--ghost" href="#/play">
+        <a className="play-btn play-btn--ghost" href="#/fun">
           <span className="play-back__arrow" aria-hidden="true">
             ←
           </span>
-          Back to Play
+          Back to Fun
         </a>
       </div>
     </section>

@@ -3,18 +3,20 @@
  *
  * Architecture
  * ------------
- * - FUN_CATEGORIES are the planned future sections. They are not all rendered
- *   yet — they exist so new sections can be grouped and built incrementally.
- * - FUN_COLLECTIONS are curated, reusable sections. Each is a heading plus
- *   supporting text plus a responsive grid of resource cards. Collections
- *   reference resource ids, so the same resource can be surfaced more than
- *   once without repeating its data.
- * - FUN_RESOURCES is the catalogue of interesting corners of the internet.
+ * - FUN_RESOURCES is the single catalogue of interesting corners of the
+ *   internet. Every resource exists ONCE here and is referenced by id from
+ *   the homepage (featured) and from collections. Nothing is duplicated.
  *   Every entry links to the official site only — nothing is scraped, copied
  *   or mirrored here.
- *
- * Add a resource by appending to FUN_RESOURCES, then include its id in a
- * collection. It appears automatically — no JSX changes needed.
+ * - FUN_COLLECTIONS are reusable, just-data collections:
+ *   `{ id, title, description, route, resourceIds }`. The generic collection
+ *   page (`/fun/:collectionId`) renders any of them, so adding a future
+ *   collection means: 1) add the collection entry, 2) add resource ids.
+ *   Empty collections render as a clean "Coming soon" state — never with
+ *   fake resources.
+ * - FUN_FEATURED_IDS drive the small homepage "Featured" row. They reference
+ *   the same records as the collections.
+ * - FUN_CATEGORIES group resources by theme and give cards a subtle accent.
  */
 
 export const FUN_CATEGORIES = [
@@ -126,10 +128,11 @@ const FUN_RESOURCES = [
 
 export const FUN_COLLECTIONS = [
   {
-    id: 'smarter-internet',
+    id: 'smart-websites',
     title: '10 Websites That Will Make You Smarter Than Most People',
     description:
-      'Interesting corners of the internet for thinking, learning, experimenting and discovering something new.',
+      'Interesting corners of the internet for thinking, learning and discovering something new.',
+    route: '/fun/smart-websites',
     resourceIds: [
       'human-benchmark',
       'quick-draw',
@@ -143,11 +146,54 @@ export const FUN_COLLECTIONS = [
       'evolution-of-trust',
     ],
   },
+  {
+    id: 'interactive',
+    title: 'Interactive Experiments',
+    description: 'Play with ideas, simulations and experiments.',
+    route: '/fun/interactive',
+    resourceIds: [],
+  },
+  {
+    id: 'games',
+    title: 'Games',
+    description: 'Quick games and experiences worth trying.',
+    route: '/fun/games',
+    resourceIds: [],
+  },
+  {
+    id: 'creative',
+    title: 'Creative',
+    description: 'Make, build and experiment.',
+    route: '/fun/creative',
+    resourceIds: [],
+  },
+  {
+    id: 'books',
+    title: 'Books & Discovery',
+    description: 'Interesting things to read, explore and discover.',
+    route: '/fun/books',
+    resourceIds: [],
+  },
+  {
+    id: 'friends',
+    title: 'With Friends',
+    description: 'Things to explore and do together.',
+    route: '/fun/friends',
+    resourceIds: [],
+  },
 ]
+
+/** Small homepage "Featured" row — same records as the collections, by id. */
+export const FUN_FEATURED_IDS = ['human-benchmark', 'quick-draw', 'phet-simulations']
 
 /** Look up a category by key, so cards can show a label and subtle accent. */
 export function funCategory(key) {
   return FUN_CATEGORIES.find((category) => category.key === key) ?? { key, label: key, accent: '#ffa270' }
+}
+
+/** Look up a collection by id. */
+export function funCollection(id) {
+  return FUN_COLLECTIONS.find((collection) => collection.id === id)
 }
 
 /** Resolve a collection's resource ids into their full resource records. */
@@ -155,4 +201,14 @@ export function resourcesFor(collection) {
   return collection.resourceIds
     .map((id) => FUN_RESOURCES.find((resource) => resource.id === id))
     .filter(Boolean)
+}
+
+/** Number of resources a collection actually has id references for. */
+export function resourceCount(collection) {
+  return collection.resourceIds.length
+}
+
+/** The homepage "Featured" resources, in the given order. */
+export function featuredResources() {
+  return FUN_FEATURED_IDS.map((id) => FUN_RESOURCES.find((resource) => resource.id === id)).filter(Boolean)
 }
