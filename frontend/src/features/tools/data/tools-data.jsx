@@ -188,9 +188,8 @@ export const TOOLS = [
     title: 'Color Converter',
     description: 'Convert between HEX, RGB and HSL, with a preview swatch.',
     category: 'developer',
-    status: 'planned',
+    status: 'live',
     tags: ['color', 'hex', 'rgb', 'hsl', 'css'],
-    empty: 'This is where the color converter will live — a swatch, the HEX, RGB and HSL spellings, and copy buttons for each. The converter is coming.',
   },
   {
     id: 'subnet-calculator',

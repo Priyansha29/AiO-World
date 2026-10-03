@@ -1,6 +1,7 @@
 import AttendanceCalculator from '../components/calculators/AttendanceCalculator'
 import Base64EncoderDecoder from '../components/calculators/Base64EncoderDecoder'
 import CgpaCalculator from '../components/calculators/CgpaCalculator'
+import ColorConverter from '../components/calculators/ColorConverter'
 import JsonFormatter from '../components/calculators/JsonFormatter'
 import MarksPercentageCalculator from '../components/calculators/MarksPercentageCalculator'
 import RelativeGradingCalculator from '../components/calculators/RelativeGradingCalculator'
@@ -16,6 +17,7 @@ export const TOOL_COMPONENTS = {
   'base64-encoder-decoder': Base64EncoderDecoder,
   'url-encoder-decoder': UrlEncoderDecoder,
   'regex-tester': RegexTester,
+  'color-converter': ColorConverter,
 }
 
 export function toolComponent(toolId) {
