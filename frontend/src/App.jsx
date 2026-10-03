@@ -2,7 +2,7 @@ import Home from './pages/Home'
 import CollegeSetupPage from './features/campus/pages/CollegeSetupPage'
 import CampusHubPage from './features/campus/pages/CampusHubPage'
 import FunPage from './features/play/pages/FunPage'
-import CollectionPage from './features/play/pages/CollectionPage'
+import AllWebsitesPage from './features/play/pages/AllWebsitesPage'
 import GuessWhoPage from './features/play/pages/GuessWhoPage'
 import SidequestsPage from './features/sidequests/pages/SidequestsPage'
 import CareerPage from './features/career/pages/CareerPage'
@@ -27,9 +27,11 @@ function App() {
   if (route === '/campus') return <CampusHubPage />
   if (route === '/play/guess-who') return <GuessWhoPage />
   if (route === '/play') return <FunPage />
+  if (route === '/fun/websites') return <AllWebsitesPage />
+  // Legacy collection routes (incl. the removed "smart websites" concept) funnel
+  // back to the mood-based homepage so no links or bookmarks break.
   const funCollectionMatch = route.match(/^\/fun\/([\w-]+)$/)
-  if (funCollectionMatch) return <CollectionPage collectionId={funCollectionMatch[1]} />
-  if (route === '/fun') return <FunPage />
+  if (funCollectionMatch || route === '/fun') return <FunPage />
   if (route === '/sidequests') return <SidequestsPage />
   if (route === '/learn/library') return <LibraryPage />
   if (route === '/learn/library/my-library') return <MyLibraryPage />

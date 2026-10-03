@@ -21,8 +21,8 @@ export const CAREER = {
 export const PLAY = {
   key: 'play',
   label: 'Fun',
-  tagline: 'Things worth doing.',
-  blurb: 'Interesting corners of the internet for thinking, learning, experimenting and discovering something new.',
+  tagline: 'What are you in the mood for?',
+  blurb: 'Interesting corners of the internet for playing, exploring, creating and discovering something new.',
   example: ['Websites', 'Experiments', 'Games', 'Friends'],
   href: '#fun',
   accent: '#FFA270', // coral-peach blend

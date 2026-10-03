@@ -1,8 +1,8 @@
 /* =========================================================================
-   Fun — "things worth doing" discovery landing page, plus the shared styles
-   the Guess Who game page builds on. Same AiO World
-   tokens: warm cream, white surfaces, coral-red accents, rounded corners,
-   calm interactions. Nothing here is tied to the old game-grid landing.
+   Fun — mood-based discovery: pick a mood, get matched websites, ask for a
+   surprise, or browse the whole catalogue. Plus the shared styles the
+   Guess Who game page builds on. Same AiO World tokens: warm cream, white
+   surfaces, coral-red accents, rounded corners, calm interactions.
    ========================================================================= */
 
 .play-page {
@@ -75,6 +75,15 @@
   font-size: clamp(16px, 2vw, 18px);
   line-height: 1.6;
   color: var(--muted);
+}
+
+.fun-hero--compact {
+  padding: 8px 0 24px;
+}
+
+.fun-hero__title--small {
+  max-width: 20ch;
+  font-size: clamp(30px, 4.5vw, 48px);
 }
 
 /* Buttons (shared with game pages) -------------------------------------- */
@@ -160,12 +169,16 @@
   scroll-margin-top: 96px;
 }
 
-.fun-section--featured {
-  padding-top: 72px;
+.fun-section--moods {
+  padding-top: 64px;
 }
 
-.fun-section--collection {
-  padding-top: 4px;
+.fun-section--results {
+  padding-top: 56px;
+}
+
+.fun-section--filters {
+  padding-top: 40px;
 }
 
 .fun-section__head {
@@ -280,101 +293,190 @@
   color: color-mix(in srgb, var(--accent) 78%, #000);
 }
 
-/* Explore collections (homepage cards) ---------------------------------- */
+/* Mood picker ------------------------------------------------------------ */
 
-.fun-collections-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 30px;
-}
-
-.fun-collection-card {
+.fun-moods {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 12px;
-  padding: 22px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  text-decoration: none;
-  color: inherit;
-  transition:
-    border-color 0.18s ease,
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
+  margin-top: 28px;
 }
 
-.fun-collection-card:hover {
-  border-color: var(--border-strong);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
-}
-
-.fun-collection-card__title {
-  margin: 0;
-  font-size: 19px;
-  letter-spacing: -0.015em;
-  font-weight: 750;
-}
-
-.fun-collection-card__desc {
-  margin: 0;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: var(--muted);
-}
-
-.fun-collection-card__foot {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 14px;
-  border-top: 1px dashed var(--border);
-}
-
-.fun-collection-card__meta {
-  font-size: 12.5px;
-  font-weight: 650;
-  color: var(--muted);
-}
-
-.fun-collection-card__soon {
+.fun-mood {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  min-height: 46px;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 15px;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.fun-mood:hover {
+  background: var(--surface-2);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.fun-mood--active,
+.fun-mood--active:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  transform: none;
+}
+
+/* Mood tags on cards ----------------------------------------------------- */
+
+.fun-card__moods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fun-card__mood {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-soft);
+  color: var(--muted);
   font-size: 12px;
+  font-weight: 650;
+}
+
+/* Surprise me ------------------------------------------------------------ */
+
+.fun-surprise {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.fun-surprise__result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+}
+
+.fun-surprise__result .fun-card {
+  width: 100%;
+  max-width: 384px;
+}
+
+.fun-surprise__label {
+  margin: 0;
+  font-size: 13px;
   font-weight: 750;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-.fun-collection-card__soon::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--sand);
+.fun-all__cta {
+  margin-top: 28px;
 }
 
-.fun-collection-card__cta {
+/* All websites: search + filters ----------------------------------------- */
+
+.fun-search {
+  display: block;
+  max-width: 520px;
+}
+
+.fun-search__input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  font-size: 15.5px;
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fun-search__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.fun-filter-group {
+  margin-top: 24px;
+}
+
+.fun-filter-group__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12.5px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fun-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fun-filter-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14.5px;
-  font-weight: 750;
-  color: var(--accent);
+  min-height: 38px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 13.5px;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 
-.fun-collection-card:hover .fun-collection-card__cta {
-  color: color-mix(in srgb, var(--accent) 78%, #000);
+.fun-filter-chip:hover {
+  border-color: var(--border-strong);
+  color: var(--ink);
 }
 
-.fun-collection-card:hover .fun-collection-card__cta .play-arrow {
-  transform: translateX(4px);
+.fun-filter-chip--active,
+.fun-filter-chip--active:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.fun-results-count {
+  margin: 30px 0 0;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--muted);
+}
+
+.fun-empty--filters {
+  padding-top: 0;
 }
 
 /* Empty / coming-soon --------------------------------------------------- */
@@ -436,8 +538,7 @@
 /* Responsive ------------------------------------------------------------ */
 
 @media (max-width: 960px) {
-  .fun-grid,
-  .fun-collections-grid {
+  .fun-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -452,12 +553,18 @@
   }
 
   .fun-section,
-  .fun-section--featured {
-    padding-top: 64px;
+  .fun-section--moods,
+  .fun-section--results,
+  .fun-section--filters {
+    padding-top: 56px;
   }
 
-  .fun-grid,
-  .fun-collections-grid {
+  .fun-grid {
     grid-template-columns: 1fr;
+  }
+
+  .fun-mood {
+    width: 100%;
+    justify-content: center;
   }
 }

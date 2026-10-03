@@ -22,8 +22,8 @@ const EXPLORE = [
   {
     ...PLAY,
     items: [
-      { label: '10 websites worth visiting', desc: 'Curious corners of the internet', href: '#/fun' },
-      { label: 'From experiments to games', desc: 'Interactive things to try and explore', href: '#/fun' },
+      { label: 'What are you in the mood for?', desc: 'Websites, games and rabbit holes for how you feel', href: '#/fun' },
+      { label: 'Every website we found', desc: 'Search the whole Fun catalogue', href: '#/fun/websites' },
     ],
   },
   {
