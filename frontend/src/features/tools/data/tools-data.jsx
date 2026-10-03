@@ -105,11 +105,11 @@ export const TOOLS = [
   {
     id: 'marks-percentage-calculator',
     title: 'Marks / Percentage Calculator',
-    description: 'Convert marks out of any total into a percentage in one step.',
+    description: 'Obtained-to-total percentage, percent of a number, change, and reverse percentage in one calculator.',
     category: 'academic',
-    status: 'planned',
+    status: 'live',
     tags: ['marks', 'percentage', 'result'],
-    empty: 'This is where a marks-to-percentage converter will live — enter scored and total marks, get the percentage and the grade band instantly. The form is coming.',
+    keywords: ['percent', 'increase', 'decrease', 'change', 'reverse', 'of'],
   },
   {
     id: 'ats-scanner',

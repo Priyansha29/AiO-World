@@ -65,6 +65,67 @@
   margin: 0 0 1rem;
 }
 
+/* ── Mode selector ───────────────────────────────────────────────── */
+
+.tool-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tool-mode {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.tool-mode:hover {
+  border-color: var(--accent-border);
+}
+
+.tool-mode--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.tool-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.tool-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.tool-btn--primary:hover {
+  filter: brightness(1.06);
+}
+
+.tool-mode:focus-visible,
+.tool-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ── Inputs ─────────────────────────────────────────────────────── */
 
 .tool-fields {
@@ -116,6 +177,16 @@
 .tool-field__hint {
   font-size: 0.78rem;
   color: var(--muted);
+}
+
+.tool-field__control--invalid {
+  border-color: var(--accent);
+}
+
+.tool-field__error {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .tool-input,
@@ -284,6 +355,24 @@
   color: var(--ink-soft);
 }
 
+.tool-result__verdict--up {
+  background: var(--sand-soft);
+  border-left: 3px solid var(--sand);
+  color: var(--ink-soft);
+}
+
+.tool-result__verdict--down {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  color: var(--ink-soft);
+}
+
+.tool-result__verdict--none {
+  background: var(--surface-2);
+  border-left: 3px solid var(--border-strong);
+  color: var(--muted);
+}
+
 .tool-result__note {
   color: var(--muted);
   font-size: 0.86rem;
@@ -300,6 +389,11 @@
 @media (max-width: 640px) {
   .tool-panel {
     padding: 1rem;
+  }
+
+  .tool-mode,
+  .tool-btn {
+    min-height: 44px;
   }
 
   .gpa-rows__head {
