@@ -179,9 +179,8 @@ export const TOOLS = [
     title: 'Timestamp Converter',
     description: 'Convert Unix timestamps to readable dates and back.',
     category: 'developer',
-    status: 'planned',
+    status: 'live',
     tags: ['timestamp', 'unix', 'date', 'epoch'],
-    empty: 'This is where the timestamp converter will live — paste an epoch seconds value and read it as a local date, or pick a date and get the timestamp. The converter is coming.',
   },
   {
     id: 'color-converter',

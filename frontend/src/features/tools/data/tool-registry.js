@@ -6,6 +6,7 @@ import JsonFormatter from '../components/calculators/JsonFormatter'
 import MarksPercentageCalculator from '../components/calculators/MarksPercentageCalculator'
 import RelativeGradingCalculator from '../components/calculators/RelativeGradingCalculator'
 import RegexTester from '../components/calculators/RegexTester'
+import TimestampConverter from '../components/calculators/TimestampConverter'
 import UrlEncoderDecoder from '../components/calculators/UrlEncoderDecoder'
 
 export const TOOL_COMPONENTS = {
@@ -18,6 +19,7 @@ export const TOOL_COMPONENTS = {
   'url-encoder-decoder': UrlEncoderDecoder,
   'regex-tester': RegexTester,
   'color-converter': ColorConverter,
+  'timestamp-converter': TimestampConverter,
 }
 
 export function toolComponent(toolId) {
