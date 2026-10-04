@@ -3,6 +3,7 @@ import Base64EncoderDecoder from '../components/calculators/Base64EncoderDecoder
 import CgpaCalculator from '../components/calculators/CgpaCalculator'
 import CidrCalculator from '../components/calculators/CidrCalculator'
 import ColorConverter from '../components/calculators/ColorConverter'
+import CurrencyConverter from '../components/calculators/CurrencyConverter'
 import JsonFormatter from '../components/calculators/JsonFormatter'
 import MarksPercentageCalculator from '../components/calculators/MarksPercentageCalculator'
 import RelativeGradingCalculator from '../components/calculators/RelativeGradingCalculator'
@@ -24,6 +25,7 @@ export const TOOL_COMPONENTS = {
   'timestamp-converter': TimestampConverter,
   'ip-cidr-calculator': CidrCalculator,
   'subnet-calculator': SubnetCalculator,
+  'currency-converter': CurrencyConverter,
 }
 
 export function toolComponent(toolId) {

@@ -229,9 +229,8 @@ export const TOOLS = [
     title: 'Currency Converter',
     description: 'Convert between currencies at a rate you check yourself.',
     category: 'general',
-    status: 'planned',
+    status: 'live',
     tags: ['currency', 'exchange', 'money'],
-    empty: 'This is where the currency converter will live. It will use rates you provide or the latest official reference rate — no live feed without a verified source. The converter is being designed.',
   },
   {
     id: 'timezone-converter',

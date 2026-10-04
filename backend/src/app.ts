@@ -2,6 +2,7 @@ import type { NextFunction, Response } from "express";
 import express from "express";
 import cors from "cors";
 import collegesRouter from "./routes/colleges.js";
+import currencyRouter from "./modules/currency/routes/currency.routes.js";
 import sidequestsRouter from "./modules/sidequests/routes/sidequests.routes.js";
 
 const app = express();
@@ -14,6 +15,7 @@ app.get("/api/health", (_req, res: Response) => {
 });
 
 app.use("/api", collegesRouter);
+app.use("/api", currencyRouter);
 app.use("/api", sidequestsRouter);
 
 /**
