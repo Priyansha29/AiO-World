@@ -204,9 +204,8 @@ export const TOOLS = [
     title: 'IP / CIDR Calculator',
     description: 'Expand a CIDR block into its address range and details.',
     category: 'networking',
-    status: 'planned',
+    status: 'live',
     tags: ['ip', 'cidr', 'range', 'host'],
-    empty: 'This is where the IP / CIDR calculator will live — enter any block like 192.168.1.0/24 and read the full range it covers. The calculator is coming.',
   },
   {
     id: 'data-rate-utilities',

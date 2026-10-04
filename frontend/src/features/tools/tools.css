@@ -1298,6 +1298,210 @@
   flex-shrink: 0;
 }
 
+/* ── IP / CIDR calculator ───────────────────────────────────────── */
+
+.cidr-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.cidr-input {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.cidr-prefix {
+  width: 100%;
+  min-height: 44px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius-md);
+  padding: 0.45rem 0.65rem;
+}
+
+.cidr-prefix:focus-visible {
+  outline: none;
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.cidr-error {
+  margin: 0.4rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.cidr-results {
+  margin-top: 1rem;
+}
+
+.cidr-meta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.75rem;
+}
+
+.cidr-meta__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cidr-meta__item--wide {
+  align-items: flex-start;
+}
+
+.cidr-meta__value {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.cidr-meta__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.cidr-chip {
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.6rem;
+}
+
+.cidr-section__title {
+  margin: 0.9rem 0 0.5rem;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.cidr-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+.cidr-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+}
+
+.cidr-binary {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.cidr-binary summary,
+.cidr-help summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.cidr-binary summary:focus-visible,
+.cidr-help summary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  border-radius: var(--radius-sm);
+}
+
+.cidr-binary__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cidr-binary__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.cidr-binary__label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cidr-binary__value {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--ink);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.cidr-help {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.cidr-help .tool-result__note {
+  margin: 0.5rem 0 0;
+}
+
+.cidr-ref {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+}
+
+.cidr-ref__head,
+.cidr-ref__row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.cidr-ref__head {
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.cidr-ref__row code {
+  font-family: var(--mono);
+  color: var(--ink);
+  word-break: break-word;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -1360,6 +1564,18 @@
   }
 
   .clr-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cidr-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cidr-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cidr-meta {
     grid-template-columns: 1fr 1fr;
   }
 }

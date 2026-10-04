@@ -1,6 +1,7 @@
 import AttendanceCalculator from '../components/calculators/AttendanceCalculator'
 import Base64EncoderDecoder from '../components/calculators/Base64EncoderDecoder'
 import CgpaCalculator from '../components/calculators/CgpaCalculator'
+import CidrCalculator from '../components/calculators/CidrCalculator'
 import ColorConverter from '../components/calculators/ColorConverter'
 import JsonFormatter from '../components/calculators/JsonFormatter'
 import MarksPercentageCalculator from '../components/calculators/MarksPercentageCalculator'
@@ -20,6 +21,7 @@ export const TOOL_COMPONENTS = {
   'regex-tester': RegexTester,
   'color-converter': ColorConverter,
   'timestamp-converter': TimestampConverter,
+  'ip-cidr-calculator': CidrCalculator,
 }
 
 export function toolComponent(toolId) {
