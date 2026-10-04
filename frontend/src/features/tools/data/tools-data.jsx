@@ -195,9 +195,8 @@ export const TOOLS = [
     title: 'Subnet Calculator',
     description: 'Split a network into subnets and read usable host counts.',
     category: 'networking',
-    status: 'planned',
+    status: 'live',
     tags: ['subnet', 'network', 'cidr'],
-    empty: 'This is where the subnet calculator will live — pick an address and a mask, and read the network, broadcast and usable host ranges. The calculator is coming.',
   },
   {
     id: 'ip-cidr-calculator',

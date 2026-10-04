@@ -7,6 +7,7 @@ import JsonFormatter from '../components/calculators/JsonFormatter'
 import MarksPercentageCalculator from '../components/calculators/MarksPercentageCalculator'
 import RelativeGradingCalculator from '../components/calculators/RelativeGradingCalculator'
 import RegexTester from '../components/calculators/RegexTester'
+import SubnetCalculator from '../components/calculators/SubnetCalculator'
 import TimestampConverter from '../components/calculators/TimestampConverter'
 import UrlEncoderDecoder from '../components/calculators/UrlEncoderDecoder'
 
@@ -22,6 +23,7 @@ export const TOOL_COMPONENTS = {
   'color-converter': ColorConverter,
   'timestamp-converter': TimestampConverter,
   'ip-cidr-calculator': CidrCalculator,
+  'subnet-calculator': SubnetCalculator,
 }
 
 export function toolComponent(toolId) {
