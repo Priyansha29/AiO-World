@@ -237,9 +237,8 @@ export const TOOLS = [
     title: 'Time Zone Converter',
     description: 'Compare times across zones before you schedule anything.',
     category: 'general',
-    status: 'planned',
+    status: 'live',
     tags: ['timezone', 'time', 'schedule'],
-    empty: 'This is where the time zone converter will live — pick two zones and read overlapping hours, or convert a specific time. The converter is coming.',
   },
   {
     id: 'percentage-calculator',

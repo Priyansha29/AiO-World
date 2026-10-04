@@ -1658,6 +1658,240 @@
   padding: 0.6rem 0.75rem;
 }
 
+/* ── Time zone converter ────────────────────────────────────────── */
+
+.tz-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+.tz-select {
+  position: relative;
+}
+
+.tz-select__input {
+  width: 100%;
+}
+
+.tz-select__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+}
+
+.tz-select__option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.tz-select__option--active {
+  background: var(--surface-2);
+  outline: 1px solid var(--border);
+}
+
+.tz-select__option--selected {
+  font-weight: 700;
+}
+
+.tz-select__id {
+  font-family: var(--mono);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tz-select__name {
+  color: var(--muted);
+  font-size: 0.76rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55%;
+  flex-shrink: 0;
+}
+
+.tz-select__empty {
+  padding: 0.6rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.tz-local {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 0.15rem 0 0.6rem;
+}
+
+.tz-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+}
+
+.tz-result {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: 0.85rem 1rem;
+}
+
+.tz-result__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.tz-result__clock {
+  margin: 0.1rem 0;
+  font-family: var(--mono);
+  font-size: 2rem;
+  line-height: 1.15;
+}
+
+.tz-result__date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.tz-result__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.tz-result__zone {
+  font-family: var(--mono);
+}
+
+.tz-result__offset {
+  font-family: var(--mono);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 0.1rem 0.55rem;
+}
+
+.tz-result__acts {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.tool-btn--tiny {
+  padding: 0.2rem 0.55rem;
+  font-size: 0.74rem;
+  min-height: 0;
+  border-radius: var(--radius-full);
+}
+
+.tz-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  padding: 0.14rem 0.5rem;
+}
+
+.tz-badge--next {
+  background: var(--sand-soft);
+  color: var(--ink-soft);
+  border: 1px solid var(--sand-border);
+}
+
+.tz-badge--prev {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.tz-popular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.25rem 0 0.35rem;
+}
+
+.tz-chip {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color 0.12s ease, color 0.12s ease;
+}
+
+.tz-chip:hover {
+  border-color: var(--border-strong);
+}
+
+.tz-chip--active {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  font-weight: 700;
+  background: var(--accent-soft);
+}
+
+.tz-now {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.tz-now__card {
+  display: grid;
+  gap: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: 0.8rem 1rem;
+}
+
+.tz-now__clock {
+  font-family: var(--mono);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.tz-now__date,
+.tz-now__meta {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -1752,6 +1986,12 @@
   }
 
   .ccur-meta {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tz-fields,
+  .tz-results,
+  .tz-now {
     grid-template-columns: 1fr 1fr;
   }
 }

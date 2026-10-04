@@ -9,6 +9,7 @@ import MarksPercentageCalculator from '../components/calculators/MarksPercentage
 import RelativeGradingCalculator from '../components/calculators/RelativeGradingCalculator'
 import RegexTester from '../components/calculators/RegexTester'
 import SubnetCalculator from '../components/calculators/SubnetCalculator'
+import TimezoneConverter from '../components/calculators/TimezoneConverter'
 import TimestampConverter from '../components/calculators/TimestampConverter'
 import UrlEncoderDecoder from '../components/calculators/UrlEncoderDecoder'
 
@@ -26,6 +27,7 @@ export const TOOL_COMPONENTS = {
   'ip-cidr-calculator': CidrCalculator,
   'subnet-calculator': SubnetCalculator,
   'currency-converter': CurrencyConverter,
+  'timezone-converter': TimezoneConverter,
 }
 
 export function toolComponent(toolId) {
