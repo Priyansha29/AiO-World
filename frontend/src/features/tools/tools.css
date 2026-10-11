@@ -1892,6 +1892,51 @@
   font-size: 0.84rem;
 }
 
+/* ── Unit converter ─────────────────────────────────────────────── */
+
+.uconv-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+.uconv-full {
+  grid-column: 1 / -1;
+}
+
+.uconv-swap {
+  display: flex;
+  align-items: stretch;
+}
+
+.uconv-swap__btn {
+  width: 100%;
+}
+
+.uconv-quote {
+  margin-top: 0.6rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.uconv-quote__line {
+  margin: 0.2rem 0;
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.uconv-quote__expr {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -1993,5 +2038,13 @@
   .tz-results,
   .tz-now {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .uconv-fields {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .uconv-quote__line {
+    font-size: 1.7rem;
   }
 }

@@ -220,9 +220,8 @@ export const TOOLS = [
     title: 'Unit Converter',
     description: 'Convert length, mass, temperature and more in one place.',
     category: 'general',
-    status: 'planned',
+    status: 'live',
     tags: ['unit', 'convert', 'length', 'mass', 'temperature'],
-    empty: 'This is where the unit converter will live — length, mass, temperature, area, volume and the everyday families. The converter is coming.',
   },
   {
     id: 'currency-converter',

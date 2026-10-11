@@ -11,6 +11,7 @@ import RegexTester from '../components/calculators/RegexTester'
 import SubnetCalculator from '../components/calculators/SubnetCalculator'
 import TimezoneConverter from '../components/calculators/TimezoneConverter'
 import TimestampConverter from '../components/calculators/TimestampConverter'
+import UnitConverter from '../components/calculators/UnitConverter'
 import UrlEncoderDecoder from '../components/calculators/UrlEncoderDecoder'
 
 export const TOOL_COMPONENTS = {
@@ -28,6 +29,7 @@ export const TOOL_COMPONENTS = {
   'subnet-calculator': SubnetCalculator,
   'currency-converter': CurrencyConverter,
   'timezone-converter': TimezoneConverter,
+  'unit-converter': UnitConverter,
 }
 
 export function toolComponent(toolId) {
