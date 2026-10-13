@@ -14,6 +14,7 @@ import SubjectsPage from './features/learn/subjects/pages/SubjectsPage'
 import SubjectDetailPage from './features/learn/subjects/pages/SubjectDetailPage'
 import PlatformPage from './components/platform/PlatformPage'
 import ResumeBuilderPage from './features/career/pages/ResumeBuilderPage'
+import AtsScannerPage from './features/career/pages/AtsScannerPage'
 import ToolsPage from './features/tools/pages/ToolsPage'
 import ToolPage from './features/tools/pages/ToolPage'
 import { findPlatformSection } from './components/platform/platform-data'
@@ -44,6 +45,7 @@ function App() {
   if (subjectMatch) return <SubjectDetailPage subjectId={subjectMatch[1]} />
   if (route === '/learn') return <PlatformPage platformKey="learn" />
   if (route === '/career/resume') return <ResumeBuilderPage />
+  if (route === '/career/ats-scanner') return <AtsScannerPage />
   if (route === '/career/roadmaps') return <CareerPage />
   if (roadmapMatch) return <RoadmapDetailPage roadmapId={roadmapMatch[1]} />
   if (route === '/career') return <PlatformPage platformKey="career" />

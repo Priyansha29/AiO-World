@@ -265,10 +265,9 @@ export const PLATFORMS = [
         key: 'ats-scanner',
         label: 'ATS Scanner',
         href: '/career/ats-scanner',
-        status: 'planned',
+        status: 'live',
         desc: 'Check how your resume scores against a job.',
-        empty:
-          'This is where the ATS check will happen — paste a resume and a job description, and see how it scans. It is an AiO heuristic to guide your editing, never a verdict. The scanner is coming.',
+        empty: '',
       },
       {
         key: 'resume-tips',
