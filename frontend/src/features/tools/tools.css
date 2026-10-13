@@ -1937,6 +1937,304 @@
   word-break: break-word;
 }
 
+/* ── Salary / CTC Calculator ────────────────────────────────────── */
+
+.sal-group {
+  margin-bottom: 1rem;
+}
+
+.sal-group__title {
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin: 0 0 0.6rem;
+}
+
+.sal-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+.sal-optional {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.tool-field__prefix {
+  padding-left: 0.75rem;
+  padding-right: 0.15rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.sal-fields .tool-input,
+.sal-fields--tax .tool-input {
+  min-width: 0;
+  flex: 1;
+}
+
+.sal-offer__title {
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 0 0 0.85rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sal-compare {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+
+.sal-tax {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-lg);
+  padding: 0.9rem;
+  margin: 1rem 0 0.25rem;
+}
+
+.sal-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.sal-toggle input {
+  accent-color: var(--accent);
+  width: 1rem;
+  height: 1rem;
+}
+
+.sal-fields--tax {
+  margin-top: 0.4rem;
+}
+
+.sal-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.1rem;
+}
+
+.sal-hero__label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sal-hero__value {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.1;
+  font-weight: 900;
+  font-family: var(--mono);
+  color: var(--ink);
+}
+
+.sal-hero__sub {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.sal-breakdown {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.sal-breakdown__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 0.3rem 1rem;
+  padding: 0.5rem 0.1rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.sal-breakdown__row:last-child {
+  border-bottom: none;
+}
+
+.sal-breakdown__row > :first-child {
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.sal-breakdown__row > :nth-child(2) {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+}
+
+.sal-breakdown__hint {
+  grid-column: 1 / -1;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.sal-breakdown__row--strong {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.75rem;
+}
+
+.sal-breakdown__row--strong > :first-child {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.sal-breakdown__row--strong > :nth-child(2) {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+.sal-copy {
+  margin-top: 1rem;
+}
+
+.sal-assumptions {
+  margin-top: 0.4rem;
+}
+
+.sal-compare-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+.sal-card {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-lg);
+  padding: 0.9rem;
+}
+
+.sal-card--a {
+  border-left: 4px solid var(--accent);
+}
+
+.sal-card--b {
+  border-left: 4px solid var(--border-strong);
+}
+
+.sal-card__title {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+}
+
+.sal-card__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  padding: 0.3rem 0;
+}
+
+.sal-card__row span {
+  color: var(--ink-soft);
+}
+
+.sal-card__row strong {
+  font-family: var(--mono);
+  color: var(--ink);
+}
+
+.sal-card__row--hero strong {
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+.sal-card__note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0.35rem 0 0;
+}
+
+.sal-diff {
+  display: grid;
+  gap: 0.15rem;
+  margin-bottom: 0.6rem;
+}
+
+.sal-diff__head,
+.sal-diff__row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.4fr 1fr;
+  gap: 0.4rem 0.75rem;
+  align-items: baseline;
+}
+
+.sal-diff__head {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  padding: 0.35rem 0.1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sal-diff__row {
+  padding: 0.45rem 0.1rem;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.9rem;
+}
+
+.sal-diff__row:last-child {
+  border-bottom: none;
+}
+
+.sal-diff__strong {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.sal-diff__row > :nth-child(2),
+.sal-diff__row > :nth-child(4) {
+  text-align: right;
+  font-family: var(--mono);
+}
+
+.sal-diff__row > :first-child {
+  color: var(--ink-soft);
+}
+
+.sal-delta {
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.sal-delta--same {
+  color: var(--muted);
+}
+
+.sal-verdict {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  background: var(--surface-2);
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -1994,6 +2292,18 @@
   .tool-dashboard {
     gap: 0.6rem;
   }
+
+  .sal-diff__head {
+    display: none;
+  }
+
+  .sal-diff__row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sal-diff__row > :first-child {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (min-width: 641px) {
@@ -2046,5 +2356,22 @@
 
   .uconv-quote__line {
     font-size: 1.7rem;
+  }
+
+  .sal-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sal-fields:not(.sal-fields--tax) > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .sal-fields--tax {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .sal-compare,
+  .sal-compare-cards {
+    grid-template-columns: 1fr 1fr;
   }
 }

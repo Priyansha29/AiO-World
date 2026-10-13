@@ -134,9 +134,9 @@ export const TOOLS = [
     title: 'Salary / CTC Calculator',
     description: 'Break a CTC offer into in-hand monthly salary after deductions.',
     category: 'career',
-    status: 'planned',
+    status: 'live',
     tags: ['salary', 'ctc', 'in-hand', 'offer'],
-    empty: 'This is where CTC breakdowns will live — separating gross, deductions, perks and probable in-hand pay so an offer letter reads clearly. The model is being written carefully.',
+    keywords: ['basic', 'hra', 'pf', 'gratuity', 'tax', 'in-hand', 'take-home', 'regime', 'fy'],
   },
   {
     id: 'json-formatter',
