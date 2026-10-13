@@ -279,6 +279,14 @@ export const PLATFORMS = [
           'This is where resume fixes will live — the specific rewording and structure changes that get a resume through an automated scan. Tips are being written.',
       },
       {
+        key: 'resume-rooster',
+        label: 'Resume Rooster',
+        href: '/career/resume-rooster',
+        status: 'live',
+        desc: 'Roast your resume, get useful fixes.',
+        empty: '',
+      },
+      {
         key: 'projects',
         label: 'Projects',
         href: '/career/projects',
