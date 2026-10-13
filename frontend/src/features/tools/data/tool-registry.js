@@ -8,6 +8,7 @@ import JsonFormatter from '../components/calculators/JsonFormatter'
 import MarksPercentageCalculator from '../components/calculators/MarksPercentageCalculator'
 import RelativeGradingCalculator from '../components/calculators/RelativeGradingCalculator'
 import RegexTester from '../components/calculators/RegexTester'
+import SalaryCtcCalculator from '../components/calculators/SalaryCtcCalculator'
 import SubnetCalculator from '../components/calculators/SubnetCalculator'
 import TimezoneConverter from '../components/calculators/TimezoneConverter'
 import TimestampConverter from '../components/calculators/TimestampConverter'
@@ -30,6 +31,7 @@ export const TOOL_COMPONENTS = {
   'currency-converter': CurrencyConverter,
   'timezone-converter': TimezoneConverter,
   'unit-converter': UnitConverter,
+  'salary-ctc-calculator': SalaryCtcCalculator,
 }
 
 export function toolComponent(toolId) {
