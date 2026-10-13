@@ -8,6 +8,7 @@ import JsonFormatter from '../components/calculators/JsonFormatter'
 import MarksPercentageCalculator from '../components/calculators/MarksPercentageCalculator'
 import RelativeGradingCalculator from '../components/calculators/RelativeGradingCalculator'
 import RegexTester from '../components/calculators/RegexTester'
+import ResumeBuilderCalculator from '../components/calculators/ResumeBuilderCalculator'
 import SalaryCtcCalculator from '../components/calculators/SalaryCtcCalculator'
 import SubnetCalculator from '../components/calculators/SubnetCalculator'
 import TimezoneConverter from '../components/calculators/TimezoneConverter'
@@ -32,6 +33,7 @@ export const TOOL_COMPONENTS = {
   'timezone-converter': TimezoneConverter,
   'unit-converter': UnitConverter,
   'salary-ctc-calculator': SalaryCtcCalculator,
+  'resume-builder': ResumeBuilderCalculator,
 }
 
 export function toolComponent(toolId) {

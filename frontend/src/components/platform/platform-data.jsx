@@ -257,10 +257,9 @@ export const PLATFORMS = [
         key: 'resume',
         label: 'Resume',
         href: '/career/resume',
-        status: 'planned',
+        status: 'live',
         desc: 'Build a resume that survives the first scan.',
-        empty:
-          'This is where resume building will happen — structure, phrasing and a live preview so yours survives the eight-second scan. The builder is coming.',
+        empty: '',
       },
       {
         key: 'ats-scanner',
