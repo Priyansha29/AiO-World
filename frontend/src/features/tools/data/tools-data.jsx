@@ -125,9 +125,9 @@ export const TOOLS = [
     title: 'Resume Builder',
     description: 'Turn your details into a clean, ATS-friendly resume with a live preview.',
     category: 'career',
-    status: 'planned',
+    status: 'live',
     tags: ['resume', 'ats', 'preview'],
-    empty: 'This is where resume building will happen — structure, phrasing and a live preview so yours survives the eight-second scan. The builder is coming.',
+    keywords: ['ats', 'template', 'pdf', 'export'],
   },
   {
     id: 'salary-ctc-calculator',
