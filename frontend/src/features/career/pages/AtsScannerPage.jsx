@@ -5,7 +5,12 @@ import { ATS_LABEL, analyzeResume } from '../domain/ats-scanner'
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs'
 
 const pdfjsWorker = new URL('pdfjs-dist/legacy/build/pdf.worker.mjs', import.meta.url)
-try { getDocument({ data: new Uint8Array(), worker: pdfjsWorker }) } catch {}
+pdfjsLibGlobal.workerSrc = pdfjsWorker.href
+
+let pdfjsLibGlobal
+try {
+  pdfjsLibGlobal = { workerSrc: pdfjsWorker.href }
+} catch {}
 
 export default function AtsScannerPage() {
   const [resumeText, setResumeText] = useState('')
@@ -30,7 +35,7 @@ export default function AtsScannerPage() {
     setLoading(true)
     try {
       const buf = await f.arrayBuffer()
-      const pdf = await getDocument({ data: buf, disableWorker: true }).promise
+      const pdf = await getDocument({ data: buf, worker: pdfjsWorker }).promise
       let text = ''
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i)
@@ -39,7 +44,7 @@ export default function AtsScannerPage() {
       }
       setResumeText(text)
       setLoading(false)
-    } catch (e) {
+    } catch {
       setLoading(false)
       setError('Failed to extract text from PDF. Try pasting text manually.')
     }

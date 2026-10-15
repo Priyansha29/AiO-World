@@ -41,7 +41,7 @@ export default function ResumeRoosterPage() {
       }
       setResumeText(text)
       setLoading(false)
-    } catch (e) {
+    } catch {
       setLoading(false)
       setError('Failed to extract text from PDF. Try pasting text manually.')
     }
