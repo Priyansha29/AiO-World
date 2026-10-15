@@ -5,11 +5,9 @@ import { ATS_LABEL, analyzeResume } from '../domain/ats-scanner'
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs'
 
 const pdfjsWorker = new URL('pdfjs-dist/legacy/build/pdf.worker.mjs', import.meta.url)
-pdfjsLibGlobal.workerSrc = pdfjsWorker.href
-
-let pdfjsLibGlobal
+let pdfjsLibGlobal = { workerSrc: pdfjsWorker.href }
 try {
-  pdfjsLibGlobal = { workerSrc: pdfjsWorker.href }
+  pdfjsLibGlobal.workerSrc = pdfjsWorker.href
 } catch {}
 
 export default function AtsScannerPage() {
