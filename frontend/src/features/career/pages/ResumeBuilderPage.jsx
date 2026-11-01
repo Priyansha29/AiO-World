@@ -7,14 +7,13 @@ import { clearResume, createEmptyResume, loadResume, saveResume, TEMPLATES } fro
 import '../resume.css'
 
 export default function ResumeBuilderPage() {
-  const [resume, setResume] = useState(createEmptyResume())
+  const [resume, setResume] = useState(() => loadResume() || createEmptyResume())
   const [template, setTemplate] = useState('single-column')
   const [showTips, setShowTips] = useState(false)
   const [confirmClear, setConfirmClear] = useState(false)
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
-    setResume(loadResume())
   }, [])
 
   useEffect(() => {

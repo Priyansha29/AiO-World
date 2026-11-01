@@ -45,7 +45,7 @@ export default function ToolsPage() {
           groupLabelFor={(key) => toolCategory(key).label}
           countLabel="tool"
           searchLabel="Search tools"
-          hrefFor={(tool) => `#/tools/${tool.id}`}
+          hrefFor={(tool) => tool.href ?? `#/tools/${tool.id}`}
           renderMeta={(tool) => <ToolBadge tool={tool} />}
           emptyTitle="No tools yet."
           emptyBody="The toolbox is waiting for its first record — it should never be empty."

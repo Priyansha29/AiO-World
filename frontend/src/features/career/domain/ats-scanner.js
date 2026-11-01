@@ -69,16 +69,6 @@ export const analyzeResume = (resumeText, jdText) => {
   if (sections.projects) strengths.push('Projects section detected')
   if (structureScore > 25) structureScore = 25
 
-  let keywordScore = 0
-  if (jdKeywords.length > 0) {
-    const overlap = jdKeywords.filter(k => keywords.some(kk => kk.includes(k) || k.includes(kk)))
-    keywordScore = Math.min(40, Math.round((overlap.length / Math.max(1, jdKeywords.length)) * 40))
-    const missing = jdKeywords.filter(k => !keywords.some(kk => kk.includes(k) || k.includes(kk))).slice(0, 10)
-    return { valid: true, score: 0, details: {} } // placeholder
-  } else {
-    keywordScore = Math.min(40, Math.round(keywords.length / 30) * 40) // general review
-  }
-
   let formatScore = 20
   for (const fi of COMMON_FORMATTING_ISSUES) {
     if (fi.check(text)) {
@@ -95,21 +85,17 @@ export const analyzeResume = (resumeText, jdText) => {
   else if (wordCount < 150) { clarityScore = Math.max(5, 15 - 5); suggestions.push('Consider adding more details (projects/experience)') }
   else { clarityScore = Math.max(10, 15 - 2); suggestions.push('Long resume - consider trimming irrelevant content') }
 
-  const total = Math.min(100, structureScore + (jdKeywords.length > 0 ? (() => {
-    const overlap = jdKeywords.filter(k => keywords.some(kk => kk.includes(k) || k.includes(kk)))
-    const ks = Math.min(40, Math.round((overlap.length / Math.max(1, jdKeywords.length)) * 40))
-    return ks
-  })() : Math.min(40, Math.round(keywords.length / 30) * 40)) + formatScore + clarityScore)
-  const finalKeywordScore = jdKeywords.length > 0
-    ? Math.min(40, Math.round((jdKeywords.filter(k => keywords.some(kk => kk.includes(k) || k.includes(kk))).length / Math.max(1, jdKeywords.length)) * 40))
-    : Math.min(40, Math.round(keywords.length / 30) * 40)
+  const hasJD = Boolean(jdText && jdKeywords.length > 0)
+  const overlap = hasJD ? jdKeywords.filter(k => keywords.some(kk => kk.includes(k) || k.includes(kk))) : []
+  const missing = hasJD ? jdKeywords.filter(k => !keywords.some(kk => kk.includes(k) || k.includes(kk))).slice(0, 12) : []
 
-  const overlapFinal = jdKeywords.length > 0 ? jdKeywords.filter(k => keywords.some(kk => kk.includes(k) || k.includes(kk))) : []
-  const missingFinal = jdKeywords.length > 0 ? jdKeywords.filter(k => !keywords.some(kk => kk.includes(k) || k.includes(kk))).slice(0, 12) : []
+  const keywordScore = hasJD
+    ? Math.min(40, Math.round((overlap.length / Math.max(1, jdKeywords.length)) * 40))
+    : Math.min(40, Math.round((keywords.length / 30) * 40))
 
-  const scoreFinal = Math.min(100, structureScore + finalKeywordScore + formatScore + clarityScore)
+  const scoreFinal = Math.min(100, structureScore + keywordScore + formatScore + clarityScore)
 
-  if (jdText && jdKeywords.length > 0) {
+  if (hasJD) {
     strengths.push(`Keyword coverage computed against ${jdKeywords.length} JD terms`)
   }
 
@@ -120,10 +106,10 @@ export const analyzeResume = (resumeText, jdText) => {
       sections,
       strengths: [...new Set(strengths)],
       issues: [...new Set(issues)],
-      suggestions: [...new Set(suggestions.concat(missingFinal.length > 0 ? ['Address missing relevant keywords where genuinely applicable'] : []))],
-      foundKeywords: overlapFinal.slice(0, 15),
-      missingKeywords: missingFinal,
-      hasJD: !!jdText,
+      suggestions: [...new Set(suggestions.concat(missing.length > 0 ? ['Address missing relevant keywords where genuinely applicable'] : []))],
+      foundKeywords: overlap.slice(0, 15),
+      missingKeywords: missing,
+      hasJD,
       wordCount,
     },
   }

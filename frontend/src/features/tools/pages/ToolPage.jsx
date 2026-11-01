@@ -6,11 +6,14 @@ import '../../../components/platform/platform.css'
 import '../tools.css'
 
 export default function ToolPage({ toolId }) {
+  const tool = findTool(toolId)
+
   useEffect(() => {
     window.scrollTo({ top: 0 })
-  }, [])
-
-  const tool = findTool(toolId)
+    if (tool?.href) {
+      window.location.hash = tool.href
+    }
+  }, [toolId, tool])
   const Calculator = TOOL_COMPONENTS[toolId]
 
   return (
