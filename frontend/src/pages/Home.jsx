@@ -7,8 +7,8 @@ import './Home.css'
 function Home() {
   return (
     <main className="home">
-      <Navbar />
       <Hero />
+      <Navbar />
       <Explore />
       <Footer />
     </main>

@@ -18,6 +18,8 @@ import AtsScannerPage from './features/career/pages/AtsScannerPage'
 import ResumeRoosterPage from './features/career/pages/ResumeRoosterPage'
 import ToolsPage from './features/tools/pages/ToolsPage'
 import ToolPage from './features/tools/pages/ToolPage'
+import SoundscapePage from './features/play/pages/SoundscapePage'
+import Demo from './components/ui/demo'
 import { findPlatformSection } from './components/platform/platform-data'
 import { useHashRoute } from './router/hash-router'
 
@@ -32,6 +34,8 @@ function App() {
   if (route === '/setup') return <CollegeSetupPage />
   if (route === '/campus') return <CampusHubPage />
   if (route === '/play/guess-who') return <GuessWhoPage />
+  if (route === '/soundscape' || route === '/focus' || route === '/elsewhere') return <SoundscapePage />
+  if (route === '/demo') return <Demo />
   if (route === '/play') return <FunPage />
   if (route === '/fun/websites') return <AllWebsitesPage />
   // Legacy collection routes (incl. the removed "smart websites" concept) funnel

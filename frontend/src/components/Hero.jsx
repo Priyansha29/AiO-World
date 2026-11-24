@@ -1,64 +1,31 @@
-import { useCallback, useRef, useState } from 'react'
-import LiquidMetalHero from './LiquidMetalHero'
-import BoredomExperience from '../features/boredom/components/BoredomExperience.jsx'
-import { LEARN, CAREER, PLAY, TOOLS } from '@/data/content'
+import ElsewhereHero from './ui/elsewhere-hero'
+import { getSelectedCollege } from '../features/campus/services/profile-store'
 
-function scrollToSection(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-}
+const LINKS = [
+  { label: 'Campus', href: getSelectedCollege() ? '#/campus' : '#/setup' },
+  { label: 'Learn', href: '#/learn' },
+  { label: 'Career', href: '#/career' },
+  { label: 'Fun', href: '#/fun' },
+  { label: 'Tools', href: '#/tools' },
+  { label: 'Sidequests', href: '#/sidequests' },
+]
 
-function Hero() {
-  const [bored, setBored] = useState(false)
-  // The boredom machine opens out of this exact button, so it needs to know
-  // where the button is.
-  const boredCtaRef = useRef(null)
-
-  const lanes = [LEARN, CAREER, PLAY, TOOLS].map((lane) => ({
-    key: lane.key,
-    label: lane.label,
-    color: lane.accent,
-  }))
-
-  const startBoredom = useCallback(() => setBored(true), [])
-  const endBoredom = useCallback(() => setBored(false), [])
-
+export default function Hero() {
   return (
-    <>
-      <LiquidMetalHero
-        id="top"
-        eyebrow="One place for everything student life throws at you"
-        title={
-          <>
-            What do you want <br className="hidden sm:block" /> to do today?
-          </>
-        }
-        subtitle="Learn a skill, build your future, find something fun to do with friends, or crunch a couple of quick numbers — all from the same tab. Pick a lane, we'll handle the rest."
-        primaryCtaLabel="Explore the lanes"
-        secondaryCtaLabel="I'm bored — surprise me"
-        secondaryCtaRef={boredCtaRef}
-        onPrimaryCtaClick={() => scrollToSection('explore')}
-        onSecondaryCtaClick={startBoredom}
-        lanes={lanes}
-        onSelectLane={(lane) => {
-          const order = { learn: 0, career: 1, play: 2, tools: 3 }
-          const target = document.querySelectorAll('.explore-group')[order[lane.key]]
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'center' })
-            target.classList.add('explore-group--flash')
-            setTimeout(() => target.classList.remove('explore-group--flash'), 1400)
-          }
-        }}
-      />
-
-      {bored && (
-        <BoredomExperience
-          open
-          anchorRef={boredCtaRef}
-          onClose={endBoredom}
-        />
-      )}
-    </>
+    <ElsewhereHero
+      brand="AiO World"
+      links={LINKS}
+      navCta={{ label: 'Explore', href: '#explore' }}
+      headline="What do you want to do today?"
+      subline="Ambient soundscapes that follow the day — keys by morning, cicadas by night. Learn a skill, build your future, or crunch numbers in focus."
+      primaryCta={{ label: 'Explore the lanes', href: '#explore' }}
+      listenLabel="Listen"
+      listenOffLabel="Pause sound"
+      soundHint="Turn on soundscape"
+      signature={{
+        name: 'AiO World',
+        url: '#top',
+      }}
+    />
   )
 }
-
-export default Hero
