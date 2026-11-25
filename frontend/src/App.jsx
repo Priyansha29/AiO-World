@@ -20,12 +20,11 @@ import ToolsPage from './features/tools/pages/ToolsPage'
 import ToolPage from './features/tools/pages/ToolPage'
 import SoundscapePage from './features/play/pages/SoundscapePage'
 import Demo from './components/ui/demo'
+import CursorTrail from './components/CursorTrail'
 import { findPlatformSection } from './components/platform/platform-data'
 import { useHashRoute } from './router/hash-router'
 
-function App() {
-  const route = useHashRoute()
-
+function renderRoute(route) {
   const roadmapMatch = route.match(/^\/career\/roadmaps\/([\w-]+)$/)
   const libraryBookMatch = route.match(/^\/learn\/library\/book\/([\w-]+)$/)
   const subjectMatch = route.match(/^\/learn\/subjects\/([\w-]+)$/)
@@ -61,6 +60,17 @@ function App() {
   const section = findPlatformSection(route)
   if (section) return <PlatformPage platformKey={section.platform.key} sectionKey={section.section.key} />
   return <Home />
+}
+
+function App() {
+  const route = useHashRoute()
+
+  return (
+    <>
+      <CursorTrail />
+      {renderRoute(route)}
+    </>
+  )
 }
 
 export default App
