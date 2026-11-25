@@ -47,12 +47,12 @@ function Navbar() {
         ))}
       </nav>
       <div className="navbar__auth">
-        <a className="navbar__login" href="#login">
-          Log in
+        <a className="navbar__login" href="#/focus">
+          Soundscape
         </a>
-        <button type="button" className="navbar__cta">
+        <a className="navbar__cta" href={getSelectedCollege() ? '#/tools' : '#/setup'}>
           Get started
-        </button>
+        </a>
         <button
           type="button"
           className={`navbar__toggle${open ? ' navbar__toggle--open' : ''}`}
@@ -76,12 +76,16 @@ function Navbar() {
             {link.label}
           </a>
         ))}
-        <a href="#login" onClick={() => setOpen(false)}>
-          Log in
+        <a href="#/focus" onClick={() => setOpen(false)}>
+          Soundscape
         </a>
-        <button type="button" onClick={() => setOpen(false)}>
+        <a
+          className="navbar__mobile-cta"
+          href={getSelectedCollege() ? '#/tools' : '#/setup'}
+          onClick={() => setOpen(false)}
+        >
           Get started
-        </button>
+        </a>
       </nav>
     </header>
   )

@@ -35,8 +35,8 @@ export default function ContentVisual({ item, size = 'md' }) {
 
   const style = {
     '--sq-visual-angle': `${angle}deg`,
-    '--sq-visual-a': `color-mix(in srgb, ${meta.accent} ${lift + 26}%, #fff6e6)`,
-    '--sq-visual-b': `color-mix(in srgb, ${meta.accent} ${spread}%, #ffe9c9)`,
+    '--sq-visual-a': `color-mix(in srgb, ${meta.accent} ${lift + 20}%, #171c15)`,
+    '--sq-visual-b': `color-mix(in srgb, ${meta.accent} ${spread - 12}%, #11160f)`,
     '--sq-visual-tilt': `${tilt}deg`,
     '--sq-visual-origin-x': `${Math.round(18 + seed * 64)}%`,
   }

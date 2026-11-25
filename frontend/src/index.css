@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Brand palette — exposed as Tailwind utilities (bg-cream, text-coral, …) */
-  --color-cream: #ffedce;
-  --color-peach: #ffc193;
-  --color-coral: #ff8383;
-  --color-red: #ff3737;
+  /* Brand palette — synced with ElsewhereHero obsidian + warm alabaster */
+  --color-obsidian: #0a0d08;
+  --color-alabaster: #f5f3ec;
+  --color-peach: #e8b88a;
+  --color-coral: #e88c7d;
 
   /* Semantic map → runtime tokens declared in :root below */
   --color-background: var(--bg);
@@ -22,69 +22,69 @@
   --color-accent-foreground: var(--ink);
   --color-border: var(--border);
   --color-ring: var(--accent);
-  --color-destructive: var(--color-red);
+  --color-destructive: #f07167;
 }
 
 :root {
-  /* Warm canvas — cream-led, white & peach surfaces for hierarchy */
-  --bg: #ffedce; /* brand cream — main background */
-  --bg-soft: #f9e5c0; /* deeper cream — secondary surfaces */
-  --surface: #ffffff; /* cards */
-  --surface-2: #fffdf5; /* warm white */
+  /* Deep obsidian canvas — matches ElsewhereHero background & glass surfaces */
+  --bg: #0a0d08;
+  --bg-soft: #11160f;
+  --surface: #161b14;
+  --surface-2: #1f251c;
 
-  /* Ink & text */
-  --ink: #1f1f1f;
-  --ink-soft: #3b342a;
-  --muted: #6d6252; /* muted warm gray */
-  --faint: #736857; /* faint warm gray */
+  /* Ink & text — warm alabaster hierarchy matching ElsewhereHero COL_TEXT */
+  --ink: #f5f3ec;
+  --ink-soft: #dbd8cf;
+  --muted: #a6a398;
+  --faint: #848176;
 
   /* Hairlines & shadows */
-  --border: #ead9bb;
-  --border-strong: #d9c297;
-  --shadow-sm: 0 1px 2px rgba(84, 59, 24, 0.07);
-  --shadow-soft: 0 2px 10px -2px rgba(84, 59, 24, 0.1), 0 1px 2px rgba(84, 59, 24, 0.05);
+  --border: rgba(245, 243, 236, 0.14);
+  --border-strong: rgba(245, 243, 236, 0.28);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 4px 16px -4px rgba(0, 0, 0, 0.48), 0 1px 2px rgba(0, 0, 0, 0.28);
   --shadow:
-    0 6px 16px -6px rgba(84, 59, 24, 0.14), 0 2px 6px -2px rgba(84, 59, 24, 0.06);
+    0 12px 28px -8px rgba(0, 0, 0, 0.6), 0 4px 10px -4px rgba(0, 0, 0, 0.36);
   --shadow-lg:
-    0 20px 40px -16px rgba(84, 59, 24, 0.22), 0 8px 16px -8px rgba(84, 59, 24, 0.1);
+    0 24px 48px -16px rgba(0, 0, 0, 0.72), 0 10px 20px -8px rgba(0, 0, 0, 0.45);
 
-  /* Brand + semantic palette */
-  --accent: #ff3737; /* strong red — primary actions */
-  --accent-ink: #ffffff;
-  --accent-soft: #ffe0d8;
-  --accent-bg: #ffd2c9;
-  --accent-border: #f2a097;
-  --accent-glow: rgba(255, 55, 55, 0.32);
+  /* Brand + semantic palette — frosted glass & alabaster primary actions */
+  --accent: #f5f3ec;
+  --accent-ink: #0a0d08;
+  --accent-soft: rgba(245, 243, 236, 0.1);
+  --accent-bg: rgba(245, 243, 236, 0.16);
+  --accent-border: rgba(245, 243, 236, 0.26);
+  --accent-glow: rgba(245, 243, 236, 0.2);
 
-  /* Palette accents — secondary surfaces, decorative elements, modes */
-  --peach: #ffc193;
-  --peach-soft: #ffe7cb;
-  --peach-border: #f2cda4;
-  --peach-glow: rgba(255, 193, 147, 0.35);
+  /* Palette accents — warm organic highlights calibrated for obsidian surfaces */
+  --peach: #e8b88a;
+  --peach-soft: rgba(232, 184, 138, 0.14);
+  --peach-border: rgba(232, 184, 138, 0.32);
+  --peach-glow: rgba(232, 184, 138, 0.25);
 
-  --coral: #ff8383;
-  --coral-soft: #ffd9d3;
-  --coral-border: #f3b3aa;
-  --coral-glow: rgba(255, 131, 131, 0.35);
+  --coral: #e88c7d;
+  --coral-soft: rgba(232, 140, 125, 0.14);
+  --coral-border: rgba(232, 140, 125, 0.32);
+  --coral-glow: rgba(232, 140, 125, 0.25);
 
-  --sand: #e6b26e;
-  --sand-soft: #f7e6c9;
-  --sand-border: #e3c48b;
-  --sand-glow: rgba(230, 178, 110, 0.3);
+  --sand: #d4b27c;
+  --sand-soft: rgba(212, 178, 124, 0.14);
+  --sand-border: rgba(212, 178, 124, 0.32);
+  --sand-glow: rgba(212, 178, 124, 0.22);
 
   /* Radii */
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-lg: 18px;
   --radius-xl: 24px;
   --radius-full: 999px;
 
-  /* Typography */
-  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --disp: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Typography — synced with ElsewhereHero clean system editorial stack */
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --disp: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  color-scheme: light;
+  color-scheme: dark;
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.6;

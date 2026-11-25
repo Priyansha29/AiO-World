@@ -209,7 +209,7 @@
   height: 44px;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, var(--peach), var(--coral));
-  color: #fff;
+  color: var(--accent-ink);
   font-weight: 800;
   font-size: 15px;
   letter-spacing: 0.02em;
@@ -762,7 +762,7 @@
 .campus-priority--high {
   background: var(--coral-soft);
   border-color: var(--coral-border);
-  color: #c94f3d;
+  color: var(--coral);
 }
 
 .campus-priority--normal {
@@ -850,8 +850,8 @@
   height: unset;
   padding: 4px 10px;
   border-radius: var(--radius-full);
-  background: #fff;
-  color: var(--accent);
+  background: var(--bg);
+  color: var(--ink);
   font-weight: 800;
   font-size: 14px;
   opacity: 1;
