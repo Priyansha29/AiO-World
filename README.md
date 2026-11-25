@@ -1,350 +1,144 @@
-One Day Priyansha will complete this project
 <div align="center">
 
 # AiO World
 
-### One tab for the things that matter in student life.
+**One browser tab for academics, career prep, student tools, and downtime.**
 
-**Learn. Build. Discover. Play.**
+React 19 · Vite 8 · Tailwind CSS v4 · Express 5 · TypeScript
 
-AiO World is a browser-first platform designed around the everyday life of a student —
-from academics and career preparation to campus information, useful tools, opportunities, and time with friends.
-
-**No downloads. No unnecessary friction. Just open the web and get things done.**
-
-<br />
-
-[Explore the Project](#) · [Getting Started](#getting-started) · [Architecture](#architecture) · [Roadmap](#roadmap)
+[Platform Lanes](#platform-lanes) · [Toolbox](#toolbox) · [Architecture](#architecture) · [Local Setup](#local-setup) · [Verification](#verification)
 
 </div>
 
 ---
 
-## Why AiO World?
+## Overview
 
-Student life is fragmented.
-
-Important information lives across college websites, PDFs, Moodle, Google Classroom, email, WhatsApp groups, notice boards, career platforms, spreadsheets, and dozens of unrelated websites.
-
-At the same time, students constantly need different things:
-
-* *What changed in my timetable today?*
-* *When is my assignment due?*
-* *Where is that college notice?*
-* *How do I learn DSA?*
-* *Which internship should I prepare for?*
-* *How do I calculate the attendance I need?*
-* *What hackathons are happening?*
-* *I have 20 minutes. What can I do?*
-* *What can I play with my friends right now?*
-
-AiO World is built around a simple idea:
-
-> **The student should not have to search everywhere for the next thing they need.**
-
-Instead, the platform brings relevant information, tools, opportunities, learning paths, and experiences into one browser-first environment.
+Student life is scattered across LMS portals, PDFs, spreadsheets, and single-purpose websites. AiO World brings those workflows into one client-first web application backed by a lightweight Express API — no mandatory sign-up wall, zero bloat, and deterministic software wherever math is enough.
 
 ---
 
-# What can you do on AiO World?
+## Platform Lanes
 
-The platform is organized into a set of focused experiences rather than one overloaded dashboard.
-
-| Experience           | Purpose                                   | Examples                                                               |
-| -------------------- | ----------------------------------------- | ---------------------------------------------------------------------- |
-| 🎓 **Campus**        | Understand what is happening around you   | Notices, timetable changes, exams, mess, transport, campus events      |
-| 📚 **Learn**         | Turn learning goals into actionable paths | DSA, Web Development, Cybersecurity, resources, courses                |
-| 🚀 **Career**        | Move from learning to opportunities       | Internships, projects, resume tools, skill gaps, interview preparation |
-| 🎯 **Opportunities** | Discover things worth acting on           | Hackathons, competitions, workshops, scholarships, college events      |
-| 🧰 **Tools**         | Solve everyday student problems           | Attendance, CGPA/SGPA, planners, calculators and utilities             |
-| 🎮 **Play**          | Make the browser useful for fun too       | Guess Who, trivia, multiplayer games, themed experiences               |
-| 🌱 **Beyond Campus** | Explore life outside academics            | Hobbies, books, podcasts, fitness, cooking and interests               |
-
-These experiences share the same principle:
-
-> **Give the user the right thing with as little friction as possible.**
+| Lane | Routes | What it handles |
+| :--- | :--- | :--- |
+| **Campus** | `#/setup`, `#/campus` | College selection profile and localized campus updates |
+| **Learn** | `#/learn`, `#/learn/library`, `#/learn/subjects` | Technical book reader (`pdfjs-dist`), personal shelf, and subject notes |
+| **Career** | `#/career/roadmaps`, `/resume`, `/ats-scanner`, `/resume-rooster` | Domain roadmaps, live A4 Resume Builder with PDF export, ATS keyword/heuristic scanner, and honest bullet-point critique |
+| **Tools** | `#/tools`, `#/tools/:id` | 17 pure-domain calculators and developer utilities running offline in the browser |
+| **Fun & Focus** | `#/fun`, `#/play/guess-who`, `#/focus` | Mood-based discovery catalog, Guess Who mini-game, and ambient day/night focus room (`ElsewhereHero` + Web Audio synthesizer) |
+| **Sidequests** | `#/sidequests` | Curated non-academic reads, hobbies, weekend events, and interest circles |
 
 ---
 
-# 🏫 Campus Intelligence
+## Toolbox
 
-One of the core ideas behind AiO World is **College Information Archaeology**.
+All calculation logic lives in isolated, DOM-free ESM modules under `frontend/src/features/tools/domain/` and `frontend/src/features/career/domain/`:
 
-College information is constantly changing and scattered across different systems.
+- **Academic**: Attendance (75% skip/recovery planner), CGPA / SGPA Calculator, Marks & Reverse Percentage, Relative Grading (mean, median, SD, z-score, percentile)
+- **Career**: Indian Salary / CTC Breakdown (FY 2024–25 & 2025–26 slabs, §87A rebate, surcharge, cess), Resume Builder, ATS Scanner, Resume Rooster
+- **Networking**: IPv4 CIDR Inspector (`/0`–`/32`, RFC 3021 `/31` point-to-point, binary masks), Subnet Planner (by host or subnet count)
+- **Developer**: JSON Formatter & Error Locator, Base64 UTF-8 Codec, URL Percent Codec, Regex Tester (global & named groups), Color Space Converter (HEX / RGB / HSL)
+- **General**: Unit Converter (length, mass, volume, data, temperature with absolute-zero guards), Unix Timestamp Converter, IANA Time Zone Converter, Live Currency Converter
 
-A timetable may change after it was published.
-An assignment deadline may be extended.
-A bus route may be modified.
-A mess menu may be updated.
-An important notice may replace an older notice.
+---
 
-AiO World aims to turn these fragmented sources into a structured, time-aware campus information layer.
-
-### Instead of:
-
-> “There is a new PDF.”
-
-We want to eventually tell the student:
-
-> **Your Operating Systems class tomorrow has been moved from 10:00 AM to 2:00 PM.**
-
-With provenance:
+## Architecture
 
 ```text
-Source: Faculty / Moodle
-Published: 18 Sept, 08:12
-Change: 10:00 AM → 2:00 PM
-Status: Current
+AiO-World/
+├── frontend/
+│   ├── components.json             # shadcn/ui configuration (@/* alias)
+│   ├── tsconfig.json
+│   └── src/
+│       ├── components/
+│       │   ├── ui/elsewhere-hero.tsx   # Day/night hero + live Web Audio engine
+│       │   ├── Navbar.jsx / Explore.jsx / Footer.jsx
+│       │   └── platform/           # Shared lane shell & catalog explorer
+│       ├── features/
+│       │   ├── campus/             # College onboarding & Campus Hub
+│       │   ├── career/             # Roadmaps, Resume Builder, ATS, Rooster
+│       │   ├── learn/              # Library PDF reader & Subjects
+│       │   ├── play/               # Fun catalog, Guess Who, Focus soundscape
+│       │   ├── sidequests/         # Beyond-campus experiences
+│       │   └── tools/              # 17 calculators (pure domain + React UI)
+│       ├── lib/utils.ts
+│       └── router/hash-router.js
+│   └── test/                       # 17 node:test suites (115 tests)
+└── backend/
+    └── src/
+        ├── app.ts                  # Express 5 + CORS + terminal error handler
+        ├── routes/colleges.ts
+        └── modules/
+            ├── currency/           # Keyless open.er-api.com integration
+            └── sidequests/
 ```
-
-### The long-term campus pipeline
-
-```text
-College Sources
-      │
-      ├── Website
-      ├── Moodle
-      ├── Email
-      ├── Google Classroom
-      ├── PDFs
-      ├── Academic Calendar
-      └── Authorized / Community Sources
-                │
-                ▼
-         Information Ingestion
-                │
-                ▼
-       Extraction & Classification
-                │
-                ▼
-       Change / Version Detection
-                │
-                ▼
-       Campus Knowledge Graph
-                │
-                ▼
-       Student Context & Relevance
-                │
-                ▼
-       Notifications & Experience
-```
-
-The goal is not simply to store documents.
-
-The goal is to understand:
-
-> **What changed, when did it change, what replaced it, and who does it affect?**
 
 ---
 
-# 🎯 Personalization
+## Local Setup
 
-AiO World is designed around **student context**, not generic content.
+Requires **Node.js 22+** and **npm 10+**.
 
-During onboarding, a student may optionally provide information such as:
+### 1. Install dependencies
 
-```text
-College
-Branch
-Year
-Courses
-Location
-Interests
-Skills
-Career goals
-Preferences
+```bash
+npm --prefix frontend install
+npm --prefix backend install
 ```
 
-That context can power different parts of the platform.
+### 2. Environment variables (optional)
 
-For example:
+Both services boot with sensible defaults. Copy `.env.example` if overriding ports or adding optional Supabase bucket credentials:
 
-### A CSE student interested in cybersecurity
-
-Instead of showing every campus update:
-
-```text
-Your relevant updates
-
-🔴 CSE timetable changed
-🟡 Cybersecurity workshop tomorrow
-🟢 Cybersecurity internship — applications open
-🟢 College hackathon — registration closes Friday
-📚 Recommended learning path: Network Security
+```bash
+cp frontend/.env.example frontend/.env.local
+cp backend/.env.example backend/.env
 ```
 
-The system should prioritize **relevance over volume**.
+### 3. Run dev servers
 
-Personalization should make the product quieter and more useful — not noisier.
+```bash
+# Terminal 1 — Express API (http://localhost:5000)
+npm --prefix backend run dev
 
----
-
-# 🔔 Change Detection & Notifications
-
-A major future capability is proactive campus awareness.
-
-The student shouldn't have to repeatedly check:
-
-* Moodle
-* Email
-* College websites
-* Timetables
-* Notice boards
-* Bus updates
-* Event pages
-
-When authorized integrations or reliable sources expose a relevant change, AiO World can identify the event and determine whether it affects the student.
-
-For example:
-
-```text
-Original timetable
-10:00 AM — Operating Systems
-
-          ↓
-
-Faculty update
-"Today's class moved to 2 PM."
-
-          ↓
-
-Change Detection
-
-          ↓
-
-Student Context
-
-CSE · 3rd Year · Section B
-
-          ↓
-
-Notification
-
-🔴 Operating Systems changed
-
-Your class moved:
-10:00 AM → 2:00 PM
+# Terminal 2 — Vite dev server (http://localhost:5173, proxies /api -> :5000)
+npm --prefix frontend run dev
 ```
 
-The system should also preserve the history of changes rather than silently overwriting the past.
+Useful direct routes in development:
+- `#/` — Landing page with `ElsewhereHero` ambient header and platform lanes
+- `#/focus` — Full-screen ambient focus & Web Audio soundscape room
+- `#/demo` — Standalone `ElsewhereHero` component demo
+- `#/tools` — All 17 interactive calculators
 
 ---
 
-# 🤖 AI — Where It Belongs
+## Verification
 
-AI is a component of AiO World, not the product itself.
+Unit tests use Node.js's built-in `node:test` and `node:assert/strict` with zero third-party test runner dependencies.
 
-We deliberately avoid adding AI simply because it is fashionable.
+```bash
+# Run all 115 domain unit tests (academic, career, networking, developer, general)
+npm --prefix frontend test
 
-Potential legitimate uses include:
+# Watch mode during development
+npm --prefix frontend run test:watch
 
-* extracting structured information from unstructured documents
-* understanding changes in notices and messages
-* semantic search
-* resume analysis
-* skill-gap analysis
-* personalized recommendations
-* classifying and connecting information
-* understanding natural-language queries
+# Lint frontend (oxlint)
+npm --prefix frontend run lint
 
-AI should not be used where deterministic software is more reliable.
+# Production bundle check
+npm --prefix frontend run build
 
-For example:
-
-```text
-2 classes attended
-10 total classes
-
-Attendance = 20%
+# Backend TypeScript check
+npm --prefix backend run typecheck
 ```
 
-does not require AI.
-
-A calculator is better.
-
-Our principle:
-
-> **Use AI where ambiguity exists. Use normal software where certainty is possible.**
-
 ---
 
-# 🎮 Browser-First Experiences
+## License
 
-AiO World also explores the browser as a place to have fun — not just a place to work.
+[MIT](LICENSE) © 2026 Priyansha Gour & Harman
 
-The philosophy is simple:
-
-> **Open → choose → play.**
-
-Potential experiences include:
-
-* Guess Who
-* Trivia
-* Multiplayer mini-games
-* Movie and TV themed games
-* F1 / football experiences
-* Couple and friend games
-* Small interactive experiments
-
-The goal is not to become another massive gaming platform.
-
-The goal is to make small, polished experiences that require:
-
-**No download. No complicated setup. No unnecessary friction.**
-
-For multiplayer experiences, the platform may eventually use real-time infrastructure such as WebSockets / Socket.IO.
-
----
-
-# 🌱 Beyond Campus
-
-Student life does not end at academics and placements.
-
-AiO World may eventually provide an optional space for personal interests:
-
-* 🍳 Easy recipes for students
-* 🏃 Fitness and activities
-* 📚 Books
-* 🎧 Podcasts
-* 📝 Blogs and articles
-* 🎨 Hobbies
-* 🎵 Music
-* 🌍 Travel and exploration
-
-Students may optionally choose to make selected interests discoverable and connect with people who share them.
-
-This remains intentionally peripheral to the core product.
-
-**AiO World is not intended to become another social media platform.**
-
----
-
-# 🧠 Product Principles
-
-### 01 — Value before features
-
-A feature must solve a real problem.
-
-### 02 — Friction is a bug
-
-If something can be useful without an account, don't force authentication.
-
-### 03 — Relevance over volume
-
-More information is not necessarily better information.
-
-### 04 — Source before confidence
-
-Important information should have traceable provenance whenever possible.
-
-### 05 — Current state + history
-
-When information changes, the system should understand both what is true now and what was true before.
-
-### 06 — AI with a job
-
-Every AI component must have a defensible reason to exist.
-
-### 07 — Simple architecture first
-
-We would rather have a well-engineered modular monolith than unnecessary
+<sub>One day Priyansha will complete this project.</sub>
